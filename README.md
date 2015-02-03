@@ -6,10 +6,12 @@ japie@win.tue.nl
 
 Box MF 5.T80
 
-Available on Tuesday and Friday, meetings at 10:30
+Available on Tuesday and Friday, meetings at 10:30,
+
 Hand in agenda day before, digitally half past 5
 
 Tuesday feb. 10 the meeeting with our tutor will be at 12:30
+
 
 
 
