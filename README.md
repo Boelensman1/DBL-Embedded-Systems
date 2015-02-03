@@ -1,22 +1,27 @@
 # DBL-Embedded-Systems
 
 Tutor: v.d. Woude
+
 japie@win.tue.nl
+
 Box MF 5.T80
+
 Available on Tuesday and Friday, meetings at 10:30
 Hand in agenda day before, digitally half past 5
 
 Tuesday feb. 10 the meeeting with our tutor will be at 12:30
 
+
+
 We get a closet with our stuff.
 
-Digitally:
-Agenda
-Logs
+Hand in digitally:
+* Agenda
+* Logs
 
-Deliverables on paper (possibility of feedback):
-Product deliverables
-Summary
+Hand in on paper (possibility of feedback):
+* Product deliverables
+* Summary
 
 
 ####Group Members:
