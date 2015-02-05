@@ -8,12 +8,11 @@
 include 'functions.php';
 
 //**START**
-define('WAIT', 100);//2==5hz
+define('WAIT', 100);
 
 function main()
 {
     global $intensity, $location, $counter;
-    installCountdown('loop');
     $intensity = 0;//R0
     $counter = 0;//R1
     $location = 0;//R2
@@ -26,19 +25,15 @@ function init()
     $location++;
     _storeRam($intensity, $location);
     if ($location == 7) {
-        startCountdown();
-        loop_empty();
+        loop();
     }
     init();
 }
 
-function loop_empty()
-{
-    loop_empty();
-}
 function loop()
 {
     global $counter, $location, $lights, $temp;
+    sleep(WAIT);
     $counter++;
     if ($counter == 10) {
         $counter = 1;
@@ -46,7 +41,7 @@ function loop()
     $location = -1;
     $temp = 0;
     $lights = 0;
-    getValues();
+    getValues();//at the end of this function, loop is called.
 }
 
 function getValues()
@@ -57,7 +52,7 @@ function getValues()
     $location++;
     if ($location == 0) {
         getInput($temp, 'analog');
-        $temp /= 28;//delen door 25 om er van 0-10 van te maken
+        $temp /= 28;//divide by 25 to make it between 0 and 10
         $temp++;
     }
     if ($location != 0) {
@@ -89,10 +84,10 @@ function getValues()
 
 function checkButtons()
 {
-    global $counter, $location, $lights, $temp;
+    global $counter, $location, $temp;
     if ($counter != 5) {
-        setTimer(WAIT);
-        startCountdown();
+        //otherwise he checks the buttons too often, resulting in it going straight to full ON
+        loop();
     }
     $location++;
     //check button 1
@@ -111,8 +106,7 @@ function checkButtons()
         }
     }
     if ($location == 7) {
-        setTimer(WAIT);
-        startCountdown();
+        loop();
     }
     checkButtons();
 }
