@@ -24,6 +24,7 @@ define('ADCONVS', 6);
 class Compiler
 {
     public $code = array();
+    private $data=array();
     public $debug = false;
     public $maxVariables = 4;
     private $_functions = array();
@@ -55,19 +56,24 @@ class Compiler
     {
         //remove all comments
         $isComment = false;
-        $started = false;
+        $codeSegment = false;
+        $dataSegment=false;
         //split by _line
         foreach (preg_split("/((\r?\n)|(\r\n?)|;)/", $code) as $line) {
-            if (empty($line)) {//there are a lot of empty lines because we split on ;
+            if (empty($line)) {
+                //there are a lot of empty lines because we split on ;
                 continue;
             }
             $line = trim($line);//trim the _line.
-            if ($started == false) {
-                if ($line == '//**START**') {
-                    $started = true;
+
+            //check if the data segment codeSegment
+            if ($dataSegment == false && $codeSegment==false) {
+                if ($line == '//**DATA**') {
+                    $dataSegment = true;
                 }
                 continue;
             }
+
             //if we are currently in a block comment,
             //we only need to check if we get out of it
             if ($isComment == true) {
@@ -80,10 +86,10 @@ class Compiler
                     $isComment = true;
                     continue;
                 }
-                //check for comments
+                //check for comments, but not the code comment
                 if (preg_match(
                     "/(^|[^\\\\])\\/\\//", $line, $matches, PREG_OFFSET_CAPTURE
-                )) {
+                ) && $line!='//**CODE**') {
                     $line = substr(
                         $line, 0, $matches[0][1] + 1
                     );//copy all that is not a comment
@@ -91,22 +97,39 @@ class Compiler
                         continue;
                     }
                 }
-                //check for global
+                //check for global, which we igore
                 if (substr($line, 0, 6) === 'global') {
                     continue;
                 }
             }
             if (!empty($line)) {
-                //check for statements like $abc++
-                if (preg_match("/^\\$(.+)(\\+\\+|--)/", $line, $matches)) {
-                    if ($matches[2] == '++') {
-                        $line = '$' . $matches[1] . '+=1';
-                    } else {
-                        $line = '$' . $matches[1] . '-=1';
+                if ($dataSegment)
+                {
+                    //check if the data segement ends
+                    if ($codeSegment == false) {
+                        if ($line == '//**CODE**') {
+                            $dataSegment=false;//datasegment ends when codesegment starts
+                            $codeSegment = true;
+                            continue;
+                        }
                     }
+
+                    //add it to the data
+                    $this->data[] = $this->processData($line);
                 }
-                //add it to the code
-                $this->code[] = $line;
+                if ($codeSegment)
+                {
+                    //check for statements like $abc++
+                    if (preg_match("/^\\$(.+)(\\+\\+|--)/", $line, $matches)) {
+                        if ($matches[2] == '++') {
+                            $line = '$' . $matches[1] . '+=1';
+                        } else {
+                            $line = '$' . $matches[1] . '-=1';
+                        }
+                    }
+                    //add it to the code
+                    $this->code[] = $line;
+                }
             }
         }
         return (!empty($this->code));//return true if the code is not empty
@@ -303,6 +326,7 @@ class Compiler
             $function = substr(
                 $function[0][0], 0, $function[1][1] - 1
             );//the actual function
+
             //get the arguments
             preg_match_all(
                 "/([^,]+\\(.+?\\))|([^,]+)/", $arguments, $arguments
@@ -321,6 +345,29 @@ class Compiler
                         0, 'STOR ' . $this->processArgument($arguments[0]) . ' ['
                         . $this->processArgument($arguments[1]) . ']'
                     ];
+                }
+                case '_storeData': {
+                    //check if we have to add a register
+                    if (substr(trim($arguments[2]),0,1)=='$')
+                    {
+                        return [
+                            4, 'ADD '. $this->processArgument($arguments[2]).' '.trim($this->processArgument($arguments[1]),'\''),
+                            'STOR ' . $this->processArgument($arguments[0]) . ' [ GB + '
+                            . $this->processArgument($arguments[2]).']',
+                            'SUB '. $this->processArgument($arguments[2]).' '.trim($this->processArgument($arguments[1]),'\''),
+                        ];
+                    }
+                    else
+                    {
+                        //its just a number
+                        return [
+                            0, 'STOR '.$this->processArgument($arguments[0]).' [GB +'.
+                        trim($this->processArgument($arguments[1]),'\'').' + '. $this->processArgument($arguments[2]).']'];
+                    }
+                }
+                case 'initVar'://only for data segment
+                {
+                    return [0,trim($this->processArgument($arguments[0]),'\'').' DS '.$this->processArgument($arguments[1])];
                 }
                 case 'if': {
                     //an if statement, we need to create a function for this.
@@ -468,7 +515,7 @@ class Compiler
                     return [0, 'PULL ' . $this->processArgument($arguments[0])];
                 }
                 case 'setTimer': {
-                    return [4, 'LOAD R5 ' . IOAREA, 'LOAD R4 ' . $this->processArgument($arguments[0]), 'STOR R4 [R5+' . TIMER . ']'];
+                    return [4, 'LOAD R5 ' . IOAREA, 'LOAD  R4  0','SUB  R4  [R5+' . TIMER . ']','STOR  R4  [R5+' . TIMER . ']','LOAD R4 ' . $this->processArgument($arguments[0]), 'STOR R4 [R5+' . TIMER . ']'];
                 }
                 case 'buttonPressed': {
                     $this->_usePressed = true;
@@ -591,6 +638,24 @@ class Compiler
                                 $arguments[0]
                             ) . ']'
                         ];
+                    }
+                    case '_getData'; {
+                        //check if we have to add a register
+                        if (substr(trim($arguments[1]),0,1)=='$')
+                        {
+                        return [
+                            4, 'ADD '. $this->processArgument($arguments[1]).' '.trim($this->processArgument($arguments[0]),'\''),
+                            'LOAD ' . $register . ' [ GB + '
+                            . $this->processArgument($arguments[1]).']',
+                            'SUB '. $this->processArgument($arguments[1]).' '.trim($this->processArgument($arguments[0]),'\''),
+                        ];
+                        }
+                        else
+                        {
+                            return [
+                                0,'LOAD ' . $register . ' [ GB + '. trim($this->processArgument($arguments[0]),'\'').' + '.$this->processArgument($arguments[1]).' ]'
+                            ];
+                        }
                     }
                     default: {
                         $this->error('unknown function "' . $function . '"');
@@ -766,6 +831,12 @@ class Compiler
     private function makeCode($codeOutside)
     {
         $result = array();
+
+        //insert the data
+        $result[] = "@DATA";
+        $result=array_merge($result,$this->data);
+        $result[] = '';
+
         $result[] = "@CODE";
         $result[] = '';
         foreach ($codeOutside as $returnCodeLine) {
@@ -896,6 +967,21 @@ class Compiler
                 = $toInsert;
             $this->_lineNumber[$this->_inConditional[$i]['name']]++;
         }
+    }
+
+
+    private function processData($line)
+    {
+        //set the line number in case we get an error
+        $this->_functionName='@DATA';
+        $this->_lineNumber['@DATA']=0;
+        $return = $this->processLine($line);
+        if ($return[0]!==0)
+        {
+            //we should always get single lines out of data
+            $this->error('Unknown code in data segment');
+        }
+        return $return[1];
     }
 
     /**Throws an error
