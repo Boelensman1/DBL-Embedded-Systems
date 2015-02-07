@@ -1,7 +1,6 @@
 @DATA
 intensity DS 7
 counter DS 1
-location DS 1
 
 @CODE
 
@@ -56,7 +55,6 @@ main: 		;Install timer
 			LOAD R1 0
 			LOAD R2 0
 			STOR R1 [GB +counter + 0]
-			STOR R2 [GB +location + 0]
 			BRA init
 			BRA main
 
@@ -80,29 +78,25 @@ conditional0: 		LOAD R5 -16
 			BRA return0
 			BRA main
 
-emptyLoop:		
-	 	 	LOAD R5 -16 
-			LOAD R4 [R5+13]
-			BRA emptyLoop 
+emptyLoop: 		BRA emptyLoop
+			BRA main
 
-loop: 		SETI  8
-			LOAD R5 -16
+loop: 		LOAD R5 -16
 			LOAD  R4  0
 			SUB  R4  [R5+13]
 			STOR  R4  [R5+13]
 			LOAD R4 WAIT
 			STOR R4 [R5+13]
+			SETI  8
 			LOAD R1 [ GB + counter + 0 ]
-			LOAD R2 [ GB + location + 0 ]
 			ADD R1 1
+			STOR R1 [GB +counter + 0]
 			CMP R1 10
 			BEQ conditional1
 return1:			LOAD R2 -1
 			LOAD R3 0
 			LOAD R4 0
-			BRS getValues
-			STOR R1 [GB +counter + 0]
-			STOR R2 [GB +location + 0]
+			BRA getValues
 			RTE
 
 conditional1: 		LOAD R1 1
@@ -123,7 +117,7 @@ return4:			ADD R2 intensity
 			BEQ conditional5
 return5:			CMP R2 7
 			BEQ conditional6
-return6:			BRS getValues
+return6:			BRA getValues
 			BRA main
 
 conditional2: 		LOAD  R5  -16
@@ -163,8 +157,7 @@ conditional6: 		LOAD  R5  -16
 			LOAD R4 R3
 			STOR R4 [R5+11]
 			LOAD R2 0
-			BRS checkButtons
-			RTS
+			BRA checkButtons
 			BRA return6
 			BRA main
 
@@ -179,10 +172,10 @@ return7:			ADD R2 1
 			BEQ conditional8
 return8:			CMP R2 7
 			BNE conditional12
-return12:			RTS
+return12:			RTE
 			BRA main
 
-conditional7: 		BRA emptyLoop
+conditional7: 		RTE
 			BRA return7
 			BRA main
 
@@ -216,7 +209,7 @@ conditional11: 		ADD R2 intensity
 			BRA return11
 			BRA main
 
-conditional12: 		BRS checkButtons
+conditional12: 		BRA checkButtons
 			BRA return12
 			BRA main
 

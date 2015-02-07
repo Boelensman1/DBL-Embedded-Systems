@@ -10,7 +10,6 @@ include 'functions.php';
 //**DATA**
 initVar('intensity', 7);
 initVar('counter', 1);
-initVar('location', 1);
 
 //**CODE**
 define('WAIT', 1000);
@@ -24,7 +23,6 @@ function main()
     $location = 0;//R2
 
     _storeData($counter, 'counter', 0);
-    _storeData($location, 'location', 0);
 
     init();
 }
@@ -51,24 +49,21 @@ function loop()
 {
     global $counter, $location, $lights, $temp;
     //set the timer
-    startCountdown();
     setTimer(WAIT);
+    startCountdown();
 
     //get the variables from the GB
     $counter = _getData('counter', 0);//R1
-    $location = _getData('location', 0);//R2
-
     $counter++;
+    _storeData($counter, 'counter', 0);
+
     if ($counter == 10) {
         $counter = 1;
     }
-    $location = -1;
+    $location = -1;//R2
     $lights = 0;//R3
     $temp = 0;//R4
     getValues();
-
-    _storeData($counter, 'counter', 0);
-    _storeData($location, 'location', 0);
 }
 
 function getValues()
@@ -105,7 +100,6 @@ function getValues()
         display($lights, 'leds');
         $location = 0;
         checkButtons();
-        return;
     }
     getValues();
 }
@@ -115,7 +109,7 @@ function checkButtons()
     global $counter, $location, $temp, $lights;
     if ($counter != 5) {
         //otherwise he checks the buttons too often, resulting in it going straight to full ON
-        emptyLoop();
+        returnt;
     }
     $location++;
     //check button 1
@@ -136,5 +130,5 @@ function checkButtons()
     if ($location != 7) {
         checkButtons();
     }
-    return;
+    returnt;
 }
