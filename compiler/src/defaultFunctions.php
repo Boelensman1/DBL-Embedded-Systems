@@ -44,7 +44,7 @@ $this->_defaultFunctions['pow']="
 _pow:   	CMP R4 0
             BEQ _pow1
             CMP R4 1
-            BEQ _powR5
+            BEQ _powR
             PUSH R3
             PUSH R4
             SUB R4 1
@@ -59,12 +59,13 @@ _powReturn: PULL R4
 			RTS
 _pow1:      LOAD R5 1
             RTS
-_powR5:     RTS";
+_powR:      RTS";
 $this->_defaultFunctions['pow']=explode("\n",$this->_defaultFunctions['pow']);
 
 $this->_defaultFunctions['pressed']="
 ;pressed
-_pressed: 	LOAD R4 R3
+_pressed: 	PUSH R4
+            LOAD R4 R3
             LOAD R5 2
             BRS _pow
             LOAD R3 R5
@@ -72,5 +73,7 @@ _pressed: 	LOAD R4 R3
             LOAD R4 [R5+".INPUT."]
             DIV R4 R3
             MOD R4 2
+            LOAD R5 R4
+            PULL R4
             RTS";
 $this->_defaultFunctions['pressed']=explode("\n",$this->_defaultFunctions['pressed']);

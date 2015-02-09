@@ -515,7 +515,7 @@ class Compiler
                     return [0, 'PULL ' . $this->processArgument($arguments[0])];
                 }
                 case 'setTimer': {
-                    return [4, 'LOAD R5 ' . $this->processArgument($arguments[0]), 'STOR R5 ['.(IOAREA+ TIMER).']'];
+                    return [4, 'LOAD R5 ' . IOAREA, 'LOAD  R4  0','SUB  R4  [R5+' . TIMER . ']','STOR  R4  [R5+' . TIMER . ']','LOAD R4 ' . $this->processArgument($arguments[0]), 'STOR R4 [R5+' . TIMER . ']'];
                 }
                 case 'buttonPressed': {
                     $this->_usePressed = true;

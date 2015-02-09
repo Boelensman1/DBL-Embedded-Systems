@@ -1,5 +1,5 @@
 @DATA
-intensity DS 7
+intensity DS 8
 counter DS 1
 
 @CODE
@@ -12,7 +12,7 @@ begin:	BRA main
 _pow:   	CMP R4 0
             BEQ _pow1
             CMP R4 1
-            BEQ _powR5
+            BEQ _powR
             PUSH R3
             PUSH R4
             SUB R4 1
@@ -27,10 +27,11 @@ _powReturn: PULL R4
 			RTS
 _pow1:      LOAD R5 1
             RTS
-_powR5:     RTS
+_powR:      RTS
 
 ;pressed
-_pressed: 	LOAD R4 R3
+_pressed: 	PUSH R4
+            LOAD R4 R3
             LOAD R5 2
             BRS _pow
             LOAD R3 R5
@@ -38,6 +39,8 @@ _pressed: 	LOAD R4 R3
             LOAD R4 [R5+7]
             DIV R4 R3
             MOD R4 2
+            LOAD R5 R4
+            PULL R4
             RTS
 main: 		;Install timer
 			                      LOAD  R0  loop
@@ -90,10 +93,10 @@ loop: 		LOAD R5 -16
 			SETI  8
 			LOAD R1 [ GB + counter + 0 ]
 			ADD R1 1
-			STOR R1 [GB +counter + 0]
 			CMP R1 10
 			BEQ conditional1
-return1:			LOAD R2 -1
+return1:			STOR R1 [GB +counter + 0]
+			LOAD R2 -1
 			LOAD R3 0
 			LOAD R4 0
 			BRA getValues
@@ -110,20 +113,14 @@ return2:			CMP R2 0
 			BNE conditional3
 return3:			CMP R1 R4
 			BMI conditional4
-return4:			ADD R2 intensity
-			LOAD R4 [ GB + R2]
-			SUB R2 intensity
-			CMP R1 R4
+return4:			CMP R2 7
 			BEQ conditional5
-return5:			CMP R2 7
-			BEQ conditional6
-return6:			BRA getValues
+return5:			BRA getValues
 			BRA main
 
 conditional2: 		LOAD  R5  -16
 			LOAD R4 [R5 + 6]
-			DIV R4 28
-			ADD R4 1
+			DIV R4 25
 			BRA return2
 			BRA main
 
@@ -133,53 +130,42 @@ conditional3: 		ADD R2 intensity
 			BRA return3
 			BRA main
 
-conditional4: 		LOAD R4 2
-			PUSH R3
+conditional4: 		PUSH R3
 			LOAD R4 R2
-			LOAD R5 R4
+			LOAD R5 2
 			BRS _pow
 			PULL R3
 			ADD R3 R5
 			BRA return4
 			BRA main
 
-conditional5: 		LOAD R4 2
-			PUSH R3
-			LOAD R4 R2
-			LOAD R5 R4
-			BRS _pow
-			PULL R3
-			ADD R3 R5
-			BRA return5
-			BRA main
-
-conditional6: 		LOAD  R5  -16
+conditional5: 		LOAD  R5  -16
 			LOAD R4 R3
 			STOR R4 [R5+11]
 			LOAD R2 0
 			BRA checkButtons
-			BRA return6
+			BRA return5
 			BRA main
 
 checkButtons: 		CMP R1 5
-			BNE conditional7
-return7:			ADD R2 1
+			BNE conditional6
+return6:			ADD R2 1
 			PUSH R3
 			LOAD R3 R2
 			BRS _pressed
 			PULL R3
-			CMP R4 1
-			BEQ conditional8
-return8:			CMP R2 7
-			BNE conditional12
-return12:			RTE
+			CMP R5 1
+			BEQ conditional7
+return7:			CMP R2 7
+			BNE conditional11
+return11:			RTE
 			BRA main
 
-conditional7: 		RTE
-			BRA return7
+conditional6: 		RTE
+			BRA return6
 			BRA main
 
-conditional8: 		ADD R2 intensity
+conditional7: 		ADD R2 intensity
 			LOAD R4 [ GB + R2]
 			SUB R2 intensity
 			ADD R4 1
@@ -187,30 +173,30 @@ conditional8: 		ADD R2 intensity
 			LOAD R3 0
 			BRS _pressed
 			PULL R3
-			CMP R4 1
-			BEQ conditional9
-return9:			CMP R4 10
+			CMP R5 1
+			BEQ conditional8
+return8:			CMP R4 11
+			BNE conditional9
+return9:			BRA return7
+			BRA main
+
+conditional8: 		SUB R4 2
+			BRA return8
+			BRA main
+
+conditional9: 		CMP R4 -1
 			BNE conditional10
-return10:			BRA return8
+return10:			BRA return9
 			BRA main
 
-conditional9: 		SUB R4 2
-			BRA return9
-			BRA main
-
-conditional10: 		CMP R4 -1
-			BNE conditional11
-return11:			BRA return10
-			BRA main
-
-conditional11: 		ADD R2 intensity
+conditional10: 		ADD R2 intensity
 			STOR R4 [ GB + R2]
 			SUB R2 intensity
-			BRA return11
+			BRA return10
 			BRA main
 
-conditional12: 		BRA checkButtons
-			BRA return12
+conditional11: 		BRA checkButtons
+			BRA return11
 			BRA main
 
 @END
