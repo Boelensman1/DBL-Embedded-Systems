@@ -10,7 +10,7 @@ define('WAIT', 1000);//define a value for wait
 
 function main()
 {
-    global $intensity, $location, $counter,$lights;//just for php purposes  doesn't reoccur in the assembly program
+    global $intensity, $location, $counter, $lights;//just for php purposes  doesn't reoccur in the assembly program
     installCountdown('loop');//initializes the timer interrupt
     $intensity = 0;//is stored in R0
     $counter = 0;//is stored in R1
@@ -42,15 +42,15 @@ function emptyLoop()
 function loop()
 {
     global $counter, $location, $lights, $temp;//just for php purposes  doesn't reoccur in the assembly program
-    
+
     setTimer(WAIT);//set the timer at value wait
     startCountdown();//starts the countdown
 
 
-    $counter = _getData('counter', 0);//stores $counter in the GB
+    $counter = _getData('counter', 0);//get the value of $counter
     $counter++;//increments $counter
 
-    if ($counter == 10) {//checks if timer has run 10 times since when it was set to 1
+    if ($counter == 1000) {//checks if timer has run 10 times since when it was set to 1
         $counter = 1;//make the $counter ready for the next call
     }
 
@@ -72,19 +72,23 @@ function getValues()
     if ($location == 0) {//check if the $location is the location of the AD
         getInput($temp, 'analog');//set $temp to the value of the AD
         $temp /= 25;//divide by 25 to make it between 0 and 10
-     
+
     }
     if ($location != 0) {//get the value of the light
         $temp = _getData('intensity', $location);//set $temp to intensity of that light
     }
 
+    modulo($counter,10);
+
     if ($counter < $temp) {//check if the light should be on
-  
+
         stackPush($lights);//put $lights on the stack
         pow(2, $location);//get the right $location of the LED result gets stored in R5
         stackPull($lights);//pull $lights of the stack
         $lights += R5;//creates the value of which LEDs need to be on
     }
+
+    $counter = _getData('counter', 0);//because we used mod earlier, we need to get $counter again
 
     if ($location == 7) {//check if each value of all lights have been added to $lights
         display($lights, 'leds');//set the LEDs on according to the value $lights
@@ -97,7 +101,7 @@ function getValues()
 function checkButtons()
 {
     global $counter, $location, $temp, $lights;//just for php purposes  doesn't reoccur in the assembly program
-    if ($counter != 5) {
+    if ($counter != 1) {
         //otherwise he checks the buttons too often, resulting in it going straight to full ON
         returnt;//returns from the timer-interrupt
     }
@@ -112,14 +116,14 @@ function checkButtons()
         if (R5 == 1) {//button 0 is pressed
             $temp -= 2;//decrement $temp by 2
         }
-		//make sure that the intensity of the light is between 0 and 10
+        //make sure that the intensity of the light is between 0 and 10
         if ($temp != 11) {
             if ($temp != -1) {
                 _storeData($temp, 'intensity', $location);
             }
         }
     }
-	//
+    //
     if ($location != 7) {//check if all buttons have been checked
         checkButtons();//if not then call itself
     }
