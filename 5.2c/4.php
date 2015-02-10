@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Wigger
- * Date: 16/12/14
- * Time: 23:08
- */
 include 'functions.php';
 
 //**DATA**

@@ -348,7 +348,7 @@ class Compiler
                 }
                 case '_storeData': {
                     //check if we have to add a register
-                    if (substr(trim($arguments[2]),0,1)=='$')
+                    if (substr(trim($arguments[2]),0,1)=='$'  && trim($this->processArgument($arguments[2]))!='0')
                     {
                         return [
                             4, 'ADD '. $this->processArgument($arguments[2]).' '.trim($this->processArgument($arguments[1]),'\''),
@@ -643,12 +643,12 @@ class Compiler
                         //check if we have to add a register
                         if (substr(trim($arguments[1]),0,1)=='$')
                         {
-                        return [
-                            4, 'ADD '. $this->processArgument($arguments[1]).' '.trim($this->processArgument($arguments[0]),'\''),
-                            'LOAD ' . $register . ' [ GB + '
-                            . $this->processArgument($arguments[1]).']',
-                            'SUB '. $this->processArgument($arguments[1]).' '.trim($this->processArgument($arguments[0]),'\''),
-                        ];
+                            return [
+                                4, 'ADD '. $this->processArgument($arguments[1]).' '.trim($this->processArgument($arguments[0]),'\''),
+                                'LOAD ' . $register . ' [ GB + '
+                                . $this->processArgument($arguments[1]).']',
+                                'SUB '. $this->processArgument($arguments[1]).' '.trim($this->processArgument($arguments[0]),'\''),
+                            ];
                         }
                         else
                         {
