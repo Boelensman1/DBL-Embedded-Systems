@@ -1,5 +1,5 @@
 <?php
-$this->_defaultFunctions['display']="
+$this->_defaultFunctions['display'] = "
 ;display
 _Hex7Seg:     BRS  _Hex7Seg_bgn  ;  push address(tbl) onto stack and proceed at bgn
 _Hex7Seg_tbl: CONS  %01111110    ;  7-segment pattern for '0'
@@ -24,9 +24,9 @@ _Hex7Seg_bgn:   AND  R5  %01111   ;  R0 := R0 MOD 16 , just to be safe...
               LOAD  R5  ".IOAREA."
               STOR  R4  [R5+".DSPSEG."] ; and place this in the Display Element
                RTS";
-$this->_defaultFunctions['display']=explode("\n",$this->_defaultFunctions['display']);
+$this->_defaultFunctions['display'] = explode("\n", $this->_defaultFunctions['display']);
 
-$this->_defaultFunctions['sleep']="
+$this->_defaultFunctions['sleep'] = "
 ;sleep
 _timer: MULS  R5  10
         LOAD  R4  R5
@@ -37,9 +37,9 @@ _timer: MULS  R5  10
 _wait:  CMP   R5  [R4+".TIMER."]       ;  Compare the timer to 0
         BMI   _wait
         RTS";
-$this->_defaultFunctions['sleep']=explode("\n",$this->_defaultFunctions['sleep']);
+$this->_defaultFunctions['sleep'] = explode("\n", $this->_defaultFunctions['sleep']);
 
-$this->_defaultFunctions['pow']="
+$this->_defaultFunctions['pow'] = "
 ;pow
 _pow:   	CMP R4 0
             BEQ _pow1
@@ -60,9 +60,9 @@ _powReturn: PULL R4
 _pow1:      LOAD R5 1
             RTS
 _powR:      RTS";
-$this->_defaultFunctions['pow']=explode("\n",$this->_defaultFunctions['pow']);
+$this->_defaultFunctions['pow'] = explode("\n", $this->_defaultFunctions['pow']);
 
-$this->_defaultFunctions['pressed']="
+$this->_defaultFunctions['pressed'] = "
 ;pressed
 _pressed: 	PUSH R4
             LOAD R4 R3
@@ -76,4 +76,4 @@ _pressed: 	PUSH R4
             LOAD R5 R4
             PULL R4
             RTS";
-$this->_defaultFunctions['pressed']=explode("\n",$this->_defaultFunctions['pressed']);
+$this->_defaultFunctions['pressed'] = explode("\n", $this->_defaultFunctions['pressed']);
