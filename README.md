@@ -41,3 +41,6 @@ t.petrescu@student.tue.nl
 
 Phung D.T. (Dat)
 d.t.phung@student.tue.nl
+
+Verschuuren R.T. (Rolf)
+r.t.verschuuren@student.tue.nl
