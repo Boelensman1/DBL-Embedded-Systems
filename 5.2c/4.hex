@@ -1,4 +1,4 @@
-@C 3ffff 000ac
+@C 3ffff 000a0
 0001f       ; 00000 begin :         BRA main
 16000       ; 00001 _pow :          CMP R4 0
 0040e       ; 00002                 BEQ _pow1
@@ -31,7 +31,7 @@
 0a904       ; 0001d                 LOAD R5 R4
 0a5f1       ; 0001e                 LOAD R4 [R7++]
 045f1       ; 0001f                 RTS
-08043       ; 00020 main :          LOAD R0 loop
+08042       ; 00020 main :          LOAD R0 loop
 0c105       ; 00021                 ADD R0 R5
 08810       ; 00022                 LOAD R1 16
 3c420       ; 00023                 STOR R0 [R1+0]
@@ -57,117 +57,107 @@
 0a000       ; 00037                 LOAD R4 0
 124ad       ; 00038                 SUB R4 [R5+13]
 3e4ad       ; 00039                 STOR R4 [R5+13]
-0a080 003e8 ; 0003a                 LOAD R4 WAIT
-3e4ad       ; 0003c                 STOR R4 [R5+13]
-05808       ; 0003d                 SETI 8
-00002       ; 0003e                 BRA emptyLoop
-001f4       ; 0003f                 BRA return0
-001df       ; 00040                 BRA main
-001ff       ; 00041 emptyLoop :     BRA emptyLoop
-001dd       ; 00042                 BRA main
-0a8f0       ; 00043 loop :          LOAD R5 -16
-0a000       ; 00044                 LOAD R4 0
-124ad       ; 00045                 SUB R4 [R5+13]
-3e4ad       ; 00046                 STOR R4 [R5+13]
-0a080 003e8 ; 00047                 LOAD R4 WAIT
-3e4ad       ; 00049                 STOR R4 [R5+13]
-05808       ; 0004a                 SETI 8
-08cc8       ; 0004b                 LOAD R1 [R6+(counter+0)]
-0c801       ; 0004c                 ADD R1 1
-14880 003e8 ; 0004d                 CMP R1 1000
-00406       ; 0004f                 BEQ conditional1
-3ccc8       ; 00050 return1 :       STOR R1 [R6+(counter+0)]
-090ff       ; 00051                 LOAD R2 -1
-09800       ; 00052                 LOAD R3 0
-0a000       ; 00053                 LOAD R4 0
-00004       ; 00054                 BRA getValues
-025f1       ; 00055                 RTE
-08801       ; 00056 conditional1 :  LOAD R1 1
-001f8       ; 00057                 BRA return1
-001c7       ; 00058                 BRA main
-0d001       ; 00059 getValues :     ADD R2 1
-15000       ; 0005a                 CMP R2 0
-0040a       ; 0005b                 BEQ conditional2
-15000       ; 0005c return2 :       CMP R2 0
-0060d       ; 0005d                 BNE conditional3
-2880a       ; 0005e return3 :       MOD R1 10
-14904       ; 0005f                 CMP R1 R4
-0160f       ; 00060                 BMI conditional4
-08cc8       ; 00061 return4 :       LOAD R1 [R6+(counter+0)]
-15007       ; 00062                 CMP R2 7
-00414       ; 00063                 BEQ conditional5
-001f4       ; 00064 return5 :       BRA getValues
-001ba       ; 00065                 BRA main
-0a8f0       ; 00066 conditional2 :  LOAD R5 -16
-0a4a6       ; 00067                 LOAD R4 [R5+6]
-26019       ; 00068                 DIV R4 25
-001f2       ; 00069                 BRA return2
-001b5       ; 0006a                 BRA main
-0d000       ; 0006b conditional3 :  ADD R2 intensity
-0a5c2       ; 0006c                 LOAD R4 [R6+R2]
-11000       ; 0006d                 SUB R2 intensity
-001ef       ; 0006e                 BRA return3
-001b0       ; 0006f                 BRA main
-3ddff       ; 00070 conditional4 :  STOR R3 [--R7]
-0a102       ; 00071                 LOAD R4 R2
-0a802       ; 00072                 LOAD R5 2
-0038d       ; 00073                 BRS _pow
-09df1       ; 00074                 LOAD R3 [R7++]
-0d905       ; 00075                 ADD R3 R5
-001ea       ; 00076                 BRA return4
-001a8       ; 00077                 BRA main
-0a8f0       ; 00078 conditional5 :  LOAD R5 -16
-0a103       ; 00079                 LOAD R4 R3
-3e4ab       ; 0007a                 STOR R4 [R5+11]
-09000       ; 0007b                 LOAD R2 0
-00002       ; 0007c                 BRA checkButtons
-001e6       ; 0007d                 BRA return5
-001a1       ; 0007e                 BRA main
-14801       ; 0007f checkButtons :  CMP R1 1
-0060b       ; 00080                 BNE conditional6
-0d001       ; 00081 return6 :       ADD R2 1
-3ddff       ; 00082                 STOR R3 [--R7]
-09902       ; 00083                 LOAD R3 R2
-0038f       ; 00084                 BRS _pressed
-09df1       ; 00085                 LOAD R3 [R7++]
-16801       ; 00086                 CMP R5 1
-00407       ; 00087                 BEQ conditional7
-15007       ; 00088 return7 :       CMP R2 7
-0061f       ; 00089                 BNE conditional11
-025f1       ; 0008a return11 :      RTE
-00194       ; 0008b                 BRA main
-025f1       ; 0008c conditional6 :  RTE
-001f3       ; 0008d                 BRA return6
-00191       ; 0008e                 BRA main
-0d000       ; 0008f conditional7 :  ADD R2 intensity
-0a5c2       ; 00090                 LOAD R4 [R6+R2]
-11000       ; 00091                 SUB R2 intensity
-0e001       ; 00092                 ADD R4 1
-3ddff       ; 00093                 STOR R3 [--R7]
-09800       ; 00094                 LOAD R3 0
-0037e       ; 00095                 BRS _pressed
-09df1       ; 00096                 LOAD R3 [R7++]
-16801       ; 00097                 CMP R5 1
-00404       ; 00098                 BEQ conditional8
-1600b       ; 00099 return8 :       CMP R4 11
-00605       ; 0009a                 BNE conditional9
-001ec       ; 0009b return9 :       BRA return7
-00183       ; 0009c                 BRA main
-12002       ; 0009d conditional8 :  SUB R4 2
-001fa       ; 0009e                 BRA return8
+0a001       ; 0003a                 LOAD R4 WAIT
+3e4ad       ; 0003b                 STOR R4 [R5+13]
+05808       ; 0003c                 SETI 8
+00002       ; 0003d                 BRA emptyLoop
+001f5       ; 0003e                 BRA return0
+001e0       ; 0003f                 BRA main
+001ff       ; 00040 emptyLoop :     BRA emptyLoop
+001de       ; 00041                 BRA main
+0a8f0       ; 00042 loop :          LOAD R5 -16
+0a000       ; 00043                 LOAD R4 0
+124ad       ; 00044                 SUB R4 [R5+13]
+3e4ad       ; 00045                 STOR R4 [R5+13]
+0a001       ; 00046                 LOAD R4 WAIT
+3e4ad       ; 00047                 STOR R4 [R5+13]
+05808       ; 00048                 SETI 8
+08cc8       ; 00049                 LOAD R1 [R6+(counter+0)]
+0c801       ; 0004a                 ADD R1 1
+14880 003e9 ; 0004b                 CMP R1 1001
+00406       ; 0004d                 BEQ conditional1
+3ccc8       ; 0004e return1 :       STOR R1 [R6+(counter+0)]
+090ff       ; 0004f                 LOAD R2 -1
+09800       ; 00050                 LOAD R3 0
+0a000       ; 00051                 LOAD R4 0
+00004       ; 00052                 BRA getValues
+025f1       ; 00053                 RTE
+08800       ; 00054 conditional1 :  LOAD R1 0
+001f8       ; 00055                 BRA return1
+001c9       ; 00056                 BRA main
+0d001       ; 00057 getValues :     ADD R2 1
+15000       ; 00058                 CMP R2 0
+0040e       ; 00059                 BEQ conditional2
+15000       ; 0005a return2 :       CMP R2 0
+00611       ; 0005b                 BNE conditional3
+2880a       ; 0005c return3 :       MOD R1 10
+14904       ; 0005d                 CMP R1 R4
+01613       ; 0005e                 BMI conditional4
+08cc8       ; 0005f return4 :       LOAD R1 [R6+(counter+0)]
+3e5ff       ; 00060                 STOR R4 [--R7]
+14801       ; 00061                 CMP R1 1
+00417       ; 00062                 BEQ conditional5
+0a5f1       ; 00063 return5 :       LOAD R4 [R7++]
+15007       ; 00064                 CMP R2 7
+00433       ; 00065                 BEQ conditional10
+001f0       ; 00066 return10 :      BRA getValues
+001b8       ; 00067                 BRA main
+0a8f0       ; 00068 conditional2 :  LOAD R5 -16
+0a4a6       ; 00069                 LOAD R4 [R5+6]
+26019       ; 0006a                 DIV R4 25
+001ee       ; 0006b                 BRA return2
+001b3       ; 0006c                 BRA main
+0d000       ; 0006d conditional3 :  ADD R2 intensity
+0a5c2       ; 0006e                 LOAD R4 [R6+R2]
+11000       ; 0006f                 SUB R2 intensity
+001eb       ; 00070                 BRA return3
+001ae       ; 00071                 BRA main
+3ddff       ; 00072 conditional4 :  STOR R3 [--R7]
+0a102       ; 00073                 LOAD R4 R2
+0a802       ; 00074                 LOAD R5 2
+0038b       ; 00075                 BRS _pow
+09df1       ; 00076                 LOAD R3 [R7++]
+0d905       ; 00077                 ADD R3 R5
+001e6       ; 00078                 BRA return4
+001a6       ; 00079                 BRA main
+3ddff       ; 0007a conditional5 :  STOR R3 [--R7]
+09902       ; 0007b                 LOAD R3 R2
+00397       ; 0007c                 BRS _pressed
+09df1       ; 0007d                 LOAD R3 [R7++]
+16801       ; 0007e                 CMP R5 1
+00402       ; 0007f                 BEQ conditional6
+001e2       ; 00080 return6 :       BRA return5
+0019e       ; 00081                 BRA main
+0e001       ; 00082 conditional6 :  ADD R4 1
+3ddff       ; 00083                 STOR R3 [--R7]
+09800       ; 00084                 LOAD R3 0
+0038e       ; 00085                 BRS _pressed
+09df1       ; 00086                 LOAD R3 [R7++]
+16801       ; 00087                 CMP R5 1
+00404       ; 00088                 BEQ conditional7
+1600b       ; 00089 return7 :       CMP R4 11
+00605       ; 0008a                 BNE conditional8
+001f4       ; 0008b return8 :       BRA return6
+00193       ; 0008c                 BRA main
+12002       ; 0008d conditional7 :  SUB R4 2
+001fa       ; 0008e                 BRA return7
+00190       ; 0008f                 BRA main
+160ff       ; 00090 conditional8 :  CMP R4 -1
+00602       ; 00091                 BNE conditional9
+001f8       ; 00092 return9 :       BRA return8
+0018c       ; 00093                 BRA main
+0d000       ; 00094 conditional9 :  ADD R2 intensity
+3e5c2       ; 00095                 STOR R4 [R6+R2]
+11000       ; 00096                 SUB R2 intensity
+001fa       ; 00097                 BRA return9
+00187       ; 00098                 BRA main
+0a8f0       ; 00099 conditional10 : LOAD R5 -16
+0a103       ; 0009a                 LOAD R4 R3
+3e4ab       ; 0009b                 STOR R4 [R5+11]
+09000       ; 0009c                 LOAD R2 0
+025f1       ; 0009d                 RTE
+001c7       ; 0009e                 BRA return10
 00180       ; 0009f                 BRA main
-160ff       ; 000a0 conditional9 :  CMP R4 -1
-00602       ; 000a1                 BNE conditional10
-001f8       ; 000a2 return10 :      BRA return9
-0017c       ; 000a3                 BRA main
-0d000       ; 000a4 conditional10 : ADD R2 intensity
-3e5c2       ; 000a5                 STOR R4 [R6+R2]
-11000       ; 000a6                 SUB R2 intensity
-001fa       ; 000a7                 BRA return10
-00177       ; 000a8                 BRA main
-001d5       ; 000a9 conditional11 : BRA checkButtons
-001df       ; 000aa                 BRA return11
-00174       ; 000ab                 BRA main
 
 @D 3ffff 00009 ; 
 00000 00000 00000 00000 00000 00000 00000 00000 ;                 

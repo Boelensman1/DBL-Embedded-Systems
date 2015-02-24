@@ -4,7 +4,7 @@ counter DS 1
 
 @CODE
                     
-                    WAIT EQU 1000
+                    WAIT EQU 1
 begin:              BRA main
                     
                     
@@ -93,7 +93,7 @@ loop:               LOAD R5 -16
                     SETI 8
                     LOAD R1 [ GB + counter + 0 ]
                     ADD R1 1
-                    CMP R1 1000
+                    CMP R1 1001
                     BEQ conditional1
 return1:            STOR R1 [GB +counter + 0]
                     LOAD R2 -1
@@ -102,7 +102,7 @@ return1:            STOR R1 [GB +counter + 0]
                     BRA getValues
                     RTE
                     
-conditional1:       LOAD R1 1
+conditional1:       LOAD R1 0
                     BRA return1
                     BRA main
                     
@@ -115,9 +115,13 @@ return3:            MOD R1 10
                     CMP R1 R4
                     BMI conditional4
 return4:            LOAD R1 [ GB + counter + 0 ]
-                    CMP R2 7
+                    PUSH R4
+                    CMP R1 1
                     BEQ conditional5
-return5:            BRA getValues
+return5:            PULL R4
+                    CMP R2 7
+                    BEQ conditional10
+return10:           BRA getValues
                     BRA main
                     
 conditional2:       LOAD R5 -16
@@ -141,64 +145,48 @@ conditional4:       PUSH R3
                     BRA return4
                     BRA main
                     
-conditional5:       LOAD R5 -16
-                    LOAD R4 R3
-                    STOR R4 [R5+11]
-                    LOAD R2 0
-                    BRA checkButtons
-                    BRA return5
-                    BRA main
-                    
-checkButtons:       CMP R1 1
-                    BNE conditional6
-return6:            ADD R2 1
-                    PUSH R3
+conditional5:       PUSH R3
                     LOAD R3 R2
                     BRS _pressed
                     PULL R3
                     CMP R5 1
-                    BEQ conditional7
-return7:            CMP R2 7
-                    BNE conditional11
-return11:           RTE
+                    BEQ conditional6
+return6:            BRA return5
                     BRA main
                     
-conditional6:       RTE
-                    BRA return6
-                    BRA main
-                    
-conditional7:       ADD R2 intensity
-                    LOAD R4 [ GB + R2]
-                    SUB R2 intensity
-                    ADD R4 1
+conditional6:       ADD R4 1
                     PUSH R3
                     LOAD R3 0
                     BRS _pressed
                     PULL R3
                     CMP R5 1
-                    BEQ conditional8
-return8:            CMP R4 11
+                    BEQ conditional7
+return7:            CMP R4 11
+                    BNE conditional8
+return8:            BRA return6
+                    BRA main
+                    
+conditional7:       SUB R4 2
+                    BRA return7
+                    BRA main
+                    
+conditional8:       CMP R4 -1
                     BNE conditional9
-return9:            BRA return7
+return9:            BRA return8
                     BRA main
                     
-conditional8:       SUB R4 2
-                    BRA return8
-                    BRA main
-                    
-conditional9:       CMP R4 -1
-                    BNE conditional10
-return10:           BRA return9
-                    BRA main
-                    
-conditional10:      ADD R2 intensity
+conditional9:       ADD R2 intensity
                     STOR R4 [ GB + R2]
                     SUB R2 intensity
-                    BRA return10
+                    BRA return9
                     BRA main
                     
-conditional11:      BRA checkButtons
-                    BRA return11
+conditional10:      LOAD R5 -16
+                    LOAD R4 R3
+                    STOR R4 [R5+11]
+                    LOAD R2 0
+                    RTE
+                    BRA return10
                     BRA main
                     
                     @END
