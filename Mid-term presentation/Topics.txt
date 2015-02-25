@@ -1,0 +1,11 @@
+ * Specification			D
+   * Disadvantage conveyer belt		D
+ ? Design decisions			T
+   ? Priorities				T
+ - Machine design			D/M
+   * Use-cases				D
+   * User constraints			M
+   ? Safety properties			M
+   - Sketch (if we talk about it)	M
+ T Conclusion/future plans		T
+ - Group process
