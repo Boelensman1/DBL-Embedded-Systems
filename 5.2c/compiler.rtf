@@ -1,0 +1,42 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1344\cocoasubrtf720
+{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww12600\viewh7800\viewkind0
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural
+
+\f0\fs24 \cf0 The compiler works in phases. We will go through these phases 1 by 1 to explain how the compiler does its job: compiling PHP-like code to assembly. Throughout the phases the compiler keeps track of the line number of the PHP code it is currently compiling and uses that, when an error occurs, to give information where the error is. The compiler is written in PHP5.6 and uses a command line interface.\
+\
+
+\b Preprocessing
+\b0 \
+In the first phase, the input code will be made ready for the next steps. A few things happen in this phase: First the file is read into the memory. The next step is that all comments, newlines and extra spaces are stripped from the file. The file is then split into single lines using the \'93;\'94 symbol that denotes the end of a line. While doing this the compiler writes the data to two arrays: the data array for everything between \'93//**DATA**\'94 and \'93//**CODE**\'94 and the code array for everything after \'93//**CODE**\'94. Everything before //**DATA** is ignored. The data array gets compiled immediately.\
+\
+The preprocessor further removes some special statements that are needed to make valid php such as \'93global\'94 and changes some shortcuts in their full version. For example $abc++ will be changed into $abc+=1. This ensures that the compiler only needs to be able to handle $abc+=1.\
+\
+
+\b Splitting
+\b0 \
+In the second phase the code is split up by function. Every function gets his own array with all the lines that are in that function. The code not inside of a function goes into a separate array.\
+\
+
+\b Compiling
+\b0 \
+The third phase is the most important one. It starts by compiling the code that is at the start and not inside a function. While compiling it keeps track of what functions are called and adds these, if they are not already compiled, to the toCompile queue. This helps in making sure there is no dead code, as a function that is never called, will not be compiled. The compiler adds the function \'93main\'94, which is the default start point of the code, to the queue and starts processing it.\
+\
+After compiling the main function it will continue in the next function in the toCompile queue and keep doing this till the toCompile queue is empty.\
+\
+The compiling itself is not a lot more than a lot of regex and switch statements that look at the input and make a output from that. At the first notion of a variable a register is assigned to it. The code then uses this register in place of the variable. Some more difficult statements, like the function display which displays something, will BRS to premade assembly code that handles that. The compiler keeps track of which segments of the premade assembly code are used.\
+\
+When the compiler meets an if statement, it saves the code inside it to a new function named \'93condtionali\'94 where i is the amount of conditionals that have already been seen. It then places this function in the toCompile queue. It also saves the location of the end of the if statement, so it will later know where to return when the if function has ended.\
+\
+
+\b Combining
+\b0 \
+After there are no functions left in the toCompile queue, the combining phase starts. In this phase all the functions and the code outside the functions are combined into a single array. This phase also adds the used premade functions at the top and inserts the return statements at the correct position.\
+\
+
+\b Formatting
+\b0 \
+The last phase is the last interesting. It goes through the, now compiled code, and formats it. It uses either the length of the longest function name or the number 25 depending on which is larger to insert spaces in front of every line of code in a way everything lines up nicely.\
+\
+The last step the compiler takes is writing the compiled code to a file and using the assembler provided to create the hex code.}
