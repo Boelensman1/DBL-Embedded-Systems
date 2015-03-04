@@ -3,5 +3,5 @@
 3. Let the machine perform a run without pushing buttons and with pushing the abort button while running and check if nothing breaks. 
 4. Look at points in the machine where a disc could get stuck and check if you can access the disc to remove it. 
 5. Check if the machine fits on 1 floor board of the Fischer Technik. 
-6. Check if you can build the machine within 1 hour with 2 people. 
+6. Check if you can build the machine within 1.5 hours with 2 people. 
 7. Check if there are any parts without a function. 
