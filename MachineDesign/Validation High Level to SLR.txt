@@ -1,4 +1,0 @@
-Safety Properties
-2. According to the High level Specification the machine should stop sorting if there is no more disk signaled after 4s. We made this into a safety property, because a running machine with no use is only going to possibly harm people getting in contact or the machine itself.
-3.According to what the high level specification offer, there is nothing that could stop the assembly program as long as the code is correctly written for this purpose, we don’t consider accidents and flaws, the only way for the program to end is by powering off the machine.
- 

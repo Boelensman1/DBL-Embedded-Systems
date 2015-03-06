@@ -1,7 +1,0 @@
-1. Perform a test with alternating black and white discs to test the moving of the devider multiple times and check that the discs are sorted right and no discs weren't sorted. 
-2. Check if it sorts 10 discs within 30s with a load of white discs, black discs and alternating black and white discs
-3. Let the machine perform a run without pushing buttons and with pushing the abort button while running and check if nothing breaks. 
-4. Look at points in the machine where a disc could get stuck and check if you can access the disc to remove it. 
-5. Check if the machine fits on 1 floor board of the Fischer Technik. 
-6. Check if you can build the machine within 1.5 hours with 2 people. 
-7. Check if there are any parts without a function. 
