@@ -1,0 +1,9 @@
+1. the undefined variables of the Timer(TEnd, Sort, Motor Up ...), when will we measure them?
+2.Is the validation of the high level enough?
+3. What is that xlsx again?
+4.display?
+
+
+
+So our obj is to see if we can fix this points and also have documentaion on the model tests. The purpouse is in progres.
+Is there anything relevant left?
