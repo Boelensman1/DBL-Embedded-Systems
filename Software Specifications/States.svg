@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<svg width="1491px" height="979px" viewBox="0 0 1491 979" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
+<svg width="1731px" height="979px" viewBox="0 0 1731 979" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
     <!-- Generator: Sketch 3.2.2 (9983) - http://www.bohemiancoding.com/sketch -->
     <title>States</title>
     <desc>Created with Sketch.</desc>
     <defs></defs>
     <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
-        <path d="M480,605.210526 L480,1 L1260,1 L1490,230.996866 L1490,821 L680,821 L480,605.210526 Z" id="Rectangle-1" stroke="#979797" fill-opacity="0.1" fill="#FFC7C7" sketch:type="MSShapeGroup"></path>
-        <text id="START/STOP" sketch:type="MSTextLayer" transform="translate(986.742120, 351.615077) rotate(-55.000000) translate(-986.742120, -351.615077) " font-family="Helvetica" font-size="14" font-weight="normal" fill="#000000">
-            <tspan x="943.24212" y="357.115077">START/STOP</tspan>
+        <path d="M720,605.210526 L720,1 L1500,1 L1730,230.996866 L1730,821 L920,821 L720,605.210526 Z" id="Rectangle-1" stroke="#979797" fill-opacity="0.1" fill="#FFC7C7" sketch:type="MSShapeGroup"></path>
+        <text id="START/STOP" sketch:type="MSTextLayer" transform="translate(1226.742120, 351.615077) rotate(-55.000000) translate(-1226.742120, -351.615077) " font-family="Helvetica" font-size="14" font-weight="normal" fill="#000000">
+            <tspan x="1183.24212" y="357.115077">START/STOP</tspan>
         </text>
-        <g id="White-1" sketch:type="MSLayerGroup" transform="translate(861.000000, 231.000000)">
+        <g id="White-1" sketch:type="MSLayerGroup" transform="translate(1101.000000, 231.000000)">
             <g id="Motor-Down" transform="translate(274.000000, 150.000000)">
                 <path d="M50,100 C77.6142375,100 100,77.6142375 100,50 C100,22.3857625 77.6142375,0 50,0 C22.3857625,0 0,22.3857625 0,50 C0,77.6142375 22.3857625,100 50,100 Z" id="Oval-1" stroke="#979797" sketch:type="MSShapeGroup"></path>
                 <text fill="#000000" sketch:type="MSTextLayer" font-family="Helvetica" font-size="14" font-weight="normal" sketch:alignment="middle">
@@ -45,35 +45,35 @@
             <path d="M9,50 L139,50" id="Line-3" stroke="#979797" stroke-linecap="square" sketch:type="MSShapeGroup"></path>
             <path id="Line-3-decoration-1" d="M139,50 C135.22,48.95 131.98,48.05 128.2,47 C128.2,49.1 128.2,50.9 128.2,53 C131.98,51.95 135.22,51.05 139,50 C139,50 139,50 139,50 Z" stroke="#979797" stroke-linecap="square"></path>
         </g>
-        <text id="Timer-Motor-Down" sketch:type="MSTextLayer" transform="translate(1053.448198, 389.021891) rotate(24.000000) translate(-1053.448198, -389.021891) " font-family="Helvetica" font-size="14" font-weight="normal" fill="#000000">
-            <tspan x="995.948198" y="394.521891">Timer Motor Down</tspan>
+        <text id="Timer-Motor-Down" sketch:type="MSTextLayer" transform="translate(1293.448198, 389.021891) rotate(24.000000) translate(-1293.448198, -389.021891) " font-family="Helvetica" font-size="14" font-weight="normal" fill="#000000">
+            <tspan x="1235.9482" y="394.521891">Timer Motor Down</tspan>
         </text>
-        <text id="Timer-Sort" sketch:type="MSTextLayer" transform="translate(1247.371707, 351.213806) rotate(-53.000000) translate(-1247.371707, -351.213806) " font-family="Helvetica" font-size="14" font-weight="normal" fill="#000000">
-            <tspan x="1214.87171" y="356.713806">Timer Sort</tspan>
+        <text id="Timer-Sort" sketch:type="MSTextLayer" transform="translate(1487.371707, 351.213806) rotate(-53.000000) translate(-1487.371707, -351.213806) " font-family="Helvetica" font-size="14" font-weight="normal" fill="#000000">
+            <tspan x="1454.87171" y="356.713806">Timer Sort</tspan>
         </text>
-        <text id="START/STOP" sketch:type="MSTextLayer" transform="translate(1386.235699, 388.131133) rotate(70.000000) translate(-1386.235699, -388.131133) " font-family="Helvetica" font-size="14" font-weight="normal" fill="#000000">
-            <tspan x="1342.7357" y="393.631133">START/STOP</tspan>
+        <text id="START/STOP" sketch:type="MSTextLayer" transform="translate(1626.235699, 388.131133) rotate(70.000000) translate(-1626.235699, -388.131133) " font-family="Helvetica" font-size="14" font-weight="normal" fill="#000000">
+            <tspan x="1582.7357" y="393.631133">START/STOP</tspan>
         </text>
-        <text id="START/STOP" sketch:type="MSTextLayer" transform="translate(1345.164155, 600.215631) rotate(55.000000) translate(-1345.164155, -600.215631) " font-family="Helvetica" font-size="14" font-weight="normal" fill="#000000">
-            <tspan x="1301.66415" y="605.715631">START/STOP</tspan>
+        <text id="START/STOP" sketch:type="MSTextLayer" transform="translate(1585.164155, 600.215631) rotate(55.000000) translate(-1585.164155, -600.215631) " font-family="Helvetica" font-size="14" font-weight="normal" fill="#000000">
+            <tspan x="1541.66415" y="605.715631">START/STOP</tspan>
         </text>
-        <g id="White-2" sketch:type="MSLayerGroup" transform="translate(730.000000, 531.000000)">
+        <g id="White-2" sketch:type="MSLayerGroup" transform="translate(970.000000, 531.000000)">
             <g id="Motor-Down" transform="translate(274.000000, 150.000000)">
                 <path d="M50,100 C77.6142375,100 100,77.6142375 100,50 C100,22.3857625 77.6142375,0 50,0 C22.3857625,0 0,22.3857625 0,50 C0,77.6142375 22.3857625,100 50,100 Z" id="Oval-1" stroke="#979797" sketch:type="MSShapeGroup"></path>
-                <text fill="#000000" sketch:type="MSTextLayer" font-family="Helvetica" font-size="14" font-weight="normal" sketch:alignment="middle">
-                    <tspan x="12.265625" y="54">Motor Down</tspan>
+                <text id="Motor-Down-2" fill="#000000" sketch:type="MSTextLayer" font-family="Helvetica" font-size="14" font-weight="normal" sketch:alignment="middle">
+                    <tspan x="6.42773438" y="54">Motor Down 2</tspan>
                 </text>
             </g>
             <g id="White-Wait" transform="translate(399.000000, 0.000000)">
                 <path d="M50,100 C77.6142375,100 100,77.6142375 100,50 C100,22.3857625 77.6142375,0 50,0 C22.3857625,0 0,22.3857625 0,50 C0,77.6142375 22.3857625,100 50,100 Z" id="Oval-1" stroke="#979797" sketch:type="MSShapeGroup"></path>
-                <text fill="#000000" sketch:type="MSTextLayer" font-family="Helvetica" font-size="14" font-weight="normal" sketch:alignment="middle">
-                    <tspan x="16.0322266" y="54">White-Wait</tspan>
+                <text id="White-Wait-2" fill="#000000" sketch:type="MSTextLayer" font-family="Helvetica" font-size="14" font-weight="normal" sketch:alignment="middle">
+                    <tspan x="10.1943359" y="54">White-Wait 2</tspan>
                 </text>
             </g>
             <g id="Motor-Up" transform="translate(149.000000, 0.000000)">
                 <path d="M50,100 C77.6142375,100 100,77.6142375 100,50 C100,22.3857625 77.6142375,0 50,0 C22.3857625,0 0,22.3857625 0,50 C0,77.6142375 22.3857625,100 50,100 Z" id="Oval-1" stroke="#979797" sketch:type="MSShapeGroup"></path>
-                <text fill="#000000" sketch:type="MSTextLayer" font-family="Helvetica" font-size="14" font-weight="normal" sketch:alignment="middle">
-                    <tspan x="21.2138672" y="54">Motor Up</tspan>
+                <text id="Motor-Up-2" fill="#000000" sketch:type="MSTextLayer" font-family="Helvetica" font-size="14" font-weight="normal" sketch:alignment="middle">
+                    <tspan x="15.3759766" y="54">Motor Up 2</tspan>
                 </text>
             </g>
             <path d="M414,99 L369,159" id="Line-8" stroke="#979797" stroke-linecap="square" sketch:type="MSShapeGroup"></path>
@@ -85,57 +85,57 @@
             <path d="M9,50 L139,50" id="Line-3" stroke="#979797" stroke-linecap="square" sketch:type="MSShapeGroup"></path>
             <path id="Line-3-decoration-1" d="M139,50 C135.22,48.95 131.98,48.05 128.2,47 C128.2,49.1 128.2,50.9 128.2,53 C131.98,51.95 135.22,51.05 139,50 C139,50 139,50 139,50 Z" stroke="#979797" stroke-linecap="square"></path>
         </g>
-        <g id="Timer-Start-3" sketch:type="MSLayerGroup" transform="translate(1360.000000, 681.000000)">
+        <g id="Timer-Start-3" sketch:type="MSLayerGroup" transform="translate(1600.000000, 681.000000)">
             <path d="M50,100 C77.6142375,100 100,77.6142375 100,50 C100,22.3857625 77.6142375,0 50,0 C22.3857625,0 0,22.3857625 0,50 C0,77.6142375 22.3857625,100 50,100 Z" id="Oval-1" stroke="#979797" fill="#50E3C2" sketch:type="MSShapeGroup"></path>
             <path d="M50,100 C77.6142375,100 100,77.6142375 100,50 C100,22.3857625 77.6142375,0 50,0 C22.3857625,0 0,22.3857625 0,50 C0,77.6142375 22.3857625,100 50,100 Z" id="Oval-2" stroke="#979797" fill="#50E3C2" sketch:type="MSShapeGroup"></path>
-            <text id="Timer-Start" fill="#000000" sketch:type="MSTextLayer" font-family="Helvetica" font-size="14" font-weight="normal" sketch:alignment="middle">
-                <tspan x="15.6425781" y="54">Timer Start</tspan>
+            <text id="Timer-Start-4" fill="#000000" sketch:type="MSTextLayer" font-family="Helvetica" font-size="14" font-weight="normal" sketch:alignment="middle">
+                <tspan x="9.8046875" y="54">Timer Start 4</tspan>
             </text>
         </g>
-        <g id="Timer-Start-4" sketch:type="MSLayerGroup" transform="translate(1360.000000, 456.000000)">
+        <g id="Timer-Start-4" sketch:type="MSLayerGroup" transform="translate(1600.000000, 456.000000)">
             <path d="M50,100 C77.6142375,100 100,77.6142375 100,50 C100,22.3857625 77.6142375,0 50,0 C22.3857625,0 0,22.3857625 0,50 C0,77.6142375 22.3857625,100 50,100 Z" id="Oval-1" stroke="#979797" fill="#50E3C2" sketch:type="MSShapeGroup"></path>
             <path d="M50,100 C77.6142375,100 100,77.6142375 100,50 C100,22.3857625 77.6142375,0 50,0 C22.3857625,0 0,22.3857625 0,50 C0,77.6142375 22.3857625,100 50,100 Z" id="Oval-2" stroke="#979797" fill="#50E3C2" sketch:type="MSShapeGroup"></path>
-            <text id="Timer-Start" fill="#000000" sketch:type="MSTextLayer" font-family="Helvetica" font-size="14" font-weight="normal" sketch:alignment="middle">
-                <tspan x="15.6425781" y="54">Timer Start</tspan>
+            <text id="Timer-Start-3" fill="#000000" sketch:type="MSTextLayer" font-family="Helvetica" font-size="14" font-weight="normal" sketch:alignment="middle">
+                <tspan x="9.8046875" y="54">Timer Start 3</tspan>
             </text>
         </g>
-        <g id="Timer-Start-5" sketch:type="MSLayerGroup" transform="translate(879.000000, 381.000000)">
+        <g id="Timer-Start-5" sketch:type="MSLayerGroup" transform="translate(1119.000000, 381.000000)">
             <path d="M50,100 C77.6142375,100 100,77.6142375 100,50 C100,22.3857625 77.6142375,0 50,0 C22.3857625,0 0,22.3857625 0,50 C0,77.6142375 22.3857625,100 50,100 Z" id="Oval-1" stroke="#979797" fill="#50E3C2" sketch:type="MSShapeGroup"></path>
             <path d="M50,100 C77.6142375,100 100,77.6142375 100,50 C100,22.3857625 77.6142375,0 50,0 C22.3857625,0 0,22.3857625 0,50 C0,77.6142375 22.3857625,100 50,100 Z" id="Oval-2" stroke="#979797" fill="#50E3C2" sketch:type="MSShapeGroup"></path>
-            <text id="Timer-Start" fill="#000000" sketch:type="MSTextLayer" font-family="Helvetica" font-size="14" font-weight="normal" sketch:alignment="middle">
-                <tspan x="15.6425781" y="54">Timer Start</tspan>
+            <text id="Timer-Start-2" fill="#000000" sketch:type="MSTextLayer" font-family="Helvetica" font-size="14" font-weight="normal" sketch:alignment="middle">
+                <tspan x="9.8046875" y="54">Timer Start 2</tspan>
             </text>
         </g>
-        <g id="Timer-Start-6" sketch:type="MSLayerGroup" transform="translate(634.000000, 381.000000)">
+        <g id="Timer-Start-6" sketch:type="MSLayerGroup" transform="translate(874.000000, 381.000000)">
             <path d="M50,100 C77.6142375,100 100,77.6142375 100,50 C100,22.3857625 77.6142375,0 50,0 C22.3857625,0 0,22.3857625 0,50 C0,77.6142375 22.3857625,100 50,100 Z" id="Oval-1" stroke="#979797" fill="#50E3C2" sketch:type="MSShapeGroup"></path>
             <path d="M50,100 C77.6142375,100 100,77.6142375 100,50 C100,22.3857625 77.6142375,0 50,0 C22.3857625,0 0,22.3857625 0,50 C0,77.6142375 22.3857625,100 50,100 Z" id="Oval-2" stroke="#979797" fill="#50E3C2" sketch:type="MSShapeGroup"></path>
-            <text id="Timer-Start" fill="#000000" sketch:type="MSTextLayer" font-family="Helvetica" font-size="14" font-weight="normal" sketch:alignment="middle">
-                <tspan x="15.6425781" y="54">Timer Start</tspan>
+            <text id="Timer-Start-1" fill="#000000" sketch:type="MSTextLayer" font-family="Helvetica" font-size="14" font-weight="normal" sketch:alignment="middle">
+                <tspan x="9.8046875" y="54">Timer Start 1</tspan>
             </text>
         </g>
-        <g id="Base-States" sketch:type="MSLayerGroup" transform="translate(10.000000, 29.000000)">
-            <g id="Running-State-2" transform="translate(750.000000, 202.000000)">
+        <g id="Base-States" sketch:type="MSLayerGroup" transform="translate(0.000000, 29.000000)">
+            <g id="Running-State-2" transform="translate(1000.000000, 202.000000)">
                 <path d="M50,100 C77.6142375,100 100,77.6142375 100,50 C100,22.3857625 77.6142375,0 50,0 C22.3857625,0 0,22.3857625 0,50 C0,77.6142375 22.3857625,100 50,100 Z" id="Oval-1" stroke="#979797" fill="#D8D8D8" sketch:type="MSShapeGroup"></path>
                 <text fill="#000000" sketch:type="MSTextLayer" font-family="Helvetica" font-size="14" font-weight="normal" sketch:alignment="middle">
                     <tspan x="23.9243164" y="46">Running</tspan>
                     <tspan x="27.8173828" y="63">State 2</tspan>
                 </text>
             </g>
-            <g id="Running-State-3" transform="translate(750.000000, 0.000000)">
+            <g id="Running-State-3" transform="translate(1000.000000, 0.000000)">
                 <path d="M50,100 C77.6142375,100 100,77.6142375 100,50 C100,22.3857625 77.6142375,0 50,0 C22.3857625,0 0,22.3857625 0,50 C0,77.6142375 22.3857625,100 50,100 Z" id="Oval-1" stroke="#979797" fill="#D8D8D8" sketch:type="MSShapeGroup"></path>
                 <text fill="#000000" sketch:type="MSTextLayer" font-family="Helvetica" font-size="14" font-weight="normal" sketch:alignment="middle">
                     <tspan x="23.9243164" y="46">Running</tspan>
                     <tspan x="27.8173828" y="63">State 3</tspan>
                 </text>
             </g>
-            <g id="Running-State" transform="translate(500.000000, 202.000000)">
+            <g id="Running-State" transform="translate(750.000000, 202.000000)">
                 <path d="M50,100 C77.6142375,100 100,77.6142375 100,50 C100,22.3857625 77.6142375,0 50,0 C22.3857625,0 0,22.3857625 0,50 C0,77.6142375 22.3857625,100 50,100 Z" id="Oval-1" stroke="#979797" fill="#D8D8D8" sketch:type="MSShapeGroup"></path>
                 <text fill="#000000" sketch:type="MSTextLayer" font-family="Helvetica" font-size="14" font-weight="normal" sketch:alignment="middle">
                     <tspan x="23.9243164" y="46">Running</tspan>
                     <tspan x="33.6552734" y="63">State</tspan>
                 </text>
             </g>
-            <g id="Resting-State" transform="translate(250.000000, 202.000000)">
+            <g id="Resting-State" transform="translate(500.000000, 202.000000)">
                 <path d="M50,100 C77.6142375,100 100,77.6142375 100,50 C100,22.3857625 77.6142375,0 50,0 C22.3857625,0 0,22.3857625 0,50 C0,77.6142375 22.3857625,100 50,100 Z" id="Oval-1" stroke="#979797" fill="#D8D8D8" sketch:type="MSShapeGroup"></path>
                 <text id="Resting" fill="#000000" sketch:type="MSTextLayer" font-family="Helvetica" font-size="14" font-weight="normal" sketch:alignment="middle">
                     <tspan x="26.265625" y="46">Resting</tspan>
@@ -149,114 +149,126 @@
                     <tspan x="15.3691406" y="54">Initial State</tspan>
                 </text>
             </g>
+            <g id="Initial-State-2" transform="translate(250.000000, 202.000000)">
+                <path d="M50,100 C77.6142375,100 100,77.6142375 100,50 C100,22.3857625 77.6142375,0 50,0 C22.3857625,0 0,22.3857625 0,50 C0,77.6142375 22.3857625,100 50,100 Z" id="Oval-1" stroke="#979797" fill="#D8D8D8" sketch:type="MSShapeGroup"></path>
+                <path d="M50,95 C74.8528137,95 95,74.8528137 95,50 C95,25.1471863 74.8528137,5 50,5 C25.1471863,5 5,25.1471863 5,50 C5,74.8528137 25.1471863,95 50,95 Z" id="Oval-3" stroke="#979797" sketch:type="MSShapeGroup"></path>
+                <text fill="#000000" sketch:type="MSTextLayer" font-family="Helvetica" font-size="14" font-weight="normal" sketch:alignment="middle">
+                    <tspan x="9.53125" y="54">Initial State 2</tspan>
+                </text>
+            </g>
         </g>
         <text id="START/STOP" sketch:type="MSTextLayer" font-family="Helvetica" font-size="14" font-weight="normal" fill="#000000">
-            <tspan x="392" y="274">START/STOP</tspan>
+            <tspan x="632" y="274">START/STOP</tspan>
         </text>
-        <g id="State-9" sketch:type="MSLayerGroup" transform="translate(635.000000, 531.000000)">
+        <g id="State-9" sketch:type="MSLayerGroup" transform="translate(875.000000, 531.000000)">
             <path d="M50,100 C77.6142375,100 100,77.6142375 100,50 C100,22.3857625 77.6142375,0 50,0 C22.3857625,0 0,22.3857625 0,50 C0,77.6142375 22.3857625,100 50,100 Z" id="Oval-1" stroke="#979797" fill="#D8D8D8" sketch:type="MSShapeGroup"></path>
             <text id="After-Tick" fill="#000000" sketch:type="MSTextLayer" font-family="Helvetica" font-size="14" font-weight="normal" sketch:alignment="middle">
                 <tspan x="20.8208008" y="54">After Tick</tspan>
             </text>
         </g>
-        <g id="State-10" sketch:type="MSLayerGroup" transform="translate(385.000000, 803.000000)">
+        <g id="State-10" sketch:type="MSLayerGroup" transform="translate(625.000000, 803.000000)">
             <path d="M50,100 C77.6142375,100 100,77.6142375 100,50 C100,22.3857625 77.6142375,0 50,0 C22.3857625,0 0,22.3857625 0,50 C0,77.6142375 22.3857625,100 50,100 Z" id="Oval-1" stroke="#979797" fill="#D0011B" sketch:type="MSShapeGroup"></path>
             <text id="Abort" fill="#FFFFFF" sketch:type="MSTextLayer" font-family="Helvetica" font-size="14" font-weight="normal" sketch:alignment="middle">
                 <tspan x="33.269043" y="54">Abort</tspan>
             </text>
         </g>
-        <path d="M120,281 L250,281" id="Line" stroke="#979797" stroke-linecap="square" sketch:type="MSShapeGroup"></path>
-        <path id="Line-decoration-1" d="M250,281 C246.22,279.95 242.98,279.05 239.2,278 C239.2,280.1 239.2,281.9 239.2,284 C242.98,282.95 246.22,282.05 250,281 C250,281 250,281 250,281 Z" stroke="#979797" stroke-linecap="square"></path>
-        <path d="M370,281 L500,281" id="Line-2" stroke="#979797" stroke-linecap="square" sketch:type="MSShapeGroup"></path>
-        <path id="Line-2-decoration-1" d="M500,281 C496.22,279.95 492.98,279.05 489.2,278 C489.2,280.1 489.2,281.9 489.2,284 C492.98,282.95 496.22,282.05 500,281 C500,281 500,281 500,281 Z" stroke="#979797" stroke-linecap="square"></path>
-        <path d="M620,281 L750,281" id="Line-4" stroke="#979797" stroke-linecap="square" sketch:type="MSShapeGroup"></path>
-        <path id="Line-4-decoration-1" d="M750,281 C746.22,279.95 742.98,279.05 739.2,278 C739.2,280.1 739.2,281.9 739.2,284 C742.98,282.95 746.22,282.05 750,281 C750,281 750,281 750,281 Z" stroke="#979797" stroke-linecap="square"></path>
-        <path d="M775,331 L730,391" id="Line-8" stroke="#979797" stroke-linecap="square" sketch:type="MSShapeGroup"></path>
-        <path id="Line-8-decoration-1" d="M730,391 C733.108,388.606 735.772,386.554 738.88,384.16 C737.2,382.9 735.76,381.82 734.08,380.56 C732.652,384.214 731.428,387.346 730,391 C730,391 730,391 730,391 Z" stroke="#979797" stroke-linecap="square"></path>
-        <path d="M640,331 L595,391" id="Line-9" stroke="#979797" stroke-linecap="square" sketch:type="MSShapeGroup" transform="translate(617.500000, 361.000000) scale(-1, 1) translate(-617.500000, -361.000000) "></path>
-        <path id="Line-9-decoration-1" d="M595,391 C598.108,388.606 600.772,386.554 603.88,384.16 C602.2,382.9 600.76,381.82 599.08,380.56 C597.652,384.214 596.428,387.346 595,391 C595,391 595,391 595,391 Z" stroke="#979797" stroke-linecap="square"></path>
-        <path d="M800,226 L800,133.498649" id="Line-6" stroke="#979797" stroke-linecap="square" sketch:type="MSShapeGroup"></path>
-        <path id="Line-6-decoration-1" d="M800,134 C798.95,137.78 798.05,141.02 797,144.8 C799.1,144.8 800.9,144.8 803,144.8 C801.95,141.02 801.05,137.78 800,134 C800,134 800,134 800,134 Z" stroke="#979797" stroke-linecap="square"></path>
-        <path d="M819.75,133.459131 L819.75,226" id="Line-6" stroke="#4990E2" stroke-width="1.5" stroke-linecap="square" sketch:type="MSShapeGroup"></path>
-        <path id="Line-6-decoration-1" d="M819.75,225.459131 C820.8,221.679131 821.7,218.439131 822.75,214.659131 C820.65,214.659131 818.85,214.659131 816.75,214.659131 C817.8,218.439131 818.7,221.679131 819.75,225.459131 C819.75,225.459131 819.75,225.459131 819.75,225.459131 Z" stroke="#4990E2" stroke-width="1.5" stroke-linecap="square"></path>
-        <path d="M1017,326 L972.5,390.5" id="Line-14" stroke="#979797" stroke-linecap="square" sketch:type="MSShapeGroup"></path>
-        <path id="Line-14-decoration-1" d="M972.7052,390.202575 C975.71606,387.687496 978.296796,385.531714 981.307656,383.016634 C979.579125,381.824082 978.097527,380.801894 976.368996,379.609342 C975.086668,383.316974 973.987529,386.494944 972.7052,390.202575 C972.7052,390.202575 972.7052,390.202575 972.7052,390.202575 Z" stroke="#979797" stroke-linecap="square"></path>
-        <path d="M927.75,488.5 L927.75,524.5" id="Line-15" stroke="#4990E2" stroke-width="1.5" stroke-linecap="square" sketch:type="MSShapeGroup"></path>
-        <path id="Line-15-decoration-1" d="M927.75,524.5 C928.8,520.72 929.7,517.48 930.75,513.7 C928.65,513.7 926.85,513.7 924.75,513.7 C925.8,517.48 926.7,520.72 927.75,524.5 C927.75,524.5 927.75,524.5 927.75,524.5 Z" stroke="#4990E2" stroke-width="1.5" stroke-linecap="square"></path>
-        <path d="M685.5,486 L685.5,526" id="Line-6" stroke="#4990E2" stroke-width="1.5" stroke-linecap="square" sketch:type="MSShapeGroup"></path>
-        <path id="Line-6-decoration-1" d="M685.5,526 C686.55,522.22 687.45,518.98 688.5,515.2 C686.4,515.2 684.6,515.2 682.5,515.2 C683.55,518.98 684.45,522.22 685.5,526 C685.5,526 685.5,526 685.5,526 Z" stroke="#4990E2" stroke-width="1.5" stroke-linecap="square"></path>
-        <path d="M767.487824,241.637402 C767.487824,241.637402 609.471558,141.637402 430.384914,141.637402 C251.29827,141.637402 107.487824,241.637402 107.487824,241.637402" id="Line" stroke="#979797" stroke-linecap="square" sketch:type="MSShapeGroup"></path>
-        <path id="Line-decoration-1" d="M107.528867,241.608978 C111.251835,240.380265 114.445248,239.381606 118.174519,238.259519 C117.058306,236.480737 116.101551,234.956066 114.985338,233.177283 C112.339396,236.099018 110.099407,238.624727 107.528867,241.608978 C107.528867,241.608978 107.528867,241.608978 107.528867,241.608978 Z" stroke="#979797" stroke-linecap="square"></path>
-        <path d="M507.487824,266.637402 C507.487824,266.637402 413.997782,206.637402 308.041488,206.637402 C202.085194,206.637402 117,266.637402 117,266.637402" id="Line-7" stroke="#979797" stroke-linecap="square" sketch:type="MSShapeGroup"></path>
-        <path id="Line-7-decoration-1" d="M117.509278,266.285044 C121.229586,265.072955 124.416726,264.104151 128.163563,263.016643 C127.06903,261.224438 126.13086,259.688263 125.036327,257.896058 C122.338531,260.803984 120.08607,263.3116 117.509278,266.285044 C117.509278,266.285044 117.509278,266.285044 117.509278,266.285044 Z" stroke="#979797" stroke-linecap="square"></path>
-        <path d="M580.413983,721.402027 L480.687047,821.128965" id="Line" stroke="#979797" stroke-linecap="square" sketch:type="MSShapeGroup"></path>
-        <path id="Line-decoration-1" d="M480.711927,821.104084 C484.127253,819.173682 487.054675,817.519052 490.470001,815.588651 C488.985077,814.103726 487.712285,812.830934 486.22736,811.34601 C484.296959,814.761336 482.642329,817.688758 480.711927,821.104084 C480.711927,821.104084 480.711927,821.104084 480.711927,821.104084 Z" stroke="#979797" stroke-linecap="square"></path>
-        <path d="M391.5,811.5 L84.5,335.5" id="Line" stroke="#979797" stroke-linecap="square" sketch:type="MSShapeGroup"></path>
-        <path id="Line-decoration-1" d="M84.724477,335.848049 C85.8908673,339.593771 86.8906305,342.80439 88.0570208,346.550112 C89.8218072,345.411899 91.3344812,344.436288 93.0992676,343.298075 C90.1680909,340.690566 87.6556537,338.455558 84.724477,335.848049 C84.724477,335.848049 84.724477,335.848049 84.724477,335.848049 Z" stroke="#979797" stroke-linecap="square"></path>
+        <path d="M110,281 L240,281" id="Line" stroke="#979797" stroke-linecap="square" sketch:type="MSShapeGroup"></path>
+        <path id="Line-decoration-1" d="M240,281 C236.22,279.95 232.98,279.05 229.2,278 C229.2,280.1 229.2,281.9 229.2,284 C232.98,282.95 236.22,282.05 240,281 C240,281 240,281 240,281 Z" stroke="#979797" stroke-linecap="square"></path>
+        <path d="M610,281 L740,281" id="Line-2" stroke="#979797" stroke-linecap="square" sketch:type="MSShapeGroup"></path>
+        <path id="Line-2-decoration-1" d="M740,281 C736.22,279.95 732.98,279.05 729.2,278 C729.2,280.1 729.2,281.9 729.2,284 C732.98,282.95 736.22,282.05 740,281 C740,281 740,281 740,281 Z" stroke="#979797" stroke-linecap="square"></path>
+        <path d="M860,281 L990,281" id="Line-4" stroke="#979797" stroke-linecap="square" sketch:type="MSShapeGroup"></path>
+        <path id="Line-4-decoration-1" d="M990,281 C986.22,279.95 982.98,279.05 979.2,278 C979.2,280.1 979.2,281.9 979.2,284 C982.98,282.95 986.22,282.05 990,281 C990,281 990,281 990,281 Z" stroke="#979797" stroke-linecap="square"></path>
+        <path d="M1015,331 L970,391" id="Line-8" stroke="#979797" stroke-linecap="square" sketch:type="MSShapeGroup"></path>
+        <path id="Line-8-decoration-1" d="M970,391 C973.108,388.606 975.772,386.554 978.88,384.16 C977.2,382.9 975.76,381.82 974.08,380.56 C972.652,384.214 971.428,387.346 970,391 C970,391 970,391 970,391 Z" stroke="#979797" stroke-linecap="square"></path>
+        <path d="M880,331 L835,391" id="Line-9" stroke="#979797" stroke-linecap="square" sketch:type="MSShapeGroup" transform="translate(857.500000, 361.000000) scale(-1, 1) translate(-857.500000, -361.000000) "></path>
+        <path id="Line-9-decoration-1" d="M835,391 C838.108,388.606 840.772,386.554 843.88,384.16 C842.2,382.9 840.76,381.82 839.08,380.56 C837.652,384.214 836.428,387.346 835,391 C835,391 835,391 835,391 Z" stroke="#979797" stroke-linecap="square"></path>
+        <path d="M1040,226 L1040,133.498649" id="Line-6" stroke="#979797" stroke-linecap="square" sketch:type="MSShapeGroup"></path>
+        <path id="Line-6-decoration-1" d="M1040,134 C1038.95,137.78 1038.05,141.02 1037,144.8 C1039.1,144.8 1040.9,144.8 1043,144.8 C1041.95,141.02 1041.05,137.78 1040,134 C1040,134 1040,134 1040,134 Z" stroke="#979797" stroke-linecap="square"></path>
+        <path d="M1059.75,133.459131 L1059.75,226" id="Line-6" stroke="#4990E2" stroke-width="1.5" stroke-linecap="square" sketch:type="MSShapeGroup"></path>
+        <path id="Line-6-decoration-1" d="M1059.75,225.459131 C1060.8,221.679131 1061.7,218.439131 1062.75,214.659131 C1060.65,214.659131 1058.85,214.659131 1056.75,214.659131 C1057.8,218.439131 1058.7,221.679131 1059.75,225.459131 C1059.75,225.459131 1059.75,225.459131 1059.75,225.459131 Z" stroke="#4990E2" stroke-width="1.5" stroke-linecap="square"></path>
+        <path d="M1257,326 L1212.5,390.5" id="Line-14" stroke="#979797" stroke-linecap="square" sketch:type="MSShapeGroup"></path>
+        <path id="Line-14-decoration-1" d="M1212.7052,390.202575 C1215.71606,387.687496 1218.2968,385.531714 1221.30766,383.016634 C1219.57913,381.824082 1218.09753,380.801894 1216.369,379.609342 C1215.08667,383.316974 1213.98753,386.494944 1212.7052,390.202575 C1212.7052,390.202575 1212.7052,390.202575 1212.7052,390.202575 Z" stroke="#979797" stroke-linecap="square"></path>
+        <path d="M1167.75,488.5 L1167.75,524.5" id="Line-15" stroke="#4990E2" stroke-width="1.5" stroke-linecap="square" sketch:type="MSShapeGroup"></path>
+        <path id="Line-15-decoration-1" d="M1167.75,524.5 C1168.8,520.72 1169.7,517.48 1170.75,513.7 C1168.65,513.7 1166.85,513.7 1164.75,513.7 C1165.8,517.48 1166.7,520.72 1167.75,524.5 C1167.75,524.5 1167.75,524.5 1167.75,524.5 Z" stroke="#4990E2" stroke-width="1.5" stroke-linecap="square"></path>
+        <path d="M925.5,486 L925.5,526" id="Line-6" stroke="#4990E2" stroke-width="1.5" stroke-linecap="square" sketch:type="MSShapeGroup"></path>
+        <path id="Line-6-decoration-1" d="M925.5,526 C926.55,522.22 927.45,518.98 928.5,515.2 C926.4,515.2 924.6,515.2 922.5,515.2 C923.55,518.98 924.45,522.22 925.5,526 C925.5,526 925.5,526 925.5,526 Z" stroke="#4990E2" stroke-width="1.5" stroke-linecap="square"></path>
+        <path d="M1007.48782,241.637402 C1007.48782,241.637402 853.336182,138.886342 580.744476,138.886342 C308.152771,138.886342 91.6689454,241.637402 91.6689454,241.637402" id="Line" stroke="#979797" stroke-linecap="square" sketch:type="MSShapeGroup"></path>
+        <path id="Line-decoration-1" d="M91.7436898,241.602086 C95.6131718,240.980289 98.9283434,240.483201 102.795423,239.931795 C101.957311,238.006291 101.238929,236.355858 100.400817,234.430354 C97.347937,236.917767 94.7484934,239.066567 91.7436898,241.602086 C91.7436898,241.602086 91.7436898,241.602086 91.7436898,241.602086 Z" stroke="#979797" stroke-linecap="square"></path>
+        <path d="M766.044281,230.999998 C766.044281,230.999998 719.661835,175.703928 543.244995,175.703928 C366.828156,175.703928 101.770905,252.406628 101.770905,252.406628" id="Line-7" stroke="#979797" stroke-linecap="square" sketch:type="MSShapeGroup"></path>
+        <path id="Line-7-decoration-1" d="M102.134431,252.301936 C106.048475,252.280905 109.408506,252.272501 113.32428,252.273306 C112.763923,250.249448 112.283617,248.514713 111.72326,246.490855 C108.358938,248.516385 105.478326,250.259784 102.134431,252.301936 C102.134431,252.301936 102.134431,252.301936 102.134431,252.301936 Z" stroke="#979797" stroke-linecap="square"></path>
+        <path d="M820.413983,721.402027 L720.687047,821.128965" id="Line" stroke="#979797" stroke-linecap="square" sketch:type="MSShapeGroup"></path>
+        <path id="Line-decoration-1" d="M720.711927,821.104084 C724.127253,819.173682 727.054675,817.519052 730.470001,815.588651 C728.985077,814.103726 727.712285,812.830934 726.22736,811.34601 C724.296959,814.761336 722.642329,817.688758 720.711927,821.104084 C720.711927,821.104084 720.711927,821.104084 720.711927,821.104084 Z" stroke="#979797" stroke-linecap="square"></path>
+        <path d="M631.5,811.5 L83.5,332.5" id="Line" stroke="#979797" stroke-linecap="square" sketch:type="MSShapeGroup"></path>
+        <path id="Line-decoration-1" d="M84.129313,333.050075 C86.2843182,336.328314 88.1314655,339.138233 90.2864707,342.416473 C91.6685131,340.835347 92.8531209,339.480096 94.2351633,337.89897 C90.6981157,336.201857 87.6663606,334.747188 84.129313,333.050075 C84.129313,333.050075 84.129313,333.050075 84.129313,333.050075 Z" stroke="#979797" stroke-linecap="square"></path>
         <text id="Push" sketch:type="MSTextLayer" font-family="Helvetica" font-size="14" font-weight="normal" fill="#000000">
-            <tspan x="160" y="274">Push</tspan>
+            <tspan x="150" y="274">Push</tspan>
+        </text>
+        <path d="M361,282 L491,282" id="Line-17" stroke="#979797" stroke-linecap="square" sketch:type="MSShapeGroup"></path>
+        <path id="Line-17-decoration-1" d="M491,282 C487.22,280.95 483.98,280.05 480.2,279 C480.2,281.1 480.2,282.9 480.2,285 C483.98,283.95 487.22,283.05 491,282 C491,282 491,282 491,282 Z" stroke="#979797" stroke-linecap="square"></path>
+        <text id="Timer-Motor-Down" sketch:type="MSTextLayer" font-family="Helvetica" font-size="14" font-weight="normal" fill="#000000">
+            <tspan x="365" y="275">Timer Motor Down</tspan>
         </text>
         <text id="Position-Sensor" sketch:type="MSTextLayer" font-family="Helvetica" font-size="14" font-weight="normal" fill="#000000">
-            <tspan x="636" y="274">Position Sensor</tspan>
+            <tspan x="876" y="274">Position Sensor</tspan>
         </text>
         <text id="Color-Detector" sketch:type="MSTextLayer" font-family="Helvetica" font-size="14" font-weight="normal" fill="#000000">
-            <tspan x="887" y="276">Color Detector</tspan>
+            <tspan x="1127" y="276">Color Detector</tspan>
         </text>
         <text id="Color-Detector-2" sketch:type="MSTextLayer" font-family="Helvetica" font-size="14" font-weight="normal" fill="#000000">
-            <tspan x="750" y="574">Color Detector</tspan>
+            <tspan x="990" y="574">Color Detector</tspan>
         </text>
         <text id="Push-Button" sketch:type="MSTextLayer" font-family="Helvetica" font-size="14" font-weight="normal" fill="#000000">
-            <tspan x="1141" y="274">Push Button</tspan>
+            <tspan x="1381" y="274">Push Button</tspan>
         </text>
-        <text id="Timer-Motor-Down-2" sketch:type="MSTextLayer" transform="translate(879.448198, 668.021891) rotate(24.000000) translate(-879.448198, -668.021891) " font-family="Helvetica" font-size="14" font-weight="normal" fill="#000000">
-            <tspan x="821.948198" y="673.521891">Timer Motor Down</tspan>
+        <text id="Timer-Motor-Down-2" sketch:type="MSTextLayer" transform="translate(1119.448198, 668.021891) rotate(24.000000) translate(-1119.448198, -668.021891) " font-family="Helvetica" font-size="14" font-weight="normal" fill="#000000">
+            <tspan x="1061.9482" y="673.521891">Timer Motor Down</tspan>
         </text>
-        <text id="ABORT" sketch:type="MSTextLayer" transform="translate(517.000000, 769.500000) rotate(-45.000000) translate(-517.000000, -769.500000) " font-family="Helvetica" font-size="14" font-weight="normal" fill="#000000">
-            <tspan x="493" y="775">ABORT</tspan>
+        <text id="ABORT" sketch:type="MSTextLayer" transform="translate(757.000000, 769.500000) rotate(-45.000000) translate(-757.000000, -769.500000) " font-family="Helvetica" font-size="14" font-weight="normal" fill="#000000">
+            <tspan x="733" y="775">ABORT</tspan>
         </text>
-        <text id="Timer-Sort-2" sketch:type="MSTextLayer" transform="translate(1113.371707, 651.213806) rotate(-53.000000) translate(-1113.371707, -651.213806) " font-family="Helvetica" font-size="14" font-weight="normal" fill="#000000">
-            <tspan x="1080.87171" y="656.713806">Timer Sort</tspan>
+        <text id="Timer-Sort-2" sketch:type="MSTextLayer" transform="translate(1353.371707, 651.213806) rotate(-53.000000) translate(-1353.371707, -651.213806) " font-family="Helvetica" font-size="14" font-weight="normal" fill="#000000">
+            <tspan x="1320.87171" y="656.713806">Timer Sort</tspan>
         </text>
         <text id="Push-Button-2" sketch:type="MSTextLayer" font-family="Helvetica" font-size="14" font-weight="normal" fill="#000000">
-            <tspan x="1007" y="574">Push Button</tspan>
+            <tspan x="1247" y="574">Push Button</tspan>
         </text>
-        <text id="START/STOP" sketch:type="MSTextLayer" transform="translate(627.074585, 352.315832) rotate(53.000000) translate(-627.074585, -352.315832) " font-family="Helvetica" font-size="14" font-weight="normal" fill="#000000">
-            <tspan x="583.574585" y="357.815832">START/STOP</tspan>
+        <text id="START/STOP" sketch:type="MSTextLayer" transform="translate(867.074585, 352.315832) rotate(53.000000) translate(-867.074585, -352.315832) " font-family="Helvetica" font-size="14" font-weight="normal" fill="#000000">
+            <tspan x="823.574585" y="357.815832">START/STOP</tspan>
         </text>
-        <text id="START/STOP-2" sketch:type="MSTextLayer" transform="translate(745.072909, 351.490833) rotate(-52.000000) translate(-745.072909, -351.490833) " font-family="Helvetica" font-size="14" font-weight="normal" fill="#000000">
-            <tspan x="701.572909" y="356.990833">START/STOP</tspan>
+        <text id="START/STOP-2" sketch:type="MSTextLayer" transform="translate(985.072909, 351.490833) rotate(-52.000000) translate(-985.072909, -351.490833) " font-family="Helvetica" font-size="14" font-weight="normal" fill="#000000">
+            <tspan x="941.572909" y="356.990833">START/STOP</tspan>
         </text>
-        <text id="Position-Sensor" sketch:type="MSTextLayer" transform="translate(785.915927, 178.457945) rotate(-90.000000) translate(-785.915927, -178.457945) " font-family="Helvetica" font-size="14" font-weight="normal" fill="#000000">
-            <tspan x="736.415927" y="183.957945">Position Sensor</tspan>
+        <text id="Position-Sensor" sketch:type="MSTextLayer" transform="translate(1025.915927, 178.457945) rotate(-90.000000) translate(-1025.915927, -178.457945) " font-family="Helvetica" font-size="14" font-weight="normal" fill="#000000">
+            <tspan x="976.415927" y="183.957945">Position Sensor</tspan>
         </text>
-        <text id="START/STOP" sketch:type="MSTextLayer" transform="translate(294.736917, 638.647822) rotate(-300.000000) translate(-294.736917, -638.647822) " font-family="Helvetica" font-size="14" font-weight="normal" fill="#000000">
-            <tspan x="251.236917" y="644.147822">START/STOP</tspan>
-        </text>
-        <text id="Timer-Interrupt" sketch:type="MSTextLayer" font-family="Helvetica" font-size="14" font-weight="normal" fill="#000000">
-            <tspan x="370" y="130">Timer Interrupt</tspan>
+        <text id="START/STOP" sketch:type="MSTextLayer" transform="translate(434.554141, 621.047697) rotate(-316.000000) translate(-434.554141, -621.047697) " font-family="Helvetica" font-size="14" font-weight="normal" fill="#000000">
+            <tspan x="391.054141" y="626.547697">START/STOP</tspan>
         </text>
         <text id="Timer-Interrupt" sketch:type="MSTextLayer" font-family="Helvetica" font-size="14" font-weight="normal" fill="#000000">
-            <tspan x="267" y="199">Timer Interrupt</tspan>
+            <tspan x="480" y="130">Timer Interrupt</tspan>
         </text>
-        <path d="M687,637.5 L687,914.491787 C687,922.780594 680.285458,929.5 672.005501,929.5 L82.9944992,929.5 C74.713266,929.5 68,922.782655 68,914.492702 L68,335.909098" id="Line" stroke="#979797" stroke-linecap="square" sketch:type="MSShapeGroup"></path>
-        <path id="Line-decoration-1" d="M68,336.629647 C66.95,340.409647 66.05,343.649647 65,347.429647 C67.1,347.429647 68.9,347.429647 71,347.429647 C69.95,343.649647 69.05,340.409647 68,336.629647 C68,336.629647 68,336.629647 68,336.629647 Z" stroke="#979797" stroke-linecap="square"></path>
-        <path d="M932,644.36244 L932,928.999886 C932,937.28422 925.289726,944 916.997326,944 L68.002674,944 C59.716926,944 53,937.274785 53,929.006108 L53,335.902375" id="Line-16" stroke="#979797" stroke-linecap="square" sketch:type="MSShapeGroup"></path>
-        <path id="Line-16-decoration-1" d="M53,336.767021 C51.95,340.547021 51.05,343.787021 50,347.567021 C52.1,347.567021 53.9,347.567021 56,347.567021 C54.95,343.787021 54.05,340.547021 53,336.767021 C53,336.767021 53,336.767021 53,336.767021 Z" stroke="#979797" stroke-linecap="square"></path>
-        <path d="M1055,792.649017 L1055,946.900845 C1055,955.185961 1048.28098,961.902375 1039.99389,961.902375 L52.0061118,961.902375 C43.7184651,961.902375 37,955.185762 37,946.907868 L37,331.722585" id="Line-18" stroke="#979797" stroke-linecap="square" sketch:type="MSShapeGroup"></path>
-        <path id="Line-18-decoration-1" d="M37,332.283648 C35.95,336.063648 35.05,339.303648 34,343.083648 C36.1,343.083648 37.9,343.083648 40,343.083648 C38.95,339.303648 38.05,336.063648 37,332.283648 C37,332.283648 37,332.283648 37,332.283648 Z" stroke="#979797" stroke-linecap="square"></path>
-        <path d="M1181.40588,642.613922 L1181.40588,964.002461 C1181.40588,972.285373 1174.69371,979 1166.41555,979 L37.9903292,979 C29.711399,979 23,972.281854 23,963.991013 L23,323.162102" id="Line-19" stroke="#979797" stroke-linecap="square" sketch:type="MSShapeGroup"></path>
-        <path id="Line-19-decoration-1" d="M23,323.925425 C21.95,327.705425 21.05,330.945425 20,334.725425 C22.1,334.725425 23.9,334.725425 26,334.725425 C24.95,330.945425 24.05,327.705425 23,323.925425 C23,323.925425 23,323.925425 23,323.925425 Z" stroke="#979797" stroke-linecap="square"></path>
+        <text id="Timer-Interrupt" sketch:type="MSTextLayer" font-family="Helvetica" font-size="14" font-weight="normal" fill="#000000">
+            <tspan x="480" y="167">Timer Interrupt</tspan>
+        </text>
+        <path d="M821.378604,637.5 L821.378604,914.491787 C821.378604,922.780594 814.65463,929.5 806.372324,929.5 L85.1460777,929.5 C76.8583381,929.5 70.1397977,922.782655 70.1397977,914.492702 L70.1397977,335.909098" id="Line" stroke="#979797" stroke-linecap="square" sketch:type="MSShapeGroup"></path>
+        <path id="Line-decoration-1" d="M70.1397977,336.862496 C69.0897977,340.642496 68.1897977,343.882496 67.1397977,347.662496 C69.2397977,347.662496 71.0397977,347.662496 73.1397977,347.662496 C72.0897977,343.882496 71.1897977,340.642496 70.1397977,336.862496 C70.1397977,336.862496 70.1397977,336.862496 70.1397977,336.862496 Z" stroke="#979797" stroke-linecap="square"></path>
+        <path d="M1118.71868,644.36244 L1118.71868,928.999886 C1118.71868,937.28422 1112.01075,944 1103.71482,944 L66.9391684,944 C58.6527625,944 51.9353032,937.274785 51.9353032,929.006108 L51.9353032,335.902375" id="Line-16" stroke="#979797" stroke-linecap="square" sketch:type="MSShapeGroup"></path>
+        <path id="Line-16-decoration-1" d="M51.9353032,336.550513 C50.8853032,340.330513 49.9853032,343.570513 48.9353032,347.350513 C51.0353032,347.350513 52.8353032,347.350513 54.9353032,347.350513 C53.8853032,343.570513 52.9853032,340.330513 51.9353032,336.550513 C51.9353032,336.550513 51.9353032,336.550513 51.9353032,336.550513 Z" stroke="#979797" stroke-linecap="square"></path>
+        <path d="M1267.99554,792.649017 L1267.99554,946.900845 C1267.99554,955.185961 1261.2737,961.902375 1252.98582,961.902375 L47.5268878,961.902375 C39.2372527,961.902375 32.5171758,955.185762 32.5171758,946.907868 L32.5171758,331.722585" id="Line-18" stroke="#979797" stroke-linecap="square" sketch:type="MSShapeGroup"></path>
+        <path id="Line-18-decoration-1" d="M32.5171758,331.760202 C31.4671758,335.540202 30.5671758,338.780202 29.5171758,342.560202 C31.6171758,342.560202 33.4171758,342.560202 35.5171758,342.560202 C34.4671758,338.780202 33.5671758,335.540202 32.5171758,331.760202 C32.5171758,331.760202 32.5171758,331.760202 32.5171758,331.760202 Z" stroke="#979797" stroke-linecap="square"></path>
+        <path d="M1421.40588,642.613922 L1421.40588,964.002461 C1421.40588,972.285373 1414.68573,979 1406.40695,979 L30.5252443,979 C22.2415639,979 15.5263142,972.281854 15.5263142,963.991013 L15.5263142,323.162102" id="Line-19" stroke="#979797" stroke-linecap="square" sketch:type="MSShapeGroup"></path>
+        <path id="Line-19-decoration-1" d="M15.5263142,323.394522 C14.4763142,327.174522 13.5763142,330.414522 12.5263142,334.194522 C14.6263142,334.194522 16.4263142,334.194522 18.5263142,334.194522 C17.4763142,330.414522 16.5763142,327.174522 15.5263142,323.394522 C15.5263142,323.394522 15.5263142,323.394522 15.5263142,323.394522 Z" stroke="#979797" stroke-linecap="square"></path>
         <text id="TImer-Interrupt" sketch:type="MSTextLayer" font-family="Helvetica" font-size="14" font-weight="normal" fill="#000000">
-            <tspan x="693" y="875">TImer Interrupt</tspan>
+            <tspan x="933" y="875">TImer Interrupt</tspan>
         </text>
         <text id="TImer-Interrupt-2" sketch:type="MSTextLayer" font-family="Helvetica" font-size="14" font-weight="normal" fill="#000000">
-            <tspan x="938.948198" y="875">TImer Interrupt</tspan>
+            <tspan x="1178.9482" y="875">TImer Interrupt</tspan>
         </text>
         <text id="TImer-Interrupt-3" sketch:type="MSTextLayer" font-family="Helvetica" font-size="14" font-weight="normal" fill="#000000">
-            <tspan x="1068.87171" y="875">TImer Interrupt</tspan>
+            <tspan x="1308.87171" y="875">TImer Interrupt</tspan>
         </text>
         <text id="TImer-Interrupt-4" sketch:type="MSTextLayer" font-family="Helvetica" font-size="14" font-weight="normal" fill="#000000">
-            <tspan x="1195.79522" y="875">TImer Interrupt</tspan>
+            <tspan x="1435.79522" y="875">TImer Interrupt</tspan>
         </text>
     </g>
 </svg>
