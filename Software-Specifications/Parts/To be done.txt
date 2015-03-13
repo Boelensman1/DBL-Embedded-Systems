@@ -1,6 +1,0 @@
-Table of inputs/outputs
-State-transition diagram/description
-Better definitions timers
-Sketch too high resolution
-UPPAAL
-Validation and Testing
