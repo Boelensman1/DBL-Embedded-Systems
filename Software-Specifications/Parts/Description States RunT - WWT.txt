@@ -1,0 +1,8 @@
+/Running_Timer
+State that's there to check if there aren't any more discs being there to be processed. 
+
+/Motor_Up_Timer
+Sets timer to let the conveyer belt have a full cycle. 
+
+/White_Wait_Timer
+Keeps track of the time the sorter arm is up when a white disc enters and goes to Motor_Up_Stop to lower the arm again so black discs will be seperated. 
