@@ -8,7 +8,7 @@ We chose to have the lens lamp for position sensor constantly on, because it's e
 The conveyor belt is constantly running, because the feeder is constantly pushing discs onto the conveyor belt. This goes hand in hand with our second priority, which is speed.
 
 /Lens lamp colour
-Like with the position sensor, it's easier to code that it is continuously on. The light being off if it can would again be a minimal improvement, because the gaps between discs being pushed on the conveyer belt is the same as with the black white detector. 
+Like with the position sensor, it's easier to code that it is continuously on. The light being off if it's possible, would again be a minimal improvement, because the gaps between discs being pushed on the conveyer belt is the same as with the black white detector. 
 
 /Push button
 We use the push button, because of priority 1, correctness, to know if the sorter arm is at its highest point. We need to know this, because we need to know when to stop the motor making the sorter arm going up. 
