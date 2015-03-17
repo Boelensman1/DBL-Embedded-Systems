@@ -25,8 +25,6 @@ class SoftwareDesign {
     if($push==true){
         $hbridge0=false;
         $hbridge1=true;
-        $timerStart=$timemotordown;
-        
         $state = 1;
         display($state,"leds");
         calibrateSorter();
@@ -35,12 +33,31 @@ class SoftwareDesign {
     initial();
   }
   void calibrateSorter(){
-      $state=1;
+      sleep($timemotordown*1000)
+      $hbridge1=false;
       
-
+      $state=2;        
+      display($state,"leds");
+      resting();
+  }
+  
+  void resting(){
+      $startStop=buttonPressed(6);
+      if($startStop==true){
+          $lensLampPosition=true;
+          $lensLampSorter=true;
+          $conveyorBelt=9;
+          $feederEngine=5;
+          $timerStart=2+belt;
+          
+          $state=3;
+          display($state,"leds");
+          
+      }
+      resting();
   }
   
   public static void main( String args[] ) {
-    new SoftwareDesign().initialise();
+    new SoftwareDesign().initial();
   }
 }
