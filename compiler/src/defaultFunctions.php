@@ -40,7 +40,6 @@ _wait:  CMP   R5  [R4+".TIMER."]       ;  Compare the timer to 0
 $this->_defaultFunctions['sleep'] = explode("\n", $this->_defaultFunctions['sleep']);
 
 $this->_defaultFunctions['pow'] = "
-;pow
 _pow:   	CMP R4 0
             BEQ _pow1
             CMP R4 1
@@ -63,7 +62,6 @@ _powR:      RTS";
 $this->_defaultFunctions['pow'] = explode("\n", $this->_defaultFunctions['pow']);
 
 $this->_defaultFunctions['pressed'] = "
-;pressed
 _pressed: 	PUSH R4
             LOAD R4 R3
             LOAD R5 2

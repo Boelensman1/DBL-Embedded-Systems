@@ -156,6 +156,16 @@ class Compiler
      * @var    bool
      * @access private
      */
+    private $_conditionals = [];
+
+    /**
+     * The conditionals
+     *
+     * A list of all the conditionals, used to make the comments
+     *
+     * @var    stdClass
+     * @access private
+     */
     private $_conditionalJustClosed = false;
 
     /**
@@ -381,8 +391,7 @@ class Compiler
             if (count($this->_inConditional) === 0) {
                 $this->error('else without an if');
             }
-            $this->_inConditional[count($this->_inConditional) - 1]['type']
-                = 'else';
+            $this->_inConditional[count($this->_inConditional) - 1]['type'] = 'else';
 
             return [3];
         }
@@ -604,8 +613,7 @@ class Compiler
             }
 
             case 'installCountdown': {
-                $countdown = ";Install timer
-                      LOAD  R0  " . trim(trim($arguments[0]), '\'"') . "
+                $countdown = "LOAD  R0  " . trim(trim($arguments[0]), '\'"') . "
                        ADD  R0  R5
                       LOAD  R1  16
                       STOR  R0  [R1]
@@ -928,9 +936,7 @@ class Compiler
      */
     private function getNextConditional($type)
     {
-        $i = @end(
-            $this->_inConditional
-        )['id'];//the last key as starting position
+        $i = @end($this->_inConditional)['id'];//the last key as starting position
         if (!is_int($i)) {
             $i = -1;
         }
@@ -948,8 +954,9 @@ class Compiler
 
                 $this->_functionsCompiled['conditional' . $i] = new stdClass();
                 $this->_functionsCompiled['conditional' . $i]->code = [];
-                $this->_functionsCompiled['conditional' . $i]->returns
-                    = [];
+                $this->_functionsCompiled['conditional' . $i]->returns = [];
+                $this->_functionsCompiled['conditional' . $i]->isConditional = true;
+                $this->_functionsCompiled['conditional' . $i]->statement=$this->_line;
 
                 $this->_lineNumber['conditional' . $i] = 0;
 
@@ -1080,6 +1087,8 @@ class Compiler
         $this->_functionsCompiled[$functionName] = new stdClass();
         $this->_functionsCompiled[$functionName]->code = [];
         $this->_functionsCompiled[$functionName]->returns = [];
+        $this->_functionsCompiled[$functionName]->isConditional = false;
+
         $this->_inConditional = [];
 
         $this->_lineNumber[$functionName] = 0;
@@ -1090,14 +1099,14 @@ class Compiler
                 case 0: //everything went OK, nothing special
                 {
                     $i = count($this->_inConditional);
-                    $this->insertCode($functionName, $lineTMP[1], $i);
+                    $this->insertCode($functionName, $lineTMP[1], $i,$line);
                     break;
                 }
                 case
                 1://if statement
                 {
                     $i = count($this->_inConditional) - 1; //to insert in the parent
-                    $this->insertCode($functionName, $lineTMP[1], $i);
+                    $this->insertCode($functionName, $lineTMP[1], $i,$line);
                     $this->insertCode($functionName, $lineTMP[2], $i);
                     $this->_functionName = end($this->_inConditional)['name'];
                     if ($this->debug) {
@@ -1109,7 +1118,7 @@ class Compiler
                 case 2: {
                     $i = count($this->_inConditional);
                     //return of an if/else statement
-                    $this->insertCode($functionName, $lineTMP[1], $i);
+                    $this->insertCode($functionName, $lineTMP[1], $i,$line);
                     array_pop($this->_inConditional);//remove the last one
                     break;
                 }
@@ -1127,10 +1136,17 @@ class Compiler
                     break;
                 }
                 case 4: {//multi-line response
-                    foreach ($lineTMP as $subLine) {
+                    foreach ($lineTMP as $index=>$subLine) {
                         $i = count($this->_inConditional);
                         if (is_string($subLine)) {
-                            $this->insertCode($functionName, $subLine, $i);
+                            if ($index===1)
+                            {
+                                $this->insertCode($functionName, $subLine, $i,$line);
+                            }
+                            else
+                            {
+                                $this->insertCode($functionName, $subLine, $i);
+                            }
                             if ($this->debug) {
                                 echo $subLine . "\n";
                             }
@@ -1188,8 +1204,13 @@ class Compiler
      * @param string $toInsert The _line to insert
      * @param int $startLevel How many if/else levels up/down to insert
      */
-    private function insertCode($functionName, $toInsert, $startLevel)
+    private function insertCode($functionName, $toInsert, $startLevel,$comment='')
     {
+        $comment=trim($comment);
+        if (!empty($comment))
+        {
+            $toInsert.=';'.$comment;
+        }
         $i = $startLevel - 1;
         while ($i > -1 && $this->_inConditional[$i]['type'] === 'else') {
             $i--;
@@ -1243,17 +1264,28 @@ class Compiler
 
         //okay we have the outside code now, lets do the _functions
         $longestFunctionLength = 16;//beatify needs this.
+        $resultFunc=[];
         foreach ($this->_functionsCompiled as $funcName => $function) {
-            $result = array_merge(
-                $result, $this->makeFunc($funcName, $function)
-            );
+            $resultFunc=$this->makeFunc($funcName, $function);
             if (strlen($funcName) > $longestFunctionLength) {
                 $longestFunctionLength = strlen($funcName);
             }
+
+            if ($function->isConditional===true)
+            {
+                array_unshift($resultFunc,';'.$function->statement);
+                //$resultFunc[]=';}';
+            }
+
+            $resultFunc[] = "";//white line for readability
+            $result = array_merge($result, $resultFunc);
         }
         $result[] = '@END';
 
-        //we now have all code. Lets try an beatify it a bit.
+        //we now have all code. Lets try and optimize.
+        $result = $this->optimize($result);
+
+        //we now have all code. Lets try and beatify it a bit.
         $result = $this->beautify($result, $longestFunctionLength);
 
         return implode("\n", $result);
@@ -1288,11 +1320,40 @@ class Compiler
             $result[$return['_line']]
                 = $return['name'] . ':' . $result[$return['_line']];
         }
-        $result[] = "";//white line for readability
         return $result;
     }
 
-    /** Makes assembly code more beautiful.
+    /** Optimizes the assembly code
+     *
+     * @param $result array The assembly code to optimize, split per rule
+     *
+     * @return string The optimized code.
+     */
+    public function optimize($result)
+    {
+        $branchPrev = false;
+        $return = [];
+        foreach ($result as $line) {
+            //check if this is only an BRA
+            if( preg_match("/^BRA.*/", trim($line)))
+            {
+                if ($branchPrev!==true)
+                {
+                    $return[] = $line;
+                    $branchPrev=true;
+                }
+            }
+            else
+            {
+                $branchPrev=false;
+                $return[] = $line;
+            }
+        }
+
+        return $return;
+    }
+
+    /** Does some simple optimizations
      *
      * @param $result                array The assembly code to beautify, split per rule
      * @param $longestFunctionLength int   The length of the name of the longest function
@@ -1302,8 +1363,9 @@ class Compiler
     public function beautify($result, $longestFunctionLength)
     {
         $codeStarted = false;
-        $return = [];
-        $spaces = $longestFunctionLength + 4;
+        $returnTmp=[];
+        $lineLength = $longestFunctionLength + 4;
+        $longestLineLength=0;
         foreach ($result as $line) {
             if ($codeStarted === false) {
                 $line = str_replace('  ', ' ', trim($line)); //replace multiple spaces and trim the line.
@@ -1314,12 +1376,42 @@ class Compiler
                 $line = str_replace('  ', ' ', trim($line)); //replace multiple spaces and trim the line.
                 if (!preg_match('/^.*:/', $line)) {
                     //insert spaces at the start if this is not the start of a instruction sequence
-                    $line = str_repeat(" ", $spaces) . $line;
+                    $line = str_repeat(" ", $lineLength) . $line;
                 } else {
                     //insert spaces in between.
                     preg_match("/^(.*:)(\\s*)(.*)$/", $line, $matches);
-                    $line = $matches[1] . str_repeat(" ", $spaces - strlen($matches[1])) . $matches[3];
+                    $spaces=str_repeat(" ", $lineLength - strlen($matches[1]));
+                    $line = $matches[1] . $spaces . $matches[3];
                 }
+            }
+            $lineNoComment=$line;
+            if (preg_match("/(.*);/", $line, $matches))//check for comments
+            {
+                $lineNoComment=$matches[1];
+            }
+            if (strlen($lineNoComment)>$longestLineLength) {
+                $longestLineLength = strlen($lineNoComment);
+            }
+            $returnTmp[] = $line;
+        }
+
+
+        $return = [];
+        $lineLength = $longestLineLength + 4;
+        foreach ($returnTmp as $line) {
+            //make comments nicer
+            if (substr(trim($line),0,1)!==';')//if the line is not a comment
+            {
+                if (preg_match("/(.*)(;.*)/", $line, $matches))//check for comments
+                {
+                    $spaces=str_repeat(" ", $lineLength - strlen($matches[1]));
+                    $line=$matches[1] . $spaces . $matches[2];
+                }
+            }
+            else
+            {
+                $spaces=str_repeat(" ", $lineLength);
+                $line=$spaces.trim($line);
             }
             $return[] = $line;
         }
