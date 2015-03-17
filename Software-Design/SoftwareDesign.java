@@ -6,18 +6,38 @@
  */
 
 class SoftwareDesign {
-  String state; 
-  Boolean lensLampPosition;
+  int $state; 
   
-  void initialise() {
-    state = "Initial State";
-  }
+  //outputs 
+  Boolean $lensLampPosition,$lensLampSorter,$hbridge1,$hbridge0,$ledStateIndicator;
+  int $conveyorBelt,$feederEngine,$display,$timerStart; 
   
-  void pressStartStop() {
-    if(state.equals("Resting State")) {
-      state = "Running State";
-      lensLampPosition = true;
+  //inputs
+  Boolean $startStop,$abort,$push,$position,$colour;
+  int $timer;
+  
+  //constants
+  int $timemotordown;
+  
+  void initial() {
+   
+    $push=buttonPressed(5);
+    if($push==true){
+        $hbridge0=false;
+        $hbridge1=true;
+        $timerStart=$timemotordown;
+        
+        $state = 1;
+        display($state,"leds");
+        calibrateSorter();
+       
     }
+    initial();
+  }
+  void calibrateSorter(){
+      $state=1;
+      
+
   }
   
   public static void main( String args[] ) {
