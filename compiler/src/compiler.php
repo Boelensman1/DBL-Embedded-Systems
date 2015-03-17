@@ -30,7 +30,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  *
- * @package    Wigger Boelens <wigger.boelens@gmail.com>
+ * @author    Wigger Boelens <wigger.boelens@gmail.com>
  * @copyright  2015 Wigger Boelens
  * @license    http://www.opensource.org/licenses/mit-license.html  MIT License
  * @version    v0.1
@@ -555,8 +555,7 @@ class Compiler
                 switch (trim(trim($arguments[1]), '"\'')) {
                     case 'display': {
                         $this->_useDisplay = true;
-                        $counter
-                            = str_repeat('0', 6 - $arguments[2]) . '1' . str_repeat(
+                        $counter= str_repeat('0', 6 - $arguments[2]) . '1' . str_repeat(
                                 '0', $arguments[2] - 1
                             );//000001
                         return [
