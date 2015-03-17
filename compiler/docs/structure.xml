@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <project title="API Documentation" version="v2.8.1">
   <partials/>
-  <file path="functions.php" generated-path="functions.html" hash="5dd6106b6eec1b3d6710399dd2432fee" package="Default">
+  <file path="functions.php" generated-path="functions.html" hash="75c3d80d619109ee7dae0440f47279f0" package="Default">
     <docblock line="0">
       <description>This file contains the functions of the compiler.</description>
       <long-description>Include this in your code for autocompletion.
@@ -73,8 +73,8 @@ THE SOFTWARE.</long-description>
         <tag name="param" line="62" description="&lt;p&gt;The location where the value is stored&lt;/p&gt;" type="\variable" variable="$location">
           <type>\variable</type>
         </tag>
-        <tag name="return" line="62" description="" type="void">
-          <type>void</type>
+        <tag name="return" line="62" description="The value that is stored at the location" type="mixed">
+          <type>mixed</type>
         </tag>
       </docblock>
       <argument line="0" by_reference="false">
@@ -372,6 +372,28 @@ This will put the value of $data into the data segment "data" at position 1</lon
         <type>integer</type>
       </argument>
     </function>
+    <function namespace="" line="243" package="Default">
+      <name>sleep</name>
+      <full_name>\sleep()</full_name>
+      <docblock line="243">
+        <description>Pause the program</description>
+        <long-description>Example:
+sleep(10)
+This will sleep for 10 clockticks</long-description>
+        <tag name="package" line="243" description="Default"/>
+        <tag name="param" line="243" description="&lt;p&gt;How long to sleep&lt;/p&gt;" type="integer" variable="$howLong">
+          <type>integer</type>
+        </tag>
+        <tag name="return" line="243" description="" type="void">
+          <type>void</type>
+        </tag>
+      </docblock>
+      <argument line="0" by_reference="false">
+        <name>$howLong</name>
+        <default></default>
+        <type>integer</type>
+      </argument>
+    </function>
     <parse_markers>
       <error line="49" code="PPC:ERR-50015">Argument $location is missing from the Docblock of _storeRam</error>
       <error line="62" code="PPC:ERR-50015">Argument $location is missing from the Docblock of _getRam</error>
@@ -385,8 +407,9 @@ This will put the value of $data into the data segment "data" at position 1</lon
       <error line="193" code="PPC:ERR-50015">Argument $timer is missing from the Docblock of setTimer</error>
       <error line="210" code="PPC:ERR-50015">Argument $location is missing from the Docblock of _getData</error>
       <error line="227" code="PPC:ERR-50015">Argument $variable is missing from the Docblock of _storeData</error>
+      <error line="243" code="PPC:ERR-50015">Argument $howLong is missing from the Docblock of sleep</error>
     </parse_markers>
-    <source>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</source>
+    <source>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</source>
   </file>
   <package name="Default" full_name="Default"/>
   <package name="global" full_name="global"/>

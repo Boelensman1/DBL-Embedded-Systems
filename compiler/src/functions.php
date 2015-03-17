@@ -42,7 +42,7 @@
  * Example: _storeRam($location,$value)
  *
  * @param variable $location The location to store the value in the ram
- * @param variable $value    The value to store
+ * @param variable $value The value to store
  *
  * @return void
  */
@@ -57,7 +57,7 @@ function _storeRam($location, $value)
  *
  * @param variable $location The location where the value is stored
  *
- * @return void
+ * @return mixed The value that is stored at the location
  */
 function _getRam($location)
 {
@@ -74,9 +74,9 @@ function _getRam($location)
  * display($value, 'display',000100)
  * This will display $value in the middle of the display
  *
- * @param variable $what     what to display
- * @param variable $onWhat   on what to display
- * @param string   $location Where to show the value when using the display,
+ * @param variable $what what to display
+ * @param variable $onWhat on what to display
+ * @param string $location Where to show the value when using the display,
  *                           defaults to the right position
  *
  * @return void
@@ -92,7 +92,7 @@ function display($what, $onWhat, $location = '000001')
  * This will return the mod 2 of $variable
  *
  * @param variable $variable variable to modulo over
- * @param int      $what     modulo what
+ * @param int $what modulo what
  *
  * @return void
  */
@@ -108,7 +108,7 @@ function modulo($variable, $what)
  * This will put the value of the analog into $variable
  *
  * @param variable $writeTo Variable to write the input to
- * @param string   $type    Type of input, possible values are: buttons, analog
+ * @param string $type Type of input, possible values are: buttons, analog
  *
  * @return void
  */
@@ -203,7 +203,7 @@ function setTimer($timer)
  * This will put the value of the data segment "data" at position 1, into $data.
  *
  * @param string $location The location where the variable is stored
- * @param int    $offset   The offset of the location
+ * @param int $offset The offset of the location
  *
  * @return mixed The value of the data segment
  */
@@ -220,10 +220,26 @@ function _getData($location, $offset)
  *
  * @param string $variable The variable to store
  * @param string $location The name of the location where the variable is stored
- * @param int    $offset   The offset of the location
+ * @param int $offset The offset of the location
  *
  * @return void
  */
 function _storeData($variable, $location, $offset)
+{
+}
+
+
+/**
+ * Pause the program
+ *
+ * Example:
+ * sleep(10)
+ * This will sleep for 10 clockticks
+ *
+ * @param int $howLong How long to sleep
+ *
+ * @return void
+ */
+function sleep($howLong)
 {
 }

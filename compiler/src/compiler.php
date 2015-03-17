@@ -91,7 +91,7 @@ class Compiler
      *
      * The variables defined in the data segment.
      *
-     * @var array
+     * @var    array
      * @access private
      */
     private $_data = [];
@@ -101,7 +101,7 @@ class Compiler
      *
      * All functions in the input file.
      *
-     * @var array
+     * @var    array
      * @access private
      */
     private $_functions = [];
@@ -111,7 +111,7 @@ class Compiler
      *
      * The functions in the input file that have been compiled.
      *
-     * @var array
+     * @var    array
      * @access private
      */
     private $_functionsCompiled = [];
@@ -121,7 +121,7 @@ class Compiler
      *
      * The functions that have not yet been compiled.
      *
-     * @var array
+     * @var    array
      * @access private
      */
     private $_functionsToCompile = [];
@@ -131,7 +131,7 @@ class Compiler
      *
      * The variables and the registers that they represent
      *
-     * @var array
+     * @var    array
      * @access private
      */
     private $_variables = [];
@@ -143,7 +143,7 @@ class Compiler
      * $_inConditional[0] is the outermost one,
      * $_inConditional[1] the one inside that one etc.
      *
-     * @var array
+     * @var    array
      * @access private
      */
     private $_inConditional = [];
@@ -153,7 +153,7 @@ class Compiler
      *
      * If a conditional has just been closed.
      *
-     * @var bool
+     * @var    bool
      * @access private
      */
     private $_conditionalJustClosed = false;
@@ -163,7 +163,7 @@ class Compiler
      *
      * For each function keeps track of the line numbers
      *
-     * @var array
+     * @var    array
      * @access private
      */
     private $_lineNumber = [];
@@ -173,7 +173,7 @@ class Compiler
      *
      * The name of the function that we are currently compiling.
      *
-     * @var string
+     * @var    string
      * @access private
      */
     private $_functionName;
@@ -183,7 +183,7 @@ class Compiler
      *
      * The line we are currently compiling.
      *
-     * @var string
+     * @var    string
      * @access private
      */
     private $_line;
@@ -193,7 +193,7 @@ class Compiler
      *
      * Contains the code of the used default functions
      *
-     * @var string
+     * @var    string
      * @access private
      */
     private $_defaultFunctions = [];
@@ -204,7 +204,7 @@ class Compiler
      * Keeps track of whether the default function to display something is used,
      * so we know to insert it when compiling.
      *
-     * @var string
+     * @var    string
      * @access private
      */
     private $_useDisplay = false;
@@ -215,7 +215,7 @@ class Compiler
      * Keeps track of whether the default function to do something to the power of is used,
      * so we know to insert it when compiling.
      *
-     * @var string
+     * @var    string
      * @access private
      */
     private $_usePow = false;
@@ -226,7 +226,7 @@ class Compiler
      * Keeps track of whether the default function to check if a button was pressed is used,
      * so we know to insert it when compiling.
      *
-     * @var string
+     * @var    string
      * @access private
      */
     private $_usePressed = false;
@@ -237,7 +237,7 @@ class Compiler
      * Keeps track of whether the default function to wait is used,
      * so we know to insert it when compiling.
      *
-     * @var string
+     * @var    string
      * @access private
      */
     private $_useSleep = false;
