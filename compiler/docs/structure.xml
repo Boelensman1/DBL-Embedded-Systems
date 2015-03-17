@@ -1,0 +1,395 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project title="API Documentation" version="v2.8.1">
+  <partials/>
+  <file path="functions.php" generated-path="functions.html" hash="5dd6106b6eec1b3d6710399dd2432fee" package="Default">
+    <docblock line="0">
+      <description>This file contains the functions of the compiler.</description>
+      <long-description>Include this in your code for autocompletion.
+
+PHP version 5
+
+LICENSE:
+
+Copyright (c) 2015 Wigger Boelens
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.</long-description>
+      <tag name="package" line="0" description="Default"/>
+      <tag name="author" line="0" description="Wigger Boelens" link="mailto:wigger.boelens@gmail.com"/>
+      <tag name="copyright" line="0" description="2015 Wigger Boelens"/>
+      <tag name="license" line="0" description="MIT License" link="http://www.opensource.org/licenses/mit-license.html"/>
+      <tag name="version" line="0" description="v0.2"/>
+    </docblock>
+    <function namespace="" line="49" package="Default">
+      <name>_storeRam</name>
+      <full_name>\_storeRam()</full_name>
+      <docblock line="49">
+        <description>Store a value in the ram.</description>
+        <long-description>Example: _storeRam($location,$value)</long-description>
+        <tag name="package" line="49" description="Default"/>
+        <tag name="param" line="49" description="&lt;p&gt;The location to store the value in the ram&lt;/p&gt;" type="\variable" variable="$location">
+          <type>\variable</type>
+        </tag>
+        <tag name="param" line="49" description="&lt;p&gt;The value to store&lt;/p&gt;" type="\variable" variable="$value">
+          <type>\variable</type>
+        </tag>
+        <tag name="return" line="49" description="" type="void">
+          <type>void</type>
+        </tag>
+      </docblock>
+      <argument line="0" by_reference="false">
+        <name>$location</name>
+        <default></default>
+        <type>\variable</type>
+      </argument>
+      <argument line="0" by_reference="false">
+        <name>$value</name>
+        <default></default>
+        <type>\variable</type>
+      </argument>
+    </function>
+    <function namespace="" line="62" package="Default">
+      <name>_getRam</name>
+      <full_name>\_getRam()</full_name>
+      <docblock line="62">
+        <description>Get a value from the ram.</description>
+        <long-description>Example: $value=_getRam($location)</long-description>
+        <tag name="package" line="62" description="Default"/>
+        <tag name="param" line="62" description="&lt;p&gt;The location where the value is stored&lt;/p&gt;" type="\variable" variable="$location">
+          <type>\variable</type>
+        </tag>
+        <tag name="return" line="62" description="" type="void">
+          <type>void</type>
+        </tag>
+      </docblock>
+      <argument line="0" by_reference="false">
+        <name>$location</name>
+        <default></default>
+        <type>\variable</type>
+      </argument>
+    </function>
+    <function namespace="" line="84" package="Default">
+      <name>display</name>
+      <full_name>\display()</full_name>
+      <docblock line="84">
+        <description>Display something on either the display or the leds</description>
+        <long-description>Possible values for $onwhat:
+leds: the leds at the top
+leds2: the leds to the right
+display: the display
+Example:
+display($value, 'display',000100)
+This will display $value in the middle of the display</long-description>
+        <tag name="package" line="84" description="Default"/>
+        <tag name="param" line="84" description="&lt;p&gt;what to display&lt;/p&gt;" type="\variable" variable="$what">
+          <type>\variable</type>
+        </tag>
+        <tag name="param" line="84" description="&lt;p&gt;on what to display&lt;/p&gt;" type="\variable" variable="$onWhat">
+          <type>\variable</type>
+        </tag>
+        <tag name="param" line="84" description="&lt;p&gt;Where to show the value when using the display,&#10;                          defaults to the right position&lt;/p&gt;" type="string" variable="$location">
+          <type>string</type>
+        </tag>
+        <tag name="return" line="84" description="" type="void">
+          <type>void</type>
+        </tag>
+      </docblock>
+      <argument line="0" by_reference="false">
+        <name>$what</name>
+        <default></default>
+        <type>\variable</type>
+      </argument>
+      <argument line="0" by_reference="false">
+        <name>$onWhat</name>
+        <default></default>
+        <type>\variable</type>
+      </argument>
+      <argument line="0" by_reference="false">
+        <name>$location</name>
+        <default>'000001'</default>
+        <type>string</type>
+      </argument>
+    </function>
+    <function namespace="" line="99" package="Default">
+      <name>modulo</name>
+      <full_name>\modulo()</full_name>
+      <docblock line="99">
+        <description>Take the mod of a number</description>
+        <long-description>Example: modulo($variable,2)
+This will return the mod 2 of $variable</long-description>
+        <tag name="package" line="99" description="Default"/>
+        <tag name="param" line="99" description="&lt;p&gt;variable to modulo over&lt;/p&gt;" type="\variable" variable="$variable">
+          <type>\variable</type>
+        </tag>
+        <tag name="param" line="99" description="&lt;p&gt;modulo what&lt;/p&gt;" type="integer" variable="$what">
+          <type>integer</type>
+        </tag>
+        <tag name="return" line="99" description="" type="void">
+          <type>void</type>
+        </tag>
+      </docblock>
+      <argument line="0" by_reference="false">
+        <name>$variable</name>
+        <default></default>
+        <type>\variable</type>
+      </argument>
+      <argument line="0" by_reference="false">
+        <name>$what</name>
+        <default></default>
+        <type>integer</type>
+      </argument>
+    </function>
+    <function namespace="" line="115" package="Default">
+      <name>getInput</name>
+      <full_name>\getInput()</full_name>
+      <docblock line="115">
+        <description>Get button or analog input</description>
+        <long-description>When you just want hte input of 1 button, use buttonPressed instead
+Example: getInput($variable,'analog')
+This will put the value of the analog into $variable</long-description>
+        <tag name="package" line="115" description="Default"/>
+        <tag name="param" line="115" description="&lt;p&gt;Variable to write the input to&lt;/p&gt;" type="\variable" variable="$writeTo">
+          <type>\variable</type>
+        </tag>
+        <tag name="param" line="115" description="&lt;p&gt;Type of input, possible values are: buttons, analog&lt;/p&gt;" type="string" variable="$type">
+          <type>string</type>
+        </tag>
+        <tag name="return" line="115" description="" type="void">
+          <type>void</type>
+        </tag>
+      </docblock>
+      <argument line="0" by_reference="false">
+        <name>$writeTo</name>
+        <default></default>
+        <type>\variable</type>
+      </argument>
+      <argument line="0" by_reference="false">
+        <name>$type</name>
+        <default></default>
+        <type>string</type>
+      </argument>
+    </function>
+    <function namespace="" line="130" package="Default">
+      <name>buttonPressed</name>
+      <full_name>\buttonPressed()</full_name>
+      <docblock line="130">
+        <description>Check if a button is pressed</description>
+        <long-description>Puts the result into R5
+Example:buttonPressed($location);
+if (R5 == 1) {}</long-description>
+        <tag name="package" line="130" description="Default"/>
+        <tag name="param" line="130" description="&lt;p&gt;Which button to check&lt;/p&gt;" type="\variable" variable="$button">
+          <type>\variable</type>
+        </tag>
+        <tag name="return" line="130" description="" type="void">
+          <type>void</type>
+        </tag>
+      </docblock>
+      <argument line="0" by_reference="false">
+        <name>$button</name>
+        <default></default>
+        <type>\variable</type>
+      </argument>
+    </function>
+    <function namespace="" line="147" package="Default">
+      <name>installCountdown</name>
+      <full_name>\installCountdown()</full_name>
+      <docblock line="147">
+        <description>Install the countdown</description>
+        <long-description>Do not forget to add returnt at the end of the interrupt function
+Example: installCountdown('timerInterrupt')
+This will install the countdown.
+In this example when the timer interrupt triggers,
+the function timerInterrupt is ran.</long-description>
+        <tag name="package" line="147" description="Default"/>
+        <tag name="param" line="147" description="&lt;p&gt;The name of the function where the timer should go to&lt;/p&gt;" type="string" variable="$functionName">
+          <type>string</type>
+        </tag>
+        <tag name="return" line="147" description="" type="void">
+          <type>void</type>
+        </tag>
+      </docblock>
+      <argument line="0" by_reference="false">
+        <name>$functionName</name>
+        <default></default>
+        <type>string</type>
+      </argument>
+    </function>
+    <function namespace="" line="156" package="Default">
+      <name>startCountdown</name>
+      <full_name>\startCountdown()</full_name>
+      <docblock line="156">
+        <description>Start the countdown.</description>
+        <long-description></long-description>
+        <tag name="package" line="156" description="Default"/>
+        <tag name="return" line="156" description="" type="void">
+          <type>void</type>
+        </tag>
+      </docblock>
+    </function>
+    <function namespace="" line="167" package="Default">
+      <name>pushStack</name>
+      <full_name>\pushStack()</full_name>
+      <docblock line="167">
+        <description>Push a variable to the stack</description>
+        <long-description></long-description>
+        <tag name="package" line="167" description="Default"/>
+        <tag name="param" line="167" description="&lt;p&gt;the variable to push to the stack&lt;/p&gt;" type="string" variable="$variable">
+          <type>string</type>
+        </tag>
+        <tag name="return" line="167" description="" type="void">
+          <type>void</type>
+        </tag>
+      </docblock>
+      <argument line="0" by_reference="false">
+        <name>$variable</name>
+        <default></default>
+        <type>string</type>
+      </argument>
+    </function>
+    <function namespace="" line="178" package="Default">
+      <name>pullStack</name>
+      <full_name>\pullStack()</full_name>
+      <docblock line="178">
+        <description>Pull a variable from the stack</description>
+        <long-description></long-description>
+        <tag name="package" line="178" description="Default"/>
+        <tag name="param" line="178" description="&lt;p&gt;the variable where the pulled variable is put into&lt;/p&gt;" type="string" variable="$variable">
+          <type>string</type>
+        </tag>
+        <tag name="return" line="178" description="" type="void">
+          <type>void</type>
+        </tag>
+      </docblock>
+      <argument line="0" by_reference="false">
+        <name>$variable</name>
+        <default></default>
+        <type>string</type>
+      </argument>
+    </function>
+    <function namespace="" line="193" package="Default">
+      <name>setTimer</name>
+      <full_name>\setTimer()</full_name>
+      <docblock line="193">
+        <description>Set the timer interrupt to a value.</description>
+        <long-description>It will first reset the timer to 0.
+Example: setTimer(10)
+This will interrupt the program after 10 timer ticks</long-description>
+        <tag name="package" line="193" description="Default"/>
+        <tag name="param" line="193" description="&lt;p&gt;how long the timer should wait, in timer ticks&lt;/p&gt;" type="string" variable="$timer">
+          <type>string</type>
+        </tag>
+        <tag name="return" line="193" description="" type="void">
+          <type>void</type>
+        </tag>
+      </docblock>
+      <argument line="0" by_reference="false">
+        <name>$timer</name>
+        <default></default>
+        <type>string</type>
+      </argument>
+    </function>
+    <function namespace="" line="210" package="Default">
+      <name>_getData</name>
+      <full_name>\_getData()</full_name>
+      <docblock line="210">
+        <description>Get data</description>
+        <long-description>Use offset 0 when it is just a single value.
+Example: $data=_getData('data',1)
+This will put the value of the data segment "data" at position 1, into $data.</long-description>
+        <tag name="package" line="210" description="Default"/>
+        <tag name="param" line="210" description="&lt;p&gt;The location where the variable is stored&lt;/p&gt;" type="string" variable="$location">
+          <type>string</type>
+        </tag>
+        <tag name="param" line="210" description="&lt;p&gt;The offset of the location&lt;/p&gt;" type="integer" variable="$offset">
+          <type>integer</type>
+        </tag>
+        <tag name="return" line="210" description="The value of the data segment" type="mixed">
+          <type>mixed</type>
+        </tag>
+      </docblock>
+      <argument line="0" by_reference="false">
+        <name>$location</name>
+        <default></default>
+        <type>string</type>
+      </argument>
+      <argument line="0" by_reference="false">
+        <name>$offset</name>
+        <default></default>
+        <type>integer</type>
+      </argument>
+    </function>
+    <function namespace="" line="227" package="Default">
+      <name>_storeData</name>
+      <full_name>\_storeData()</full_name>
+      <docblock line="227">
+        <description>Store data</description>
+        <long-description>Use offset 0 when it is just a single value.
+Example: _storeData($data,'data',1)
+This will put the value of $data into the data segment "data" at position 1</long-description>
+        <tag name="package" line="227" description="Default"/>
+        <tag name="param" line="227" description="&lt;p&gt;The variable to store&lt;/p&gt;" type="string" variable="$variable">
+          <type>string</type>
+        </tag>
+        <tag name="param" line="227" description="&lt;p&gt;The name of the location where the variable is stored&lt;/p&gt;" type="string" variable="$location">
+          <type>string</type>
+        </tag>
+        <tag name="param" line="227" description="&lt;p&gt;The offset of the location&lt;/p&gt;" type="integer" variable="$offset">
+          <type>integer</type>
+        </tag>
+        <tag name="return" line="227" description="" type="void">
+          <type>void</type>
+        </tag>
+      </docblock>
+      <argument line="0" by_reference="false">
+        <name>$variable</name>
+        <default></default>
+        <type>string</type>
+      </argument>
+      <argument line="0" by_reference="false">
+        <name>$location</name>
+        <default></default>
+        <type>string</type>
+      </argument>
+      <argument line="0" by_reference="false">
+        <name>$offset</name>
+        <default></default>
+        <type>integer</type>
+      </argument>
+    </function>
+    <parse_markers>
+      <error line="49" code="PPC:ERR-50015">Argument $location is missing from the Docblock of _storeRam</error>
+      <error line="62" code="PPC:ERR-50015">Argument $location is missing from the Docblock of _getRam</error>
+      <error line="84" code="PPC:ERR-50015">Argument $what is missing from the Docblock of display</error>
+      <error line="99" code="PPC:ERR-50015">Argument $variable is missing from the Docblock of modulo</error>
+      <error line="115" code="PPC:ERR-50015">Argument $writeTo is missing from the Docblock of getInput</error>
+      <error line="130" code="PPC:ERR-50015">Argument $button is missing from the Docblock of buttonPressed</error>
+      <error line="147" code="PPC:ERR-50015">Argument $functionName is missing from the Docblock of installCountdown</error>
+      <error line="167" code="PPC:ERR-50015">Argument $variable is missing from the Docblock of pushStack</error>
+      <error line="178" code="PPC:ERR-50015">Argument $variable is missing from the Docblock of pullStack</error>
+      <error line="193" code="PPC:ERR-50015">Argument $timer is missing from the Docblock of setTimer</error>
+      <error line="210" code="PPC:ERR-50015">Argument $location is missing from the Docblock of _getData</error>
+      <error line="227" code="PPC:ERR-50015">Argument $variable is missing from the Docblock of _storeData</error>
+    </parse_markers>
+    <source>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</source>
+  </file>
+  <package name="Default" full_name="Default"/>
+  <package name="global" full_name="global"/>
+  <namespace name="global" full_name="global"/>
+  <deprecated count="0"/>
+</project>

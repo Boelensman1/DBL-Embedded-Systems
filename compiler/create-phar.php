@@ -8,8 +8,8 @@ if (ini_get('phar.readonly') != 0) {
 $rootPath=dirname($_SERVER['SCRIPT_NAME']);
 $srcRoot = $rootPath.'/src';
 $buildRoot = $rootPath.'/build';
-$tmpRoot = './docs';
-$docRoot = '/tmp/docs';
+$docRoot = './docs/';
+$tmpRoot = '/tmp/docs';
 $functionRoot= './'.basename($buildRoot).'/functions.php';
 
 echo "creating phar...\n";
@@ -36,7 +36,7 @@ if (file_exists($tmpRoot))
 }
 echo "generating docs...\n";
 //generate docs for the functions
-$command='phpdoc -t '.$docRoot .' -f '.$functionRoot.' --template=responsive';
+$command='phpdoc -t '.$tmpRoot .' -f '.$functionRoot.' --template=responsive';
 echo $command;
 shell_exec($command);
 
@@ -47,9 +47,7 @@ if (file_exists($docRoot))
 }
 
 echo "copying temp to docs...";
-recurse_copy($tmpRoot,$docRoot);
-
-echo '';
+xcopy($tmpRoot, $docRoot);
 
 
 
@@ -57,19 +55,43 @@ function deleteDirectory($dir) {
     system('rm -rf ' . escapeshellarg($dir), $retval);
     return $retval == 0; // UNIX commands return zero on success
 }
-
-function recurse_copy($src,$dst) {
-    $dir = opendir($src);
-    @mkdir($dst);
-    while(false !== ( $file = readdir($dir)) ) {
-        if (( $file != '.' ) && ( $file != '..' )) {
-            if ( is_dir($src . '/' . $file) ) {
-                recurse_copy($src . '/' . $file,$dst . '/' . $file);
-            }
-            else {
-                copy($src . '/' . $file,$dst . '/' . $file);
-            }
-        }
+/**
+ * Copy a file, or recursively copy a folder and its contents
+ * @param       string   $source    Source path
+ * @param       string   $dest      Destination path
+ * @param       string   $permissions New folder creation permissions
+ * @return      bool     Returns true on success, false on failure
+ */
+function xcopy($source, $dest, $permissions = 0755)
+{
+    // Check for symlinks
+    if (is_link($source)) {
+        return symlink(readlink($source), $dest);
     }
-    closedir($dir);
+
+    // Simple copy for a file
+    if (is_file($source)) {
+        return copy($source, $dest);
+    }
+
+    // Make destination directory
+    if (!is_dir($dest)) {
+        mkdir($dest, $permissions);
+    }
+
+    // Loop through the folder
+    $dir = dir($source);
+    while (false !== $entry = $dir->read()) {
+        // Skip pointers
+        if ($entry == '.' || $entry == '..') {
+            continue;
+        }
+
+        // Deep copy directories
+        xcopy("$source/$entry", "$dest/$entry", $permissions);
+    }
+
+    // Clean up
+    $dir->close();
+    return true;
 }
