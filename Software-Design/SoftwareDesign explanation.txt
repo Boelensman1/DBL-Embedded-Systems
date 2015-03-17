@@ -1,0 +1,25 @@
+Procedure van state transition -> Java
+
+
+Beginnen met de outputs te declaren
+Naam van output variable = naam van output, zonder spaties, camelCase
+Type is gelijk aan wat in de tabel staat
+
+Daarna de inputs
+Naamschema gelijk aan outputs
+
+
+Namen van functies worden de naam van de state
+Kan geen return hebben, dus allemaal void
+
+Elke state word als volgt gedaan:
+Beginnen met de inputs die in de state gebruikt worden op te halen.
+Dan checken of de inputs gelijk zijn aan aan de input value
+Zo ja, verander de variablen die veranderd moeten worden
+Zet de state variable naar de waarde van de volgende state
+Daarna de nieuwe waarde van state op het display te zetten
+Dan naar de nieuwe state gaan
+
+Voorbeeld: Initial -> Calibrate Sensor
+
+
