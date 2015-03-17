@@ -36,7 +36,7 @@ if (file_exists($docRoot))
 
 echo "generating docs...\n";
 //generate docs for the functions
-$command='phpdoc -t '.$docRoot .' -f '.$functionRoot.' --template=responsive-twig';
+$command='phpdoc -t '.$docRoot .' -f '.$functionRoot;
 echo $command;
 shell_exec($command);
 
