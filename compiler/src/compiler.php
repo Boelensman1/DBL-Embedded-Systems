@@ -70,12 +70,22 @@ class Compiler
     /**
      * Running in debug mode
      *
-     * Whether we ar running in debug mode.
+     * Whether we are running in debug mode.
      * Possible values are true/false. Defaults to false.
      *
      * @var boolean
      */
     public $debug = false;
+
+    /**
+     * Insert comments
+     *
+     * Whether we should insert comments into the assembly.
+     * Possible values are true/false. Defaults to true.
+     *
+     * @var boolean
+     */
+    public $insertComments = true;
 
     /**
      * Maximum variables
@@ -209,48 +219,20 @@ class Compiler
     private $_defaultFunctions = [];
 
     /**
-     * Display used
-     *
-     * Keeps track of whether the default function to display something is used,
-     * so we know to insert it when compiling.
-     *
-     * @var    string
-     * @access private
-     */
-    private $_useDisplay = false;
-
-    /**
-     * Power used
-     *
-     * Keeps track of whether the default function to do something to the power of is used,
-     * so we know to insert it when compiling.
-     *
-     * @var    string
-     * @access private
-     */
-    private $_usePow = false;
-
-    /**
-     * Pressed used
-     *
-     * Keeps track of whether the default function to check if a button was pressed is used,
-     * so we know to insert it when compiling.
-     *
-     * @var    string
-     * @access private
-     */
-    private $_usePressed = false;
-
-    /**
-     * Sleep used
+     * Which default functions are used.
      *
      * Keeps track of whether the default function to wait is used,
      * so we know to insert it when compiling.
      *
-     * @var    string
+     * @var    array
      * @access private
      */
-    private $_useSleep = false;
+    private $_useFunction = [
+                                'sleep'=>false,
+                                'pressed'=>false,
+                                'pow'=>false,
+                                'display'=>false
+                            ];
 
     /**
      * Load the code. This function does some first processing
@@ -529,11 +511,11 @@ class Compiler
                 }
                 break;
             }
-            case 'modulo': {
+            case 'mod': {
                 return [
                     0,
-                    'MOD ' . $this->processArgument($arguments[0]) . ' '
-                    . $this->processArgument($arguments[1])
+                    'MOD ' . $this->processArgument($arguments[1]) . ' '
+                    . $this->processArgument($arguments[0])
                 ];
             }
 
@@ -563,7 +545,7 @@ class Compiler
             case 'display': {
                 switch (trim(trim($arguments[1]), '"\'')) {
                     case 'display': {
-                        $this->_useDisplay = true;
+                        $this->$_useFunction['display'] = true;
                         $counter= str_repeat('0', 6 - $arguments[2]) . '1' . str_repeat(
                                 '0', $arguments[2] - 1
                             );//000001
@@ -603,7 +585,7 @@ class Compiler
             }
 
             case 'sleep': {
-                $this->_useSleep = true;
+                $this->_useFunction['sleep'];
 
                 return [
                     4,
@@ -653,8 +635,8 @@ class Compiler
                 ];
             }
             case 'buttonPressed': {
-                $this->_usePressed = true;
-                $this->_usePow = true;
+                $this->_useFunction['pressed'] = true;
+                $this->_useFunction['pow']=true;
                 //return [4,'LOAD R4 '.$this->processArgument($arguments[1]),'LOAD R5 '.$this->processArgument($arguments[0]),'BRS _pow'];
                 return [
                     4,
@@ -665,7 +647,7 @@ class Compiler
                 ];
             }
             case 'pow': {
-                $this->_usePow = true;
+                $this->_useFunction['pow']=true;
 
                 return [
                     4,
@@ -1042,7 +1024,6 @@ class Compiler
                     )
                 ) {
                     //check for comments
-
                     $brackets++;
                 }
             }
@@ -1207,7 +1188,7 @@ class Compiler
     private function insertCode($functionName, $toInsert, $startLevel,$comment='')
     {
         $comment=trim($comment);
-        if (!empty($comment))
+        if (!empty($comment) && $this->insertComments)
         {
             $toInsert.=';'.$comment;
         }
@@ -1249,17 +1230,12 @@ class Compiler
         $result[] = '';
 
         require_once 'defaultFunctions.php';
-        if ($this->_useDisplay) {
-            $result = array_merge($result, $this->_defaultFunctions['display']);
-        }
-        if ($this->_useSleep) {
-            $result = array_merge($result, $this->_defaultFunctions['sleep']);
-        }
-        if ($this->_usePow) {
-            $result = array_merge($result, $this->_defaultFunctions['pow']);
-        }
-        if ($this->_usePressed) {
-            $result = array_merge($result, $this->_defaultFunctions['pressed']);
+        foreach ($this->_useFunction as $name=>$used)
+        {
+            if ($used)
+            {
+                $result = array_merge($result, $this->_defaultFunctions[$name]);
+            }
         }
 
         //okay we have the outside code now, lets do the _functions
@@ -1389,33 +1365,41 @@ class Compiler
             {
                 $lineNoComment=$matches[1];
             }
+
             if (strlen($lineNoComment)>$longestLineLength) {
                 $longestLineLength = strlen($lineNoComment);
+            }
+
+            if ($this->insertComments)
+            {
+                $line=$lineNoComment;
             }
             $returnTmp[] = $line;
         }
 
+        //no comments, so lets not beatify them
+        if (!$this->insertComments) {
+            return $returnTmp;
+        }
 
+        //beatify comments
         $return = [];
         $lineLength = $longestLineLength + 4;
         foreach ($returnTmp as $line) {
             //make comments nicer
-            if (substr(trim($line),0,1)!==';')//if the line is not a comment
+            if (substr(trim($line), 0, 1) !== ';')//if the line is not a comment
             {
                 if (preg_match("/(.*)(;.*)/", $line, $matches))//check for comments
                 {
-                    $spaces=str_repeat(" ", $lineLength - strlen($matches[1]));
-                    $line=$matches[1] . $spaces . $matches[2];
+                    $spaces = str_repeat(" ", $lineLength - strlen($matches[1]));
+                    $line = $matches[1] . $spaces . $matches[2];
                 }
-            }
-            else
-            {
-                $spaces=str_repeat(" ", $lineLength);
-                $line=$spaces.trim($line);
+            } else {
+                $spaces = str_repeat(" ", $lineLength);
+                $line = $spaces . trim($line);
             }
             $return[] = $line;
         }
-
         return $return;
     }
 }

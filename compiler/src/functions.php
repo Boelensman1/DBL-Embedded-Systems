@@ -86,17 +86,32 @@ function display($what, $onWhat, $location = '000001')
 }
 
 /**
- * Take the mod of a number
+ * Get the power of a number
  *
- * Example: modulo($variable,2)
- * This will return the mod 2 of $variable
+ * Example: pow(2,$variable)
+ * This will make $variable equal to 2^$variable
  *
- * @param variable $variable variable to modulo over
- * @param int $what modulo what
+ * @param int      $what     the number to power with
+ * @param variable $variable variable to power
  *
  * @return void
  */
-function modulo($variable, $what)
+function pow($what,$variable)
+{
+}
+
+/**
+ * Take the mod of a number
+ *
+ * Example: mod($variable,2)
+ * This will return the mod 2 of $variable
+ *
+ * @param int      $what     modulo what
+ * @param variable $variable variable to modulo over
+ *
+ * @return void
+ */
+function mod($what, $variable)
 {
 }
 

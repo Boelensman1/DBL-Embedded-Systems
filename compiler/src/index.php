@@ -13,6 +13,7 @@ unset($arguments[0]);//first one is location of script
 $verboseLevel = 0;
 $outPath = null;
 $filePath = null;
+$insertComments = false;
 
 foreach ($arguments as $argument) {
     if (!preg_match('/^--(\w+)=?(.*)?$/', $argument, $argumentParsed)) {
@@ -30,6 +31,10 @@ foreach ($arguments as $argument) {
         }
         case 'verbose': {
             $verboseLevel = (int) $argumentParsed[2];
+            break;
+        }
+        case 'comments': {
+            $insertComments=true;
             break;
         }
         case 'help': {
@@ -66,6 +71,7 @@ $file = file_get_contents($filePath);
 $compiler = new Compiler();
 $compiler->debug = ($verboseLevel > 0);
 $compiler->maxVariables = 5;
+$compiler->insertComments=$insertComments;
 $compiler->loadCode($file);
 $compiled = $compiler->compile();
 echoConsole($compiled, 2);
