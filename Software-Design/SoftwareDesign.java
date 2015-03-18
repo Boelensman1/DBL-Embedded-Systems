@@ -20,7 +20,10 @@ class SoftwareDesign {
   //variables
   int $state=0;
   int $sleep=0;
-          
+  int $location;
+  int $counter;
+  int $engines;
+  
   //constants
   final int $timeMotorDown=-1;
   final int $belt=-1;
@@ -305,14 +308,14 @@ class SoftwareDesign {
   }
   
   if($location >= 7){
-   display($engines, "leds");
+   display($engines, "leds","");
    $engines = 0;
    return;
   }
   
   $location++;
   $counter++;
-  TimerManage($outputs);
+  timerManage($outputs);
   return;
  }
  
