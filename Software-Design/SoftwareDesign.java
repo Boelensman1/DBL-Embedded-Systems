@@ -212,6 +212,7 @@ class SoftwareDesign {
          $outputs[$hbridge0]=0;
           $state=11;
           display($state,"leds2","");
+          whiteWaitStop();
      }
      motorUpStop();
  }
