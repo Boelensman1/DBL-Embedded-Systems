@@ -26,13 +26,13 @@ class SoftwareDesign {
   final int $belt=-1;
   final int $sort=-1;
   final int $timerSort=-1;
-  final int $lensLampPosition=0,$lensLampSorter=1,$hbridge1=2,$hbridge0=3,$ledStateIndicator=4, $conveyorBelt=5,$feederEngine=6,$display=7; 
+  final int $lensLampPosition=0,$lensLampSorter=1,$hbridge1=2,$hbridge0=3, $conveyorBelt=4,$feederEngine=5,$display=6,$ledStateIndicator=7; 
           
   
 
   
   void initial() {
-     
+    timerManage($outputs);
     $push=buttonPressed(5);
     if($push==true){
         $outputs[$hbridge0]=0;
@@ -45,7 +45,7 @@ class SoftwareDesign {
     initial();
   }
   void calibrateSorter(){
-      
+      timerManage($outputs);
       if($sleep==$timeMotorDown*1000){
          $outputs[$hbridge1]=9;     
          $state=2;        
@@ -58,6 +58,7 @@ class SoftwareDesign {
   }
   
   void resting(){
+      timerManage($outputs);
       $startStop=buttonPressed(0);
       if($startStop==true){
           $outputs[$lensLampPosition]=12;
@@ -75,6 +76,7 @@ class SoftwareDesign {
   }
   
   void running(){
+      timerManage($outputs);
       $position=buttonPressed(7);
       $startStop=buttonPressed(0);
       if($startStop=true){
@@ -93,6 +95,7 @@ class SoftwareDesign {
   }
   
   void runningWait(){
+      timerManage($outputs);
       $position=buttonPressed(7);
       $colour=buttonPressed(6);
       $startStop=buttonPressed(0);
@@ -121,10 +124,12 @@ class SoftwareDesign {
   }
   
   void runningTimerReset(){
+      timerManage($outputs);
       runningWait();
   }
   
   void motorUp(){
+      timerManage($outputs);
       $push=buttonPressed(7);
       $startStop=buttonPressed(0);
       if($startStop=true){
@@ -141,7 +146,7 @@ class SoftwareDesign {
   }
   
  void whiteWait(){
-      
+      timerManage($outputs);
       if($sleep==$timerSort*1000){
      $outputs[$hbridge1]=9;
       $state=8;
@@ -160,6 +165,7 @@ class SoftwareDesign {
   }
  
  void motorDown(){
+     timerManage($outputs);
      if($sleep==$timeMotorDown*1000){
          $outputs[$hbridge1]=0;
          $state=9;
@@ -179,23 +185,28 @@ class SoftwareDesign {
  }
  
  void runningTimer(){
+     timerManage($outputs);
      runningStop();
  }
  
  void motorUpTimer(){
+     timerManage($outputs);
      motorUpStop();
  }
  
  void whiteWaitTimer(){
+     timerManage($outputs);
      whiteWaitStop();
  }
  
  void motorDownTimer(){
+     timerManage($outputs);
      motorDownStop();
  }
  
  
  void runningStop(){
+     timerManage($outputs);
      $colour=buttonPressed(6);
      if($colour==true){
          $outputs[$hbridge0]=9;
@@ -207,18 +218,18 @@ class SoftwareDesign {
  }
  
  void motorUpStop(){
+     timerManage($outputs);
      $push=buttonPressed(5);
      if($push==true){
          $outputs[$hbridge0]=0;
           $state=11;
           display($state,"leds2","");
-          whiteWaitStop();
      }
      motorUpStop();
  }
  
  void whiteWaitStop(){
-      
+      timerManage($outputs);
       if($sleep==$timerSort*1000){
       $outputs[$hbridge1]=9;
       $state=12;
@@ -232,7 +243,7 @@ class SoftwareDesign {
  }
  
  void motorDownStop(){
-     
+     timerManage($outputs);
      if($sleep==$timeMotorDown*1000){
          $outputs[$hbridge1]=0;
          $state=9;
@@ -245,7 +256,7 @@ class SoftwareDesign {
  }
  
  void timerInterrupt(){
- 
+     timerManage($outputs);
      $outputs[$hbridge0]=1;
      $outputs[$hbridge1]=0;
      $outputs[$lensLampPosition]=0;
@@ -259,6 +270,7 @@ class SoftwareDesign {
  }
  
  void abort(){
+     timerManage($outputs);
      $outputs[$hbridge0]=0;
      $outputs[$hbridge1]=0;
      $outputs[$lensLampPosition]=0;
@@ -272,6 +284,7 @@ class SoftwareDesign {
  }
  
  void aborted(){
+     timerManage($outputs);
      $startStop=buttonPressed(0);
      if($startStop=true){
          $outputs[$hbridge0]=1;
@@ -281,6 +294,26 @@ class SoftwareDesign {
      }
      aborted();
  
+ }
+
+ void timerManage(int[] $outputs){
+  $location = $location % 7;
+  $counter = $counter % 12;
+  
+  if($counter < $outputs[$location]){
+   $engines = $engines + pow(2, $location);
+  }
+  
+  if($location >= 7){
+   display($engines, "leds");
+   $engines = 0;
+   return;
+  }
+  
+  $location++;
+  $counter++;
+  TimerManage($outputs);
+  return;
  }
  
  
