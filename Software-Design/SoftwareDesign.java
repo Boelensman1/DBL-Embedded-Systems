@@ -2,6 +2,8 @@
  * Sort of a simulation of the PP2 program controlling the Fischer Technik in order to sort black and white discs. 
  * @team Group 16
  * @author Maarten Keet
+ * @author stefan van den Berg
+ * @author Rolf Verschuuren
  * @since 13/3/2015
  */
 
