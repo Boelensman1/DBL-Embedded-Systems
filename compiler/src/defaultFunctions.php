@@ -29,6 +29,7 @@ $this->_defaultFunctions['display'] = explode("\n", $this->_defaultFunctions['di
 $this->_defaultFunctions['sleep'] = "
 ;sleep
 _timer: MULS  R5  10
+        PUSH  R4
         LOAD  R4  R5
         LOAD  R5  ".IOAREA."
         LOAD  R5  [R5+".TIMER."]
@@ -36,6 +37,7 @@ _timer: MULS  R5  10
         LOAD  R4  ".IOAREA."
 _wait:  CMP   R5  [R4+".TIMER."]       ;  Compare the timer to 0
         BMI   _wait
+        PULL  R4
         RTS";
 $this->_defaultFunctions['sleep'] = explode("\n", $this->_defaultFunctions['sleep']);
 

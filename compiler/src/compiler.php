@@ -628,12 +628,14 @@ class Compiler
             }
 
             case 'sleep': {
-                $this->_useFunction['sleep'];
+                $this->_useFunction['sleep'] = true;
 
                 return [
                     4,
+                    'PUSH R5',
                     'LOAD  R5 ' . $this->processArgument($arguments[0]),
-                    'BRS _timer'
+                    'BRS _timer',
+                    'PULL R5'
                 ];
             }
 
