@@ -1,8 +1,12 @@
 /Introduction		T
- (T) - Purpose presentation
+ - Purpose presentation
 /Machine design		T+M
  (T) - Specification
  (T) - Priorities
  (M) - Design decisions
    (M) - Sketches
 /Software		D
+ - Why Push button
+ - Why timer as input
+ - How we calibrate the timer
+ - Design Decisions
