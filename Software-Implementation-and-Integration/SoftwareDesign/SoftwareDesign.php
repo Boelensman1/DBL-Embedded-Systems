@@ -52,9 +52,14 @@ function main()
     _storeData($temp,'$outputs',FEEDERENGINE);
     $state=0;
     display($state,"leds2","");
+
+    //set HBridge so the sorter starts moving up
+    $temp=9;
+    _storeData($temp,'$outputs',HBRIDGE0);
+
     initial();
 }
-
+/*
 function initial()
 {
     $temp=6;
@@ -65,7 +70,7 @@ function initial()
     sleep(100);
     initial();
 }
-/*
+*/
 function initial()
 {
     global $outputs;
@@ -430,7 +435,7 @@ function aborted()
     aborted();
 
 }
-*/
+
 function timerManage()
 {
     global $outputs, $location, $counter, $engines;
@@ -438,7 +443,7 @@ function timerManage()
     $temp = _getData('$outputs', $location);
     if ( $temp > $counter) {
         $temp=$location;
-        pow(2, $temp);
+        $temp=pow(2, $temp);
         $engines += $temp;
     }
 
@@ -451,8 +456,7 @@ function timerManage()
     }
 
     $location++;
-    timerManage($outputs);
-    return;
+    branch('timerManage');
 }
 
 

@@ -1,0 +1,453 @@
+@C 3ffff 001d5
+00022       ; 00000 begin :             BRA main
+3e5ff       ; 00001 _pressed :          STOR R4 [--R7]
+3edff       ; 00002                     STOR R5 [--R7]
+0a103       ; 00003                     LOAD R4 R3
+0a802       ; 00004                     LOAD R5 2
+0020a       ; 00005                     BRS _pow
+09905       ; 00006                     LOAD R3 R5
+0a8f0       ; 00007                     LOAD R5 -16
+0a4a7       ; 00008                     LOAD R4 [R5+7]
+26103       ; 00009                     DIV R4 R3
+2a002       ; 0000a                     MOD R4 2
+3e5ff       ; 0000b                     STOR R4 [--R7]
+0f801       ; 0000c                     ADD R7 1
+0adf1       ; 0000d                     LOAD R5 [R7++]
+0a5f1       ; 0000e                     LOAD R4 [R7++]
+045f1       ; 0000f                     RTS
+16000       ; 00010 _pow :              CMP R4 0
+0040e       ; 00011                     BEQ _pow1
+16001       ; 00012                     CMP R4 1
+0040e       ; 00013                     BEQ _powR
+3ddff       ; 00014                     STOR R3 [--R7]
+3e5ff       ; 00015                     STOR R4 [--R7]
+12001       ; 00016                     SUB R4 1
+09905       ; 00017                     LOAD R3 R5
+1a903       ; 00018 _powLoop :          MULS R5 R3
+12001       ; 00019                     SUB R4 1
+16000       ; 0001a                     CMP R4 0
+00401       ; 0001b                     BEQ _powReturn
+001fb       ; 0001c                     BRA _powLoop
+0a5f1       ; 0001d _powReturn :        LOAD R4 [R7++]
+09df1       ; 0001e                     LOAD R3 [R7++]
+045f1       ; 0001f                     RTS
+0a801       ; 00020 _pow1 :             LOAD R5 1
+045f1       ; 00021                     RTS
+045f1       ; 00022 _powR :             RTS
+08000       ; 00023 main :              LOAD R0 0
+3c4c1       ; 00024                     STOR R0 [R6+($outputs+HBRIDGE1)]
+3c4c0       ; 00025                     STOR R0 [R6+($outputs+HBRIDGE0)]
+3c4c5       ; 00026                     STOR R0 [R6+($outputs+LENSLAMPPOSITION)]
+3c4c6       ; 00027                     STOR R0 [R6+($outputs+LENSLAMPSORTER)]
+3c4c9       ; 00028                     STOR R0 [R6+($outputs+LEDSTATEINDICATOR)]
+3c4c8       ; 00029                     STOR R0 [R6+($outputs+DISPLAY)]
+3c4c3       ; 0002a                     STOR R0 [R6+($outputs+CONVEYORBELT)]
+3c4c7       ; 0002b                     STOR R0 [R6+($outputs+FEEDERENGINE)]
+08800       ; 0002c                     LOAD R1 0
+0a8f0       ; 0002d                     LOAD R5 -16
+0a101       ; 0002e                     LOAD R4 R1
+3e4aa       ; 0002f                     STOR R4 [R5+10]
+08009       ; 00030                     LOAD R0 9
+3c4c0       ; 00031                     STOR R0 [R6+($outputs+HBRIDGE0)]
+00000       ; 00032                     BRA initial
+00300 00182 ; 00033 initial :           BRS timerManage
+3ddff       ; 00035                     STOR R3 [--R7]
+09805       ; 00036                     LOAD R3 5
+003c9       ; 00037                     BRS _pressed
+0a5f1       ; 00038                     LOAD R4 [R7++]
+13805       ; 00039                     SUB R7 5
+095f1       ; 0003a                     LOAD R2 [R7++]
+0f804       ; 0003b                     ADD R7 4
+15001       ; 0003c                     CMP R2 1
+00402       ; 0003d                     BEQ conditional0
+001f4       ; 0003e return0 :           BRA initial
+001e3       ; 0003f                     BRA main
+08009       ; 00040 conditional0 :      LOAD R0 9
+3c4c0       ; 00041                     STOR R0 [R6+($outputs+HBRIDGE0)]
+08000       ; 00042                     LOAD R0 0
+3c4c1       ; 00043                     STOR R0 [R6+($outputs+HBRIDGE1)]
+08801       ; 00044                     LOAD R1 1
+0a8f0       ; 00045                     LOAD R5 -16
+0a101       ; 00046                     LOAD R4 R1
+3e4aa       ; 00047                     STOR R4 [R5+10]
+08800       ; 00048                     LOAD R1 0
+00000       ; 00049                     BRA calibrateSorter
+00300 0016b ; 0004a calibrateSorter :   BRS timerManage
+1481e       ; 0004c                     CMP R1 TIMEMOTORDOWN
+00402       ; 0004d                     BEQ conditional1
+0c801       ; 0004e return1 :           ADD R1 1
+001fa       ; 0004f                     BRA calibrateSorter
+08009       ; 00050 conditional1 :      LOAD R0 9
+3c4c1       ; 00051                     STOR R0 [R6+($outputs+HBRIDGE1)]
+09002       ; 00052                     LOAD R2 2
+0a8f0       ; 00053                     LOAD R5 -16
+0a102       ; 00054                     LOAD R4 R2
+3e4ab       ; 00055                     STOR R4 [R5+11]
+08800       ; 00056                     LOAD R1 0
+00000       ; 00057                     BRA resting
+00300 0015d ; 00058 resting :           BRS timerManage
+3ddff       ; 0005a                     STOR R3 [--R7]
+09800       ; 0005b                     LOAD R3 0
+003a4       ; 0005c                     BRS _pressed
+0a5f1       ; 0005d                     LOAD R4 [R7++]
+13805       ; 0005e                     SUB R7 5
+095f1       ; 0005f                     LOAD R2 [R7++]
+0f804       ; 00060                     ADD R7 4
+15001       ; 00061                     CMP R2 1
+00402       ; 00062                     BEQ conditional2
+001f4       ; 00063 return2 :           BRA resting
+001be       ; 00064                     BRA main
+0800c       ; 00065 conditional2 :      LOAD R0 12
+3c4c5       ; 00066                     STOR R0 [R6+($outputs+LENSLAMPPOSITION)]
+3c4c6       ; 00067                     STOR R0 [R6+($outputs+LENSLAMPSORTER)]
+08009       ; 00068                     LOAD R0 9
+3c4c3       ; 00069                     STOR R0 [R6+($outputs+CONVEYORBELT)]
+08005       ; 0006a                     LOAD R0 5
+3c4c7       ; 0006b                     STOR R0 [R6+($outputs+FEEDERENGINE)]
+0a8f0       ; 0006c                     LOAD R5 -16
+0a000       ; 0006d                     LOAD R4 0
+124ad       ; 0006e                     SUB R4 [R5+13]
+3e4ad       ; 0006f                     STOR R4 [R5+13]
+0a080 004b2 ; 00070                     LOAD R4 (2+BELT)
+3e4ad       ; 00072                     STOR R4 [R5+13]
+09803       ; 00073                     LOAD R3 3
+0a8f0       ; 00074                     LOAD R5 -16
+0a103       ; 00075                     LOAD R4 R3
+3e4aa       ; 00076                     STOR R4 [R5+10]
+00000       ; 00077                     BRA running
+00300 0013d ; 00078 running :           BRS timerManage
+3ddff       ; 0007a                     STOR R3 [--R7]
+09807       ; 0007b                     LOAD R3 7
+00384       ; 0007c                     BRS _pressed
+0a5f1       ; 0007d                     LOAD R4 [R7++]
+13805       ; 0007e                     SUB R7 5
+095f1       ; 0007f                     LOAD R2 [R7++]
+0f804       ; 00080                     ADD R7 4
+3ddff       ; 00081                     STOR R3 [--R7]
+09800       ; 00082                     LOAD R3 0
+0037d       ; 00083                     BRS _pressed
+0a5f1       ; 00084                     LOAD R4 [R7++]
+13805       ; 00085                     SUB R7 5
+09df1       ; 00086                     LOAD R3 [R7++]
+0f804       ; 00087                     ADD R7 4
+15801       ; 00088                     CMP R3 1
+00404       ; 00089                     BEQ conditional3
+15001       ; 0008a return3 :           CMP R2 1
+00411       ; 0008b                     BEQ conditional4
+001eb       ; 0008c return4 :           BRA running
+00195       ; 0008d                     BRA main
+08000       ; 0008e conditional3 :      LOAD R0 0
+3c4c7       ; 0008f                     STOR R0 [R6+($outputs+FEEDERENGINE)]
+0a8f0       ; 00090                     LOAD R5 -16
+0a000       ; 00091                     LOAD R4 0
+124ad       ; 00092                     SUB R4 [R5+13]
+3e4ad       ; 00093                     STOR R4 [R5+13]
+0a080 004b0 ; 00094                     LOAD R4 BELT
+3e4ad       ; 00096                     STOR R4 [R5+13]
+0a009       ; 00097                     LOAD R4 9
+0a8f0       ; 00098                     LOAD R5 -16
+0a104       ; 00099                     LOAD R4 R4
+3e4aa       ; 0009a                     STOR R4 [R5+10]
+00100 00118 ; 0009b                     BRA runningTimer
+0a8f0       ; 0009d conditional4 :      LOAD R5 -16
+0a000       ; 0009e                     LOAD R4 0
+124ad       ; 0009f                     SUB R4 [R5+13]
+3e4ad       ; 000a0                     STOR R4 [R5+13]
+0a080 004b2 ; 000a1                     LOAD R4 (2+BELT)
+3e4ad       ; 000a3                     STOR R4 [R5+13]
+0a004       ; 000a4                     LOAD R4 4
+0a8f0       ; 000a5                     LOAD R5 -16
+0a104       ; 000a6                     LOAD R4 R4
+3e4aa       ; 000a7                     STOR R4 [R5+10]
+00000       ; 000a8                     BRA runningWait
+00300 0010c ; 000a9 runningWait :       BRS timerManage
+3ddff       ; 000ab                     STOR R3 [--R7]
+09807       ; 000ac                     LOAD R3 7
+00353       ; 000ad                     BRS _pressed
+0a5f1       ; 000ae                     LOAD R4 [R7++]
+13805       ; 000af                     SUB R7 5
+095f1       ; 000b0                     LOAD R2 [R7++]
+0f804       ; 000b1                     ADD R7 4
+3ddff       ; 000b2                     STOR R3 [--R7]
+09806       ; 000b3                     LOAD R3 6
+0034c       ; 000b4                     BRS _pressed
+0a5f1       ; 000b5                     LOAD R4 [R7++]
+13805       ; 000b6                     SUB R7 5
+085f1       ; 000b7                     LOAD R0 [R7++]
+0f804       ; 000b8                     ADD R7 4
+3ddff       ; 000b9                     STOR R3 [--R7]
+09800       ; 000ba                     LOAD R3 0
+00345       ; 000bb                     BRS _pressed
+0a5f1       ; 000bc                     LOAD R4 [R7++]
+13805       ; 000bd                     SUB R7 5
+09df1       ; 000be                     LOAD R3 [R7++]
+0f804       ; 000bf                     ADD R7 4
+15801       ; 000c0                     CMP R3 1
+00406       ; 000c1                     BEQ conditional5
+14001       ; 000c2 return5 :           CMP R0 1
+00412       ; 000c3                     BEQ conditional6
+15801       ; 000c4 return6 :           CMP R3 1
+0041c       ; 000c5                     BEQ conditional7
+001e2       ; 000c6 return7 :           BRA runningWait
+0015b       ; 000c7                     BRA main
+0a000       ; 000c8 conditional5 :      LOAD R4 0
+3e4c7       ; 000c9                     STOR R4 [R6+($outputs+FEEDERENGINE)]
+0a8f0       ; 000ca                     LOAD R5 -16
+0a000       ; 000cb                     LOAD R4 0
+124ad       ; 000cc                     SUB R4 [R5+13]
+3e4ad       ; 000cd                     STOR R4 [R5+13]
+0a080 004b0 ; 000ce                     LOAD R4 BELT
+3e4ad       ; 000d0                     STOR R4 [R5+13]
+08009       ; 000d1                     LOAD R0 9
+0a8f0       ; 000d2                     LOAD R5 -16
+0a100       ; 000d3                     LOAD R4 R0
+3e4aa       ; 000d4                     STOR R4 [R5+10]
+000df       ; 000d5                     BRA runningTimer
+0a8f0       ; 000d6 conditional6 :      LOAD R5 -16
+0a000       ; 000d7                     LOAD R4 0
+124ad       ; 000d8                     SUB R4 [R5+13]
+3e4ad       ; 000d9                     STOR R4 [R5+13]
+0a080 004b2 ; 000da                     LOAD R4 (2+BELT)
+3e4ad       ; 000dc                     STOR R4 [R5+13]
+09005       ; 000dd                     LOAD R2 5
+0a8f0       ; 000de                     LOAD R5 -16
+0a102       ; 000df                     LOAD R4 R2
+3e4aa       ; 000e0                     STOR R4 [R5+10]
+000d0       ; 000e1                     BRA runningTimerReset
+0a009       ; 000e2 conditional7 :      LOAD R4 9
+3e4c0       ; 000e3                     STOR R4 [R6+($outputs+HBRIDGE0)]
+0a8f0       ; 000e4                     LOAD R5 -16
+0a000       ; 000e5                     LOAD R4 0
+124ad       ; 000e6                     SUB R4 [R5+13]
+3e4ad       ; 000e7                     STOR R4 [R5+13]
+0a080 00352 ; 000e8                     LOAD R4 SORT
+3e4ad       ; 000ea                     STOR R4 [R5+13]
+09006       ; 000eb                     LOAD R2 6
+0a8f0       ; 000ec                     LOAD R5 -16
+0a102       ; 000ed                     LOAD R4 R2
+3e4aa       ; 000ee                     STOR R4 [R5+10]
+00000       ; 000ef                     BRA motorUp
+002c6       ; 000f0 motorUp :           BRS timerManage
+3ddff       ; 000f1                     STOR R3 [--R7]
+09807       ; 000f2                     LOAD R3 7
+0030d       ; 000f3                     BRS _pressed
+0a5f1       ; 000f4                     LOAD R4 [R7++]
+13805       ; 000f5                     SUB R7 5
+085f1       ; 000f6                     LOAD R0 [R7++]
+0f804       ; 000f7                     ADD R7 4
+3ddff       ; 000f8                     STOR R3 [--R7]
+09800       ; 000f9                     LOAD R3 0
+00306       ; 000fa                     BRS _pressed
+0a5f1       ; 000fb                     LOAD R4 [R7++]
+13805       ; 000fc                     SUB R7 5
+095f1       ; 000fd                     LOAD R2 [R7++]
+0f804       ; 000fe                     ADD R7 4
+15001       ; 000ff                     CMP R2 1
+00403       ; 00100                     BEQ conditional8
+14001       ; 00101 return8 :           CMP R0 1
+0040f       ; 00102                     BEQ conditional9
+0011f       ; 00103 return9 :           BRA main
+0a000       ; 00104 conditional8 :      LOAD R4 0
+3e4c7       ; 00105                     STOR R4 [R6+($outputs+FEEDERENGINE)]
+0a8f0       ; 00106                     LOAD R5 -16
+0a000       ; 00107                     LOAD R4 0
+124ad       ; 00108                     SUB R4 [R5+13]
+3e4ad       ; 00109                     STOR R4 [R5+13]
+0a080 004b0 ; 0010a                     LOAD R4 BELT
+3e4ad       ; 0010c                     STOR R4 [R5+13]
+0a00a       ; 0010d                     LOAD R4 10
+0a8f0       ; 0010e                     LOAD R5 -16
+0a104       ; 0010f                     LOAD R4 R4
+3e4aa       ; 00110                     STOR R4 [R5+10]
+0009e       ; 00111                     BRA motorUpTimer
+09000       ; 00112 conditional9 :      LOAD R2 0
+3d4c0       ; 00113                     STOR R2 [R6+($outputs+HBRIDGE0)]
+0a007       ; 00114                     LOAD R4 7
+0a8f0       ; 00115                     LOAD R5 -16
+0a104       ; 00116                     LOAD R4 R4
+3e4aa       ; 00117                     STOR R4 [R5+10]
+00000       ; 00118                     BRA whiteWait
+0029d       ; 00119 whiteWait :         BRS timerManage
+3ddff       ; 0011a                     STOR R3 [--R7]
+09800       ; 0011b                     LOAD R3 0
+00300 3fee3 ; 0011c                     BRS _pressed
+0a5f1       ; 0011e                     LOAD R4 [R7++]
+13805       ; 0011f                     SUB R7 5
+085f1       ; 00120                     LOAD R0 [R7++]
+0f804       ; 00121                     ADD R7 4
+14880 00352 ; 00122                     CMP R1 SORT
+00404       ; 00124                     BEQ conditional10
+14001       ; 00125 return10 :          CMP R0 1
+0040a       ; 00126                     BEQ conditional11
+0c801       ; 00127 return11 :          ADD R1 1
+001f0       ; 00128                     BRA whiteWait
+09009       ; 00129 conditional10 :     LOAD R2 9
+3d4c1       ; 0012a                     STOR R2 [R6+($outputs+HBRIDGE1)]
+0a008       ; 0012b                     LOAD R4 8
+0a8f0       ; 0012c                     LOAD R5 -16
+0a104       ; 0012d                     LOAD R4 R4
+3e4aa       ; 0012e                     STOR R4 [R5+10]
+08800       ; 0012f                     LOAD R1 0
+00057       ; 00130                     BRA motorDown
+09000       ; 00131 conditional11 :     LOAD R2 0
+3d4c7       ; 00132                     STOR R2 [R6+($outputs+FEEDERENGINE)]
+0a8f0       ; 00133                     LOAD R5 -16
+0a000       ; 00134                     LOAD R4 0
+124ad       ; 00135                     SUB R4 [R5+13]
+3e4ad       ; 00136                     STOR R4 [R5+13]
+0a080 004b0 ; 00137                     LOAD R4 BELT
+3e4ad       ; 00139                     STOR R4 [R5+13]
+0a00b       ; 0013a                     LOAD R4 11
+0a8f0       ; 0013b                     LOAD R5 -16
+0a104       ; 0013c                     LOAD R4 R4
+3e4aa       ; 0013d                     STOR R4 [R5+10]
+00000       ; 0013e                     BRA whiteWaitTimer
+00277       ; 0013f whiteWaitTimer :    BRS timerManage
+00000       ; 00140                     BRA whiteWaitStop
+00275       ; 00141 whiteWaitStop :     BRS timerManage
+14880 0f850 ; 00142                     CMP R1 (SORT*1000)
+00402       ; 00144                     BEQ conditional12
+0c801       ; 00145 return12 :          ADD R1 1
+001d2       ; 00146                     BRA whiteWait
+09009       ; 00147 conditional12 :     LOAD R2 9
+3d4c1       ; 00148                     STOR R2 [R6+($outputs+HBRIDGE1)]
+0a00c       ; 00149                     LOAD R4 12
+0a8f0       ; 0014a                     LOAD R5 -16
+0a104       ; 0014b                     LOAD R4 R4
+3e4aa       ; 0014c                     STOR R4 [R5+10]
+08800       ; 0014d                     LOAD R1 0
+00001       ; 0014e                     BRA motorDownStop
+001f5       ; 0014f                     BRA return12
+00266       ; 00150 motorDownStop :     BRS timerManage
+1481e       ; 00151                     CMP R1 TIMEMOTORDOWN
+00402       ; 00152                     BEQ conditional13
+0c801       ; 00153 return13 :          ADD R1 1
+00033       ; 00154                     BRA motorDown
+09000       ; 00155 conditional13 :     LOAD R2 0
+3d4c1       ; 00156                     STOR R2 [R6+($outputs+HBRIDGE1)]
+08009       ; 00157                     LOAD R0 9
+08800       ; 00158                     LOAD R1 0
+0a8f0       ; 00159                     LOAD R5 -16
+0a100       ; 0015a                     LOAD R4 R0
+3e4aa       ; 0015b                     STOR R4 [R5+10]
+00000       ; 0015c                     BRA runningStop
+00259       ; 0015d runningStop :       BRS timerManage
+3ddff       ; 0015e                     STOR R3 [--R7]
+09806       ; 0015f                     LOAD R3 6
+00300 3fe9f ; 00160                     BRS _pressed
+0a5f1       ; 00162                     LOAD R4 [R7++]
+13805       ; 00163                     SUB R7 5
+09df1       ; 00164                     LOAD R3 [R7++]
+0f804       ; 00165                     ADD R7 4
+15801       ; 00166                     CMP R3 1
+00403       ; 00167                     BEQ conditional14
+001f4       ; 00168 return14 :          BRA runningStop
+00100 3feb8 ; 00169                     BRA main
+09009       ; 0016b conditional14 :     LOAD R2 9
+3d4c0       ; 0016c                     STOR R2 [R6+($outputs+HBRIDGE0)]
+0800a       ; 0016d                     LOAD R0 10
+0a8f0       ; 0016e                     LOAD R5 -16
+0a100       ; 0016f                     LOAD R4 R0
+3e4aa       ; 00170                     STOR R4 [R5+10]
+00000       ; 00171                     BRA motorUpStop
+00244       ; 00172 motorUpStop :       BRS timerManage
+3ddff       ; 00173                     STOR R3 [--R7]
+09805       ; 00174                     LOAD R3 5
+00300 3fe8a ; 00175                     BRS _pressed
+0a5f1       ; 00177                     LOAD R4 [R7++]
+13805       ; 00178                     SUB R7 5
+085f1       ; 00179                     LOAD R0 [R7++]
+0f804       ; 0017a                     ADD R7 4
+14001       ; 0017b                     CMP R0 1
+00403       ; 0017c                     BEQ conditional15
+001f4       ; 0017d return15 :          BRA motorUpStop
+00100 3fea3 ; 0017e                     BRA main
+09000       ; 00180 conditional15 :     LOAD R2 0
+3d4c0       ; 00181                     STOR R2 [R6+($outputs+HBRIDGE0)]
+0980b       ; 00182                     LOAD R3 11
+0a8f0       ; 00183                     LOAD R5 -16
+0a103       ; 00184                     LOAD R4 R3
+3e4aa       ; 00185                     STOR R4 [R5+10]
+001ba       ; 00186                     BRA whiteWaitStop
+001f5       ; 00187                     BRA return15
+0022e       ; 00188 motorDown :         BRS timerManage
+3ddff       ; 00189                     STOR R3 [--R7]
+09800       ; 0018a                     LOAD R3 0
+00300 3fe74 ; 0018b                     BRS _pressed
+0a5f1       ; 0018d                     LOAD R4 [R7++]
+13805       ; 0018e                     SUB R7 5
+085f1       ; 0018f                     LOAD R0 [R7++]
+0f804       ; 00190                     ADD R7 4
+1481e       ; 00191                     CMP R1 TIMEMOTORDOWN
+00404       ; 00192                     BEQ conditional16
+14001       ; 00193 return16 :          CMP R0 1
+0040a       ; 00194                     BEQ conditional17
+0c801       ; 00195 return17 :          ADD R1 1
+001f1       ; 00196                     BRA motorDown
+09000       ; 00197 conditional16 :     LOAD R2 0
+3d4c1       ; 00198                     STOR R2 [R6+($outputs+HBRIDGE1)]
+09809       ; 00199                     LOAD R3 9
+08800       ; 0019a                     LOAD R1 0
+0a8f0       ; 0019b                     LOAD R5 -16
+0a103       ; 0019c                     LOAD R4 R3
+3e4aa       ; 0019d                     STOR R4 [R5+10]
+0010a       ; 0019e                     BRA runningWait
+09000       ; 0019f conditional17 :     LOAD R2 0
+3d4c7       ; 001a0                     STOR R2 [R6+($outputs+FEEDERENGINE)]
+0a8f0       ; 001a1                     LOAD R5 -16
+0a000       ; 001a2                     LOAD R4 0
+124ad       ; 001a3                     SUB R4 [R5+13]
+3e4ad       ; 001a4                     STOR R4 [R5+13]
+0a080 004b0 ; 001a5                     LOAD R4 BELT
+3e4ad       ; 001a7                     STOR R4 [R5+13]
+0980c       ; 001a8                     LOAD R3 12
+0a8f0       ; 001a9                     LOAD R5 -16
+0a103       ; 001aa                     LOAD R4 R3
+3e4aa       ; 001ab                     STOR R4 [R5+10]
+00001       ; 001ac                     BRA motorDownTimer
+001e7       ; 001ad                     BRA return17
+00208       ; 001ae motorDownTimer :    BRS timerManage
+001a0       ; 001af                     BRA motorDownStop
+00206       ; 001b0 motorUpTimer :      BRS timerManage
+001c0       ; 001b1                     BRA motorUpStop
+00204       ; 001b2 runningTimerReset : BRS timerManage
+00100 3fef4 ; 001b3                     BRA runningWait
+00201       ; 001b5 runningTimer :      BRS timerManage
+001a6       ; 001b6                     BRA runningStop
+2800c       ; 001b7 timerManage :       MOD R0 12
+0d800       ; 001b8                     ADD R3 $outputs
+095c3       ; 001b9                     LOAD R2 [R6+R3]
+11800       ; 001ba                     SUB R3 $outputs
+15100       ; 001bb                     CMP R2 R0
+01e04       ; 001bc                     BGT conditional18
+15807       ; 001bd return18 :          CMP R3 7
+01e0e       ; 001be                     BGT conditional19
+0d801       ; 001bf return19 :          ADD R3 1
+001f6       ; 001c0                     BRA timerManage
+09103       ; 001c1 conditional18 :     LOAD R2 R3
+3e5ff       ; 001c2                     STOR R4 [--R7]
+3edff       ; 001c3                     STOR R5 [--R7]
+0a102       ; 001c4                     LOAD R4 R2
+0a802       ; 001c5                     LOAD R5 2
+00300 3fe48 ; 001c6                     BRS _pow
+09105       ; 001c8                     LOAD R2 R5
+0adf1       ; 001c9                     LOAD R5 [R7++]
+0a5f1       ; 001ca                     LOAD R4 [R7++]
+0e102       ; 001cb                     ADD R4 R2
+001f0       ; 001cc                     BRA return18
+0a8f0       ; 001cd conditional19 :     LOAD R5 -16
+0a104       ; 001ce                     LOAD R4 R4
+3e4ab       ; 001cf                     STOR R4 [R5+11]
+0a000       ; 001d0                     LOAD R4 0
+09800       ; 001d1                     LOAD R3 0
+0c001       ; 001d2                     ADD R0 1
+045f1       ; 001d3                     RTS
+001ea       ; 001d4                     BRA return19
+
+@D 3ffff 0000a ; 
+00000 00000 00000 00000 00000 00000 00000 00000 ;                 
+00000 00000                                     ;     
+
+@S 3ffff 000f0
+
+.
