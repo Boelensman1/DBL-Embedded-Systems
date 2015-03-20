@@ -1,0 +1,12 @@
+We approached the machine as it consisting of three parts. Here you see the full machine as sketch and I'm starting of with the feeder. 
+
+/Feeder
+To start of there should be a way to input discs. This is done by having a container tube with open ends. We chose this because the tube is reliable in containing discs and the discs can fall out easily and fast. 
+We want to have some time between the depositing of discs, because of the sorter needing it, which I'm going to talk about in a minute. Therefore the discs shouldn't all fall out at once. Therefore there's a platform somewhat more than a discs height below the tube holding the discs. The height I mentioded is needed so the cam of the rotating wheel can slide in between and push one disc at a time onto the conveyer belt. 
+
+/Transportation
+The conveyer belt appeared to tilt at certain points so we needed walls to stop discs from falling off. We chose low walls at the beginning so it's more user accesible, but chose higher wall after the posisition sensor so we could attach the colour sensor to it. 
+The position sensor is between those walls so the belt is more user accesible too. This isn't harming the sensors, from discs going against it, because the sensible elements are enclosed. 
+
+/Sorter
+For the sorter we chose to have a wedge going up and down. We chose this so the parts making the wedge going up and down could be places vertically instead of horizontally. This is in accordance with the priority concerning floor space. This will make the sorting also faster, because the wedge has to move the disc's height up instead of the belt's width, which is bigger than the height. 
