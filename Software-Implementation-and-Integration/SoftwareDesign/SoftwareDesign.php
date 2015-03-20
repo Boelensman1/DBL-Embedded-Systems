@@ -26,18 +26,17 @@ initVar('$outputs', 10);
 //int $engines;
 
 //constants
-define('$timeMotorDown', -1);
-define('$belt', -1);
-define('$sort', -1);
-define('timerSort', -1);
-define('$lensLampPosition', 5);
-define('$lensLampSorter', 6);
-define('hbridge0', 0);
-define('hbridge1', 1);
-define('conveyorBelt', 3);
-define('feederEngine', 7);
-define('display', 8);
-define('ledStateIndicator', 9);
+define('TIMEMOTORDOWN', 300);
+define('BELT', 1200);
+define('SORT', 850);
+define('LENSLAMPPOSITION', 5);
+define('LENSLAMPSORTER', 6);
+define('HBRIDGE0', 0);
+define('HBRIDGE1', 1);
+define('CONVEYORBELT', 3);
+define('FEEDERENGINE', 7);
+define('DISPLAY', 8);
+define('LEDSTATEINDICATOR', 9);
 
 
 function main()
@@ -47,14 +46,17 @@ function main()
 
 function initial()
 {
-    global $outputs, $hbridge0, $hbridge1;
+    global $outputs;
     timerManage($outputs);
     $push = _getButtonPressed(5);
     if ($push == 1) {
-        $outputs[$hbridge0] = 0;
-        $outputs[$hbridge1] = 9;
+        $temp=9;
+        _storeData($temp,'$outputs',HBRIDGE1);
+        $temp=0;
+        _storeData($temp,'$outputs',HBRIDGE0);
         $state = 1;
         display($state, "leds2", "");
+        unset( $state,$push);
         calibrateSorter();
 
     }
@@ -63,14 +65,16 @@ function initial()
 
 function calibrateSorter()
 {
-    global $outputs, $timeMotorDown, $sleep, $hbridge1;
+    global $outputs, $sleep;
     timerManage($outputs);
-    if ($sleep == $timeMotorDown * 1000) {
-        $outputs[$hbridge1] = 9;
+    if ($sleep == TIMEMOTORDOWN) {
+        $temp=9;
+        _storeData($temp,'$outputs',HBRIDGE1);
         $state = 2;
         display($state, "leds", "");
-        resting();
         $sleep = 0;
+        unset($state);
+        resting();
     }
     $sleep++;
     calibrateSorter();
@@ -78,19 +82,22 @@ function calibrateSorter()
 
 function resting()
 {
-    global $outputs, $lensLampPosition, $lensLampSorter, $conveyorBelt, $feederEngine, $belt;
+    global $outputs;
     timerManage($outputs);
     $startStop = _getButtonPressed(0);
     if ($startStop == 1) {
-        $outputs[$lensLampPosition] = 12;
-        $outputs[$lensLampSorter] = 12;
-        $outputs[$conveyorBelt] = 9;
-        $outputs[$feederEngine] = 5;
-        setTimer(2 + $belt);
-
-
+        $temp=12;
+        _storeData($temp,'$outputs',LENSLAMPPOSITION);
+        _storeData($temp,'$outputs',LENSLAMPSORTER);
+        $temp=9;
+        _storeData($temp,'$outputs',CONVEYORBELT);
+        $temp=5;
+        _storeData($temp,'$outputs',FEEDERENGINE);
+        setTimer(2 + BELT);
+        debug();
         $state = 3;
         display($state, "leds2", "");
+        unset($startStop,$state);
         running();
     }
     resting();
@@ -98,20 +105,26 @@ function resting()
 
 function running()
 {
-    global $outputs, $feederEngine, $belt;
+    global $outputs, $position,$startStop;
     timerManage($outputs);
     $position = _getButtonPressed(7);
     $startStop = _getButtonPressed(0);
-    if ($startStop = 1) {
-        $outputs[$feederEngine] = 0;
-        setTimer($belt);
+    if ($startStop == 1) {
+        $temp=0;
+        _storeData($temp,'$outputs',FEEDERENGINE);
+        setTimer(BELT);
+        $state=9;
+        display($state,"leds2","");
+        unset($state);
         runningTimer();
+
     }
-    if ($position = 1) {
-        setTimer(2 + $belt);
+    if ($position == 1) {
+        setTimer(2 + BELT);
 
         $state = 4;
         display($state, "leds2", "");
+        unset($state,$temp);
         runningWait();
     }
     running();
@@ -119,30 +132,36 @@ function running()
 
 function runningWait()
 {
-    global $outputs, $feederEngine, $belt, $hbridge0, $sort;
+    global $outputs;
     timerManage($outputs);
     $position = _getButtonPressed(7);
     $colour = _getButtonPressed(6);
     $startStop = _getButtonPressed(0);
-    if ($startStop = 1) {
-        $outputs[$feederEngine] = 0;
-        setTimer($belt);
+    if ($startStop == 1) {
+        $temp=0;
+        _storeData($temp,'$outputs',FEEDERENGINE);
+        setTimer(BELT);
+        unset($colour);
+        $state=9;
+        display($state,"leds2","");
+        unset($position,$startStop,$state);
         runningTimer();
-    }
-    if ($position) {
-        setTimer(2 + $belt);
 
+    }
+    if ($position == 1) {
+        setTimer(2 + BELT);
         $state = 5;
         display($state, "leds2", "");
         runningTimerReset();
+
     }
-    if ($colour) {
-        $outputs[$hbridge0] = 9;
-
-        setTimer($sort);
-
+    if ($colour == 1) {
+        $temp=9;
+        _storeData($temp,'$outputs',HBRIDGE0);
+        setTimer(SORT);
         $state = 6;
         display($state, "leds2", "");
+        unset($position,$state);
         motorUp();
     }
     runningWait();
@@ -157,38 +176,55 @@ function runningTimerReset()
 
 function motorUp()
 {
-    global $outputs, $feederEngine, $belt, $hbridge0;
+    global $outputs,$push,$startStop;
     timerManage($outputs);
     $push = _getButtonPressed(7);
     $startStop = _getButtonPressed(0);
-    if ($startStop = 1) {
-        $outputs[$feederEngine] = 0;
-        setTimer($belt);
+    if ($startStop == 1) {
+        $temp=0;
+        _storeData($temp,'$outputs',FEEDERENGINE);
+        setTimer(BELT);
+        unset($temp);
+        $state=10;
+        display($state,"leds2","");
+        unset($startStop,$push,$state);
         motorUpTimer();
+
     }
-    if ($push = 1) {
-        $outputs[$hbridge0] = 0;
+    if ($push == 1) {
+        $temp=0;
+        _storeData($temp,'$outputs',HBRIDGE0);
         $state = 7;
         display($state, "leds2", "");
+        unset($push,$state);
         whiteWait();
+
     }
 }
 
 function whiteWait()
 {
-    global $outputs, $sleep, $timerSort, $hbridge1, $feederEngine, $belt;
+    global $outputs, $sleep;
     timerManage($outputs);
-    if ($sleep == $timerSort * 1000) {
-        $outputs[$hbridge1] = 9;
+    $startStop = _getButtonPressed(0);
+    if ($sleep == SORT) {;
+        $temp=9;
+        _storeData($temp,'$outputs',HBRIDGE1);
         $state = 8;
         display($state, "leds2", "");
-        motorDown();
         $sleep = 0;
+        unset($state,$startStop);
+        motorDown();
+
     }
-    $startStop = _getButtonPressed(0);
-    if ($startStop = 1) {
-        $outputs[$feederEngine] = 0;
-        setTimer($belt);
+
+    if ($startStop == 1) {
+        $temp=0;
+        _storeData($temp,'$outputs',FEEDERENGINE);
+        setTimer(BELT);
+        $state=11;
+        display($state,"leds2","");
+        unset($startStop);
         whiteWaitTimer();
     }
     $sleep++;
@@ -197,20 +233,27 @@ function whiteWait()
 
 function motorDown()
 {
-    global $outputs, $sleep, $timeMotorDown, $hbridge1, $feederEngine, $belt;
+    global $outputs, $sleep;
     timerManage($outputs);
-    if ($sleep == $timeMotorDown * 1000) {
-        $outputs[$hbridge1] = 0;
+    $startStop = _getButtonPressed(0);
+    if ($sleep == TIMEMOTORDOWN ) {
+        $temp=0;
+        _storeData($temp,'$outputs',HBRIDGE1);
         $state = 9;
         $sleep = 0;
         display($state, "leds2", "");
+        unset($state,$startStop,$temp);
         runningWait();
     }
-    $startStop = _getButtonPressed(0);
-    if ($startStop = 1) {
-        $outputs[$feederEngine] = 0;
-        setTimer($belt);
+
+    if ($startStop == 1) {
+        $temp=0;
+        _storeData($temp,'$outputs',FEEDERENGINE);
+        setTimer(BELT);
+        $state=12;
+        display($state,"leds2","");
         motorDownTimer();
+        unset($state,$startStop);
     }
     $sleep++;
     motorDown();
@@ -248,13 +291,15 @@ function motorDownTimer()
 
 function runningStop()
 {
-    global $outputs, $hbridge0;
+    global $outputs;
     timerManage($outputs);
     $colour = _getButtonPressed(6);
     if ($colour == 1) {
-        $outputs[$hbridge0] = 9;
+        $temp=9;
+        _storeData($temp,'$outputs',HBRIDGE0);
         $state = 10;
         display($state, "leds2", "");
+        unset($colour,$state);
         motorUpStop();
     }
     runningStop();
@@ -262,27 +307,32 @@ function runningStop()
 
 function motorUpStop()
 {
-    global $outputs, $hbridge0;
+    global $outputs;
     timerManage($outputs);
     $push = _getButtonPressed(5);
     if ($push == 1) {
-        $outputs[$hbridge0] = 0;
+        $temp=0;
+        _storeData($temp,'$outputs',HBRIDGE0);
         $state = 11;
         display($state, "leds2", "");
+        whiteWaitStop();
+        unset($push,$state);
     }
     motorUpStop();
 }
 
 function whiteWaitStop()
 {
-    global $outputs, $sleep, $hbridge1, $timerSort;
+    global $outputs, $sleep;
     timerManage($outputs);
-    if ($sleep == $timerSort * 1000) {
-        $outputs[$hbridge1] = 9;
+    if ($sleep == SORT * 1000) {
+        $temp=9;
+        _storeData($temp,'$outputs',HBRIDGE1);
         $state = 12;
         display($state, "leds2", "");
-        motorDown();
         $sleep = 0;
+        motorDownStop();
+        unset($state);
     }
 
     $sleep++;
@@ -291,14 +341,16 @@ function whiteWaitStop()
 
 function motorDownStop()
 {
-    global $outputs, $sleep, $timeMotorDown, $hbridge1;
+    global $outputs, $sleep;
     timerManage($outputs);
-    if ($sleep == $timeMotorDown * 1000) {
-        $outputs[$hbridge1] = 0;
+    if ($sleep == TIMEMOTORDOWN ) {
+        $temp=0;
+        _storeData($temp,'$outputs',HBRIDGE1);
         $state = 9;
         $sleep = 0;
         display($state, "leds2", "");
-        runningWait();
+        unset($state);
+        runningStop();
     }
     $sleep++;
     motorDown();
@@ -306,46 +358,52 @@ function motorDownStop()
 
 function timerInterrupt()
 {
-    global $outputs, $hbridge0, $hbridge1, $lensLampPosition, $lensLampSorter, $ledStateIndicator, $display, $conveyorBelt, $feederEngine;
+    global $outputs;
     timerManage($outputs);
-    $outputs[$hbridge0] = 1;
-    $outputs[$hbridge1] = 0;
-    $outputs[$lensLampPosition] = 0;
-    $outputs[$lensLampSorter] = 0;
-    $outputs[$ledStateIndicator] = 0;
-    $outputs[$display] = 0;
-    $outputs[$conveyorBelt] = 0;
-    $outputs[$feederEngine] = 0;
+    $temp=9;
+    _storeData($temp,'$outputs',HBRIDGE1);
+    $temp=0;
+    _storeData($temp,'$outputs',HBRIDGE0);
+    _storeData($temp,'$outputs',LENSLAMPPOSITION);
+    _storeData($temp,'$outputs',LENSLAMPSORTER);
+    _storeData($temp,'$outputs',LEDSTATEINDICATOR);
+    _storeData($temp,'$outputs',DISPLAY);
+    _storeData($temp,'$outputs',CONVEYORBELT);
+    _storeData($temp,'$outputs',FEEDERENGINE);
+
     initial();
 
 }
 
 function abort()
 {
-    global $outputs, $hbridge0, $hbridge1, $lensLampPosition, $lensLampSorter, $ledStateIndicator, $display, $conveyorBelt, $feederEngine;
+    global $outputs;
     timerManage($outputs);
-    $outputs[$hbridge0] = 0;
-    $outputs[$hbridge1] = 0;
-    $outputs[$lensLampPosition] = 0;
-    $outputs[$lensLampSorter] = 0;
-    $outputs[$ledStateIndicator] = 0;
-    $outputs[$display] = 0;
-    $outputs[$conveyorBelt] = 0;
-    $outputs[$feederEngine] = 0;
+    $temp=0;
+    _storeData($temp,'$outputs',HBRIDGE1);
+    _storeData($temp,'$outputs',HBRIDGE0);
+    _storeData($temp,'$outputs',LENSLAMPPOSITION);
+    _storeData($temp,'$outputs',LENSLAMPSORTER);
+    _storeData($temp,'$outputs',LEDSTATEINDICATOR);
+    _storeData($temp,'$outputs',DISPLAY);
+    _storeData($temp,'$outputs',CONVEYORBELT);
+    _storeData($temp,'$outputs',FEEDERENGINE);
     aborted();
 
 }
 
 function aborted()
 {
-    global $outputs, $hbridge0;
+    global $outputs;
     timerManage($outputs);
     $startStop = _getButtonPressed(0);
-    if ($startStop = 1) {
-        $outputs[$hbridge0] = 1;
+    if ($startStop == 1) {
+        $temp=9;
+        _storeData($temp,'$outputs',HBRIDGE0);
         $state = 0;
         display($state, "leds2", "");
         initial();
+        unset($state,$startStop);
     }
     aborted();
 
@@ -354,8 +412,8 @@ function aborted()
 function timerManage()
 {
     global $outputs, $location, $counter, $engines;
-    $location = $location % 7;
-    $counter = $counter % 12;
+    mod(7,$location);
+    mod(12,$counter);
     $temp = _getData('$outputs', $location);
     if ($counter < $temp) {
         $engines = $engines + pow(2, $location);
