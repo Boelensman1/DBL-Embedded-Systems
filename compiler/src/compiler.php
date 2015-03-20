@@ -778,7 +778,8 @@ class Compiler
 
                 }
                 $this->error(
-                    'too many _variables, max is ' . $this->maxVariables
+                    'too many _variables, max is ' . $this->maxVariables."\n"
+                    .'!!  your current variables are: '.implode(', ',$this->_variables)
                 );
             }
         $this->error('Unknown error while getting register');
