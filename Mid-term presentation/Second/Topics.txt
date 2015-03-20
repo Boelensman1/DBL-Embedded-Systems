@@ -3,6 +3,6 @@
 /Machine design		T+M
  (T) - Specification
  (T) - Priorities
- (M) - Design decisions (explain that we treat the machine as 3 different machine parts)
+ (M) - Design decisions
    (M) - Sketches
 /Software		D
