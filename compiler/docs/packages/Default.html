@@ -31,7 +31,7 @@
 <a href="#reports" class="dropdown-toggle" data-toggle="dropdown">
                                     Reports <b class="caret"></b></a><ul class="dropdown-menu">
 <li><a href="../errors.html"><i class="icon-remove-sign"></i> Errors 
-                <span class="label label-info">13</span></a></li>
+                <span class="label label-info">14</span></a></li>
 <li><a href="../markers.html"><i class="icon-map-marker"></i> Markers 
                 <ul></ul></a></li>
 <li><a href="../deprecated.html"><i class="icon-stop"></i> Deprecated elements 
@@ -68,7 +68,8 @@
 <li class="function  "><a href="#function_display" title="display() :: Display something on either the display or the leds"><span class="description">Display something on either the display or the leds</span><pre>display</pre></a></li>
 <li class="function  "><a href="#function_getInput" title="getInput() :: Get button or analog input"><span class="description">Get button or analog input</span><pre>getInput</pre></a></li>
 <li class="function  "><a href="#function_installCountdown" title="installCountdown() :: Install the countdown"><span class="description">Install the countdown</span><pre>installCountdown</pre></a></li>
-<li class="function  "><a href="#function_modulo" title="modulo() :: Take the mod of a number"><span class="description">Take the mod of a number</span><pre>modulo</pre></a></li>
+<li class="function  "><a href="#function_mod" title="mod() :: Take the mod of a number"><span class="description">Take the mod of a number</span><pre>mod</pre></a></li>
+<li class="function  "><a href="#function_pow" title="pow() :: Get the power of a number"><span class="description">Get the power of a number</span><pre>pow</pre></a></li>
 <li class="function  "><a href="#function_pullStack" title="pullStack() :: Pull a variable from the stack"><span class="description">Pull a variable from the stack</span><pre>pullStack</pre></a></li>
 <li class="function  "><a href="#function_pushStack" title="pushStack() :: Push a variable to the stack"><span class="description">Push a variable to the stack</span><pre>pushStack</pre></a></li>
 <li class="function  "><a href="#function_setTimer" title="setTimer() :: Set the timer interrupt to a value."><span class="description">Set the timer interrupt to a value.</span><pre>setTimer</pre></a></li>
@@ -257,12 +258,12 @@ the function timerInterrupt is ran.</p></div>
 <code>string</code><p>The name of the function where the timer should go to</p></div>
 </div></div>
 </div>
-<a xmlns:php="http://php.net/xsl" id="function_modulo"></a><div xmlns:php="http://php.net/xsl" class="element clickable function  function_modulo " data-toggle="collapse" data-target=".function_modulo .collapse" title="">
+<a xmlns:php="http://php.net/xsl" id="function_mod"></a><div xmlns:php="http://php.net/xsl" class="element clickable function  function_mod " data-toggle="collapse" data-target=".function_mod .collapse" title="">
 <h2>Take the mod of a number</h2>
-<pre>modulo(\variable $variable, integer $what) : void</pre>
+<pre>mod(integer $what, \variable $variable) : void</pre>
 <div class="labels"></div>
 <div class="row collapse"><div class="detail-description">
-<div class="long_description"><p>Example: modulo($variable,2)
+<div class="long_description"><p>Example: mod($variable,2)
 This will return the mod 2 of $variable</p></div>
 <table class="table table-bordered"><tr>
 <th>package</th>
@@ -270,11 +271,31 @@ This will return the mod 2 of $variable</p></div>
 </tr></table>
 <h3>Parameters</h3>
 <div class="subelement argument">
-<h4>$variable</h4>
-<code>\variable</code><p>variable to modulo over</p></div>
-<div class="subelement argument">
 <h4>$what</h4>
 <code>integer</code><p>modulo what</p></div>
+<div class="subelement argument">
+<h4>$variable</h4>
+<code>\variable</code><p>variable to modulo over</p></div>
+</div></div>
+</div>
+<a xmlns:php="http://php.net/xsl" id="function_pow"></a><div xmlns:php="http://php.net/xsl" class="element clickable function  function_pow " data-toggle="collapse" data-target=".function_pow .collapse" title="">
+<h2>Get the power of a number</h2>
+<pre>pow(integer $what, \variable $variable) : void</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"><p>Example: pow(2,$variable)
+This will make $variable equal to 2^$variable</p></div>
+<table class="table table-bordered"><tr>
+<th>package</th>
+<td><a href="../packages/Default.html">Default</a></td>
+</tr></table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$what</h4>
+<code>integer</code><p>the number to power with</p></div>
+<div class="subelement argument">
+<h4>$variable</h4>
+<code>\variable</code><p>variable to power</p></div>
 </div></div>
 </div>
 <a xmlns:php="http://php.net/xsl" id="function_pullStack"></a><div xmlns:php="http://php.net/xsl" class="element clickable function  function_pullStack " data-toggle="collapse" data-target=".function_pullStack .collapse" title="">
@@ -363,7 +384,7 @@ This will sleep for 10 clockticks</p></div>
 <div class="row"><footer class="span12">
             Template is built using <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap 2</a> and icons provided by <a href="http://glyphicons.com/">Glyphicons</a>.<br>
             Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor v2.8.1</a> and<br>
-            generated on 2015-03-17T15:49:47+01:00.<br></footer></div>
+            generated on 2015-03-20T11:34:54+01:00.<br></footer></div>
 </div>
 </body>
 </html>
