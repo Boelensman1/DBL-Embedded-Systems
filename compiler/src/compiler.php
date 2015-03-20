@@ -1455,7 +1455,7 @@ class Compiler
                 $longestLineLength = strlen($lineNoComment);
             }
 
-            if ($this->insertComments) {
+            if ($this->insertComments!==true) {
                 $line = $lineNoComment;
             }
             $returnTmp[] = $line;
