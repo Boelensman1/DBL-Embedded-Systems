@@ -1,4 +1,8 @@
+/Introduction		T
+ (T) - Purpose presentation
 /Machine design		T+M
- - Design decisions
-   - Sketches
+ (T) - Specification
+ (T) - Priorities
+ (M) - Design decisions (explain that we treat the machine as 3 different machine parts)
+   (M) - Sketches
 /Software		D
