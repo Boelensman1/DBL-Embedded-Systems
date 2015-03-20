@@ -506,6 +506,22 @@ class Compiler
                             'BPL ' . $this->getNextConditional('if')
                         ];
                     }
+                    case '>=': {
+                        return [
+                            1,
+                            'CMP ' . $this->processArgument($matches[1]) . ' '
+                            . $this->processArgument($matches[3]),
+                            'BGE ' . $this->getNextConditional('if')
+                        ];
+                    }
+                    case '<=': {
+                        return [
+                            1,
+                            'CMP ' . $this->processArgument($matches[1]) . ' '
+                            . $this->processArgument($matches[3]),
+                            'BLE ' . $this->getNextConditional('if')
+                        ];
+                    }
                     default: {
                         $this->error('unknown if statement');
                     }

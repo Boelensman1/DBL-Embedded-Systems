@@ -60,17 +60,17 @@
 </li>
 <li class="nav-header">
 <i title="Functions" class="icon-custom icon-function"></i> Functions</li>
+<li class="function  "><a href="#function__getButtonPressed" title="_getButtonPressed() :: Check if a button is pressed"><span class="description">Check if a button is pressed</span><pre>_getButtonPressed</pre></a></li>
 <li class="function  "><a href="#function__getData" title="_getData() :: Get data"><span class="description">Get data</span><pre>_getData</pre></a></li>
 <li class="function  "><a href="#function__getRam" title="_getRam() :: Get a value from the ram."><span class="description">Get a value from the ram.</span><pre>_getRam</pre></a></li>
 <li class="function  "><a href="#function__storeData" title="_storeData() :: Store data"><span class="description">Store data</span><pre>_storeData</pre></a></li>
 <li class="function  "><a href="#function__storeRam" title="_storeRam() :: Store a value in the ram."><span class="description">Store a value in the ram.</span><pre>_storeRam</pre></a></li>
-<li class="function  "><a href="#function_buttonPressed" title="buttonPressed() :: Check if a button is pressed"><span class="description">Check if a button is pressed</span><pre>buttonPressed</pre></a></li>
 <li class="function  "><a href="#function_display" title="display() :: Display something on either the display or the leds"><span class="description">Display something on either the display or the leds</span><pre>display</pre></a></li>
 <li class="function  "><a href="#function_getInput" title="getInput() :: Get button or analog input"><span class="description">Get button or analog input</span><pre>getInput</pre></a></li>
 <li class="function  "><a href="#function_installCountdown" title="installCountdown() :: Install the countdown"><span class="description">Install the countdown</span><pre>installCountdown</pre></a></li>
 <li class="function  "><a href="#function_mod" title="mod() :: Take the mod of a number"><span class="description">Take the mod of a number</span><pre>mod</pre></a></li>
 <li class="function  "><a href="#function_pow" title="pow() :: Get the power of a number"><span class="description">Get the power of a number</span><pre>pow</pre></a></li>
-<li class="function  "><a href="#function_pullStack" title="pullStack() :: Pull a variable from the stack"><span class="description">Pull a variable from the stack</span><pre>pullStack</pre></a></li>
+<li class="function  "><a href="#function_pullStack" title="pullStack() :: Pull a mixed from the stack"><span class="description">Pull a mixed from the stack</span><pre>pullStack</pre></a></li>
 <li class="function  "><a href="#function_pushStack" title="pushStack() :: Push a variable to the stack"><span class="description">Push a variable to the stack</span><pre>pushStack</pre></a></li>
 <li class="function  "><a href="#function_setTimer" title="setTimer() :: Set the timer interrupt to a value."><span class="description">Set the timer interrupt to a value.</span><pre>setTimer</pre></a></li>
 <li class="function  "><a href="#function_sleep" title="sleep() :: Pause the program"><span class="description">Pause the program</span><pre>sleep</pre></a></li>
@@ -84,6 +84,26 @@
 <div class="package-indent">
 <h3>
 <i title="Functions" class="icon-custom icon-function"></i> Functions</h3>
+<a xmlns:php="http://php.net/xsl" id="function__getButtonPressed"></a><div xmlns:php="http://php.net/xsl" class="element clickable function  function__getButtonPressed " data-toggle="collapse" data-target=".function__getButtonPressed .collapse" title="">
+<h2>Check if a button is pressed</h2>
+<pre>_getButtonPressed(mixed $button) : integer</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"><p>Puts the result into R5
+Example: $pressed=buttonPressed($location);</p></div>
+<table class="table table-bordered"><tr>
+<th>package</th>
+<td><a href="../packages/Default.html">Default</a></td>
+</tr></table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$button</h4>
+<code>mixed</code><p>Which button to check (input a variable)</p></div>
+<h3>Returns</h3>
+<div class="subelement response">
+<code>integer</code>Whether or not the button is pressed.</div>
+</div></div>
+</div>
 <a xmlns:php="http://php.net/xsl" id="function__getData"></a><div xmlns:php="http://php.net/xsl" class="element clickable function  function__getData " data-toggle="collapse" data-target=".function__getData .collapse" title="">
 <h2>Get data</h2>
 <pre>_getData(string $location, integer $offset) : mixed</pre>
@@ -170,24 +190,6 @@ This will put the value of $data into the data segment "data" at position 1</p><
 <code>\variable</code><p>The value to store</p></div>
 </div></div>
 </div>
-<a xmlns:php="http://php.net/xsl" id="function_buttonPressed"></a><div xmlns:php="http://php.net/xsl" class="element clickable function  function_buttonPressed " data-toggle="collapse" data-target=".function_buttonPressed .collapse" title="">
-<h2>Check if a button is pressed</h2>
-<pre>buttonPressed(\variable $button) : void</pre>
-<div class="labels"></div>
-<div class="row collapse"><div class="detail-description">
-<div class="long_description"><p>Puts the result into R5
-Example:buttonPressed($location);
-if (R5 == 1) {}</p></div>
-<table class="table table-bordered"><tr>
-<th>package</th>
-<td><a href="../packages/Default.html">Default</a></td>
-</tr></table>
-<h3>Parameters</h3>
-<div class="subelement argument">
-<h4>$button</h4>
-<code>\variable</code><p>Which button to check</p></div>
-</div></div>
-</div>
 <a xmlns:php="http://php.net/xsl" id="function_display"></a><div xmlns:php="http://php.net/xsl" class="element clickable function  function_display " data-toggle="collapse" data-target=".function_display .collapse" title="">
 <h2>Display something on either the display or the leds</h2>
 <pre>display(\variable $what, string $onWhat, string $location<code> = '000001'</code>) : void</pre>
@@ -219,7 +221,7 @@ This will display $value in the middle of the display</p></div>
 </div>
 <a xmlns:php="http://php.net/xsl" id="function_getInput"></a><div xmlns:php="http://php.net/xsl" class="element clickable function  function_getInput " data-toggle="collapse" data-target=".function_getInput .collapse" title="">
 <h2>Get button or analog input</h2>
-<pre>getInput(\variable $writeTo, string $type) : void</pre>
+<pre>getInput(mixed $writeTo, string $type) : void</pre>
 <div class="labels"></div>
 <div class="row collapse"><div class="detail-description">
 <div class="long_description"><p>When you just want hte input of 1 button, use buttonPressed instead
@@ -232,7 +234,7 @@ This will put the value of the analog into $variable</p></div>
 <h3>Parameters</h3>
 <div class="subelement argument">
 <h4>$writeTo</h4>
-<code>\variable</code><p>Variable to write the input to</p></div>
+<code>mixed</code><p>Variable to write the input to</p></div>
 <div class="subelement argument">
 <h4>$type</h4>
 <code>string</code><p>Type of input, possible values are: buttons, analog</p></div>
@@ -299,7 +301,7 @@ This will make $variable equal to 2^$variable</p></div>
 </div></div>
 </div>
 <a xmlns:php="http://php.net/xsl" id="function_pullStack"></a><div xmlns:php="http://php.net/xsl" class="element clickable function  function_pullStack " data-toggle="collapse" data-target=".function_pullStack .collapse" title="">
-<h2>Pull a variable from the stack</h2>
+<h2>Pull a mixed from the stack</h2>
 <pre>pullStack(string $variable) : void</pre>
 <div class="labels"></div>
 <div class="row collapse"><div class="detail-description">
@@ -384,7 +386,7 @@ This will sleep for 10 clockticks</p></div>
 <div class="row"><footer class="span12">
             Template is built using <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap 2</a> and icons provided by <a href="http://glyphicons.com/">Glyphicons</a>.<br>
             Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor v2.8.1</a> and<br>
-            generated on 2015-03-20T15:23:12+01:00.<br></footer></div>
+            generated on 2015-03-20T15:34:59+01:00.<br></footer></div>
 </div>
 </body>
 </html>

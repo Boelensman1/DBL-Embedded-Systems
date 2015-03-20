@@ -122,7 +122,7 @@ function mod($what, $variable)
  * Example: getInput($variable,'analog')
  * This will put the value of the analog into $variable
  *
- * @param variable $writeTo Variable to write the input to
+ * @param mixed $writeTo Variable to write the input to
  * @param string $type Type of input, possible values are: buttons, analog
  *
  * @return void
@@ -135,14 +135,13 @@ function getInput($writeTo, $type)
  * Check if a button is pressed
  *
  * Puts the result into R5
- * Example:buttonPressed($location);
- * if (R5 == 1) {}
+ * Example: $pressed=buttonPressed($location);
  *
- * @param variable $button Which button to check
+ * @param mixed $button Which button to check (input a variable)
  *
- * @return void
+ * @return int Whether or not the button is pressed.
  */
-function buttonPressed($button)
+function _getButtonPressed($button)
 {
 }
 
@@ -184,7 +183,7 @@ function pushStack($variable)
 }
 
 /**
- *Pull a variable from the stack
+ *Pull a mixed from the stack
  *
  * @param string $variable the variable where the pulled variable is put into
  *
