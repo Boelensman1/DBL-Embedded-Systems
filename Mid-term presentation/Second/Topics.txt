@@ -1,0 +1,4 @@
+/Machine design		T+M
+ - Design decisions
+   - Sketches
+/Software		D
