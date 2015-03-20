@@ -765,9 +765,19 @@ class Compiler
         if ($less == true) {
             die("!!\tERROR while compiling:\n!!\t$error.");
         }
+        $funcname=$this->_functionName;
+
+        if (count($this->_inConditional)>0)
+        {
+            $inCon=$this->_inConditional[count($this->_inConditional)-1];
+            $funcname=$inCon['parent'].'('.$inCon['linestart'].') -> '.$funcname.'  ( '.
+                $inCon['statement']
+                .' )';
+        }
+
         $message="!!\tERROR while compiling around _line #"
             . $this->_lineNumber[$this->_functionName]
-            . " in function $this->_functionName:\n!!\t" . $this->_line;
+            . " in function $funcname:\n!!\t" . $this->_line;
         $error=explode("\n",$error);
         foreach ($error as $errorLine)
         {
@@ -822,7 +832,7 @@ class Compiler
 
         //check if we have this variable
         if (!in_array($variable, $this->_variables)) {
-            $this->error('Unsetting unknown variable.');
+            $this->error('Unsetting unknown variable: '.$variable);
         }
 
         $register=array_search($variable, $this->_variables);
@@ -853,6 +863,9 @@ class Compiler
                 $this->_inConditional[$index]['name'] = 'conditional' . $i;
                 $this->_inConditional[$index]['id'] = $i;
                 $this->_inConditional[$index]['type'] = $type;
+                $this->_inConditional[$index]['parent'] = $this->_functionName;
+                $this->_inConditional[$index]['statement'] = $this->_line;
+                $this->_inConditional[$index]['linestart'] = $this->_lineNumber[$this->_functionName];
 
                 $this->_functionsCompiled['conditional' . $i] = new stdClass();
                 $this->_functionsCompiled['conditional' . $i]->code = [];
