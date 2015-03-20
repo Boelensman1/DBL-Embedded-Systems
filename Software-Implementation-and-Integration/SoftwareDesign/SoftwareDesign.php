@@ -26,7 +26,7 @@ initVar('$outputs', 10);
 //int $engines;
 
 //constants
-define('TIMEMOTORDOWN', 300);
+define('TIMEMOTORDOWN', 30);
 define('BELT', 1200);
 define('SORT', 850);
 define('LENSLAMPPOSITION', 5);
@@ -41,9 +41,31 @@ define('LEDSTATEINDICATOR', 9);
 
 function main()
 {
+    $temp=0;
+    _storeData($temp,'$outputs',HBRIDGE1);
+    _storeData($temp,'$outputs',HBRIDGE0);
+    _storeData($temp,'$outputs',LENSLAMPPOSITION);
+    _storeData($temp,'$outputs',LENSLAMPSORTER);
+    _storeData($temp,'$outputs',LEDSTATEINDICATOR);
+    _storeData($temp,'$outputs',DISPLAY);
+    _storeData($temp,'$outputs',CONVEYORBELT);
+    _storeData($temp,'$outputs',FEEDERENGINE);
+    $state=0;
+    display($state,"leds2","");
     initial();
 }
 
+function initial()
+{
+    $temp=6;
+    _storeData($temp,'$outputs',4);
+    $temp=12;
+    _storeData($temp,'$outputs',5);
+    timerManage();
+    sleep(100);
+    initial();
+}
+/*
 function initial()
 {
     global $outputs;
@@ -51,12 +73,13 @@ function initial()
     $push = _getButtonPressed(5);
     if ($push == 1) {
         $temp=9;
-        _storeData($temp,'$outputs',HBRIDGE1);
-        $temp=0;
         _storeData($temp,'$outputs',HBRIDGE0);
+        $temp=0;
+        _storeData($temp,'$outputs',HBRIDGE1);
         $state = 1;
         display($state, "leds2", "");
         unset( $state,$push);
+        $sleep=0;
         calibrateSorter();
 
     }
@@ -94,7 +117,6 @@ function resting()
         $temp=5;
         _storeData($temp,'$outputs',FEEDERENGINE);
         setTimer(2 + BELT);
-        debug();
         $state = 3;
         display($state, "leds2", "");
         unset($startStop,$state);
@@ -408,25 +430,27 @@ function aborted()
     aborted();
 
 }
-
+*/
 function timerManage()
 {
     global $outputs, $location, $counter, $engines;
-    mod(7,$location);
-    mod(12,$counter);
+    mod(12,$counter); //makes sure that when $counter >13 it will reset to 0
     $temp = _getData('$outputs', $location);
-    if ($counter < $temp) {
-        $engines = $engines + pow(2, $location);
+    if ( $temp > $counter) {
+        $temp=$location;
+        pow(2, $temp);
+        $engines += $temp;
     }
 
-    if ($location >= 7) {
+    if ($location > 7) {
         display($engines, "leds", "");
         $engines = 0;
+        $location=0;
+        $counter++;
         return;
     }
 
     $location++;
-    $counter++;
     timerManage($outputs);
     return;
 }
