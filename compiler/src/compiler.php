@@ -550,7 +550,7 @@ class Compiler
 
             case 'debug': {
                 $comments='False';
-                if ($this->insertComments)
+                if ($this->insertComments===true)
                 {
                     $comments='True';
                 }
