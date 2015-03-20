@@ -645,8 +645,6 @@ class Compiler
                     'STOR R4 [R5+' . TIMER . ']'
                 ];
             }
-<<<<<<< Updated upstream
-=======
             case 'buttonPressed': {
                 $this->_useFunction['pressed'] = true;
                 $this->_useFunction['pow'] = true;
@@ -659,7 +657,6 @@ class Compiler
                     'PULL R3'
                 ];
             }
->>>>>>> Stashed changes
             case 'pow': {
                 $this->_useFunction['pow'] = true;
 
@@ -699,149 +696,6 @@ class Compiler
         }
     }
 
-<<<<<<< Updated upstream
-    private function processEqualStatement($line,$variable)
-    {
-        $rest = trim($variable[2][0]);
-        $variable = trim($variable[1][0]);
-        $register = '';
-        //lets see if we are dealing with a +/-
-        switch (substr($variable, -1)) {
-            case '+': {
-                //lets see if we are dealing with a variable
-                if (substr($variable, 0, 1) === '$') {
-                    $variable = substr($variable, 0, -1);
-                    //get the variable
-                    $register = $this->getRegister($variable);
-
-                    return [
-                        0,
-                        'ADD ' . $register . ' ' . $this->processArgument($rest)
-                    ];
-                }
-                $this->error('Addition on a non-variable.');
-                break;
-            }
-            case '-': {
-                if (substr($variable, 0, 1) === '$') {
-                    $variable = substr($variable, 0, -1);
-                    //get the variable
-                    $register = $this->getRegister($variable);
-
-                    return [
-                        0,
-                        'SUB ' . $register . ' ' . $this->processArgument($rest)
-                    ];
-                }
-                $this->error('Subtraction on a non-variable.');
-                break;
-            }
-            case '/': {
-                if (substr($variable, 0, 1) === '$') {
-                    $variable = substr($variable, 0, -1);
-                    //get the variable
-                    $register = $this->getRegister($variable);
-
-                    return [
-                        0,
-                        'DIV ' . $register . ' ' . $this->processArgument($rest)
-                    ];
-                }
-                $this->error('Division on a non-variable.');
-                break;
-            }
-            case '*': {
-                if (substr($variable, 0, 1) === '$') {
-                    $variable = substr($variable, 0, -1);
-                    //get the variable
-                    $register = $this->getRegister($variable);
-
-                    return [
-                        0,
-                        'MULS ' . $register . ' ' . $this->processArgument($rest)
-                    ];
-                }
-                $this->error('Multiplication on a non-variable.');
-                break;
-            }
-        }
-        //lets see if we are dealing with a variable
-        if (substr($variable, 0, 1) === '$') {
-            //get the variable
-            $register = $this->getRegister($variable);
-        }
-
-        //okay lets now do something with the rest
-        //lets see if there is a function
-        if (preg_match(
-            "/^\\b[^()]+\\((.*)\\)/", $rest, $function, PREG_OFFSET_CAPTURE
-        )) {
-            $arguments = $function[1][0];//the arguments
-            $function = substr(
-                $function[0][0], 0, $function[1][1] - 1
-            );//the actual function
-            //get the arguments
-            preg_match_all(
-                "/([^,]+\\(.+?\\))|([^,]+)/", $arguments, $arguments
-            );
-            $arguments = $arguments[0];//the arguments
-            switch ($function) {
-                case '_getRam'; {
-                    return [
-                        0,
-                        'LOAD ' . $register . ' [' . $this->processArgument(
-                            $arguments[0]
-                        ) . ']'
-                    ];
-                }
-                case '_getData'; {
-                    //check if we have to add a register
-                    if (substr(trim($arguments[1]), 0, 1) == '$') {
-                        return [
-                            4,
-                            'ADD ' . $this->processArgument($arguments[1]) . ' ' . trim($this->processArgument($arguments[0]),
-                                '\''),
-                            'LOAD ' . $register . ' [ GB + '
-                            . $this->processArgument($arguments[1]) . ']',
-                            'SUB ' . $this->processArgument($arguments[1]) . ' ' . trim($this->processArgument($arguments[0]),
-                                '\''),
-                        ];
-                    } else {
-                        return [
-                            0,
-                            'LOAD ' . $register . ' [ GB + ' . trim($this->processArgument($arguments[0]),
-                                '\'') . ' + ' . $this->processArgument($arguments[1]) . ' ]'
-                        ];
-                    }
-                }
-                case '_getButtonPressed': {
-                    $this->_useFunction['pressed'] = true;
-                    $this->_useFunction['pow']=true;
-                    return [
-                        4,
-                        'PUSH R3',
-                        'LOAD R3 ' . $this->processArgument($arguments[0]),
-                        'BRS _pressed',
-                        'PULL R4',
-                        'SUB SP 5',
-                        'PULL '.$register,
-                        'ADD SP 4',
-                    ];
-                }
-                default: {
-                    $this->error('unknown function "' . $function . '"');
-                }
-            }
-        }
-        //if nothing else, its a simple store
-        return [
-            0,
-            'LOAD ' . $register . ' ' . $this->processArgument($rest)
-        ];
-    }
-
-=======
->>>>>>> Stashed changes
     /**Process an argument, for example $abc + 1 gets translated into R0 +1.
      *
      * @param string $argument The argument to process
@@ -1539,7 +1393,7 @@ class Compiler
                 $longestLineLength = strlen($lineNoComment);
             }
 
-            if (!$this->insertComments) {
+            if ($this->insertComments) {
                 $line = $lineNoComment;
             }
             $returnTmp[] = $line;
