@@ -42,7 +42,7 @@
  * Example: _storeRam($location,$value)
  *
  * @param variable $location The location to store the value in the ram
- * @param variable $value The value to store
+ * @param variable $value    The value to store
  *
  * @return void
  */
@@ -74,9 +74,9 @@ function _getRam($location)
  * display($value, 'display',000100)
  * This will display $value in the middle of the display
  *
- * @param variable $what what to display
- * @param variable $onWhat on what to display
- * @param string $location Where to show the value when using the display,
+ * @param variable $what     what to display
+ * @param variable $onWhat   on what to display
+ * @param string   $location Where to show the value when using the display,
  *                           defaults to the right position
  *
  * @return void
@@ -218,7 +218,7 @@ function setTimer($timer)
  * This will put the value of the data segment "data" at position 1, into $data.
  *
  * @param string $location The location where the variable is stored
- * @param int $offset The offset of the location
+ * @param int    $offset   The offset of the location
  *
  * @return mixed The value of the data segment
  */
@@ -233,9 +233,9 @@ function _getData($location, $offset)
  * Example: _storeData($data,'data',1)
  * This will put the value of $data into the data segment "data" at position 1
  *
- * @param string $variable The variable to store
- * @param string $location The name of the location where the variable is stored
- * @param int $offset The offset of the location
+ * @param variable $variable The variable to store
+ * @param string   $location The name of the location where the variable is stored
+ * @param int      $offset   The offset of the location
  *
  * @return void
  */

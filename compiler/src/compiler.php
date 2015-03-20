@@ -1,5 +1,6 @@
 <?php namespace AssemblyCompiler;
-/* vim: set expandtab tabstop=4 shiftwidth=4 softtabstop=4: */
+
+    /* vim: set expandtab tabstop=4 shiftwidth=4 softtabstop=4: */
 
 /**
  * This file contains the compiler class.
@@ -228,11 +229,11 @@ class Compiler
      * @access private
      */
     private $_useFunction = [
-                                'sleep'=>false,
-                                'pressed'=>false,
-                                'pow'=>false,
-                                'display'=>false
-                            ];
+        'sleep' => false,
+        'pressed' => false,
+        'pow' => false,
+        'display' => false
+    ];
 
     /**
      * Load the code. This function does some first processing
@@ -362,11 +363,11 @@ class Compiler
         if (preg_match(
             "/^\\b[^()]+\\((.*)\\)/", $line, $function, PREG_OFFSET_CAPTURE
         )) {
-            return $this->processFunction($line,$function);
+            return $this->processFunction($line, $function);
         }
         //if not lets see if we are dealing with a = statement
         if (preg_match("/(.*?)=(.*)/", $line, $variable, PREG_OFFSET_CAPTURE)) {
-            return $this->processEqualStatement($line,$variable);
+            return $this->processEqualStatement($line, $variable);
         }
         //maybe its an else
         if (preg_match("/^}\\s*else\\s*{/", $line)) {
@@ -511,12 +512,22 @@ class Compiler
                 }
                 break;
             }
+
             case 'mod': {
                 return [
                     0,
                     'MOD ' . $this->processArgument($arguments[1]) . ' '
                     . $this->processArgument($arguments[0])
                 ];
+            }
+
+            case 'unset': {
+                //unset a variable
+                foreach ($arguments as $argument)
+                {
+                    $this->unsetRegister($argument);
+                }
+                break;
             }
 
             case 'getInput': {
@@ -545,8 +556,8 @@ class Compiler
             case 'display': {
                 switch (trim(trim($arguments[1]), '"\'')) {
                     case 'display': {
-                        $this->$_useFunction['display'] = true;
-                        $counter= str_repeat('0', 6 - $arguments[2]) . '1' . str_repeat(
+                        $this->_useFunction['display'] = true;
+                        $counter = str_repeat('0', 6 - $arguments[2]) . '1' . str_repeat(
                                 '0', $arguments[2] - 1
                             );//000001
                         return [
@@ -634,8 +645,23 @@ class Compiler
                     'STOR R4 [R5+' . TIMER . ']'
                 ];
             }
+<<<<<<< Updated upstream
+=======
+            case 'buttonPressed': {
+                $this->_useFunction['pressed'] = true;
+                $this->_useFunction['pow'] = true;
+                //return [4,'LOAD R4 '.$this->processArgument($arguments[1]),'LOAD R5 '.$this->processArgument($arguments[0]),'BRS _pow'];
+                return [
+                    4,
+                    'PUSH R3',
+                    'LOAD R3 ' . $this->processArgument($arguments[0]),
+                    'BRS _pressed',
+                    'PULL R3'
+                ];
+            }
+>>>>>>> Stashed changes
             case 'pow': {
-                $this->_useFunction['pow']=true;
+                $this->_useFunction['pow'] = true;
 
                 return [
                     4,
@@ -673,6 +699,7 @@ class Compiler
         }
     }
 
+<<<<<<< Updated upstream
     private function processEqualStatement($line,$variable)
     {
         $rest = trim($variable[2][0]);
@@ -813,13 +840,16 @@ class Compiler
         ];
     }
 
+=======
+>>>>>>> Stashed changes
     /**Process an argument, for example $abc + 1 gets translated into R0 +1.
      *
      * @param string $argument The argument to process
      *
      * @return string The processed argument
      */
-    private function processArgument($argument) {
+    private function processArgument($argument)
+    {
         $argument = trim($argument);
         //lets see if we are dealing with a +, -, * etc.
         if (strpos($argument, '+') !== false) {
@@ -896,20 +926,42 @@ class Compiler
             return 'R' . array_search($variable, $this->_variables);
         } else {
             //if not, make a new one
-            //first check if we have space
-            if (count($this->_variables) == $this->maxVariables) {
+                for ($i=0;$i<$this->maxVariables;$i++)
+                {
+                    if (!isset($this->_variables[$i]))
+                    {
+                        $this->_variables[$i] = $variable;
+                        return 'R' . $i;
+                    }
+
+                }
                 $this->error(
                     'too many _variables, max is ' . $this->maxVariables
                 );
-            } else {
-                $this->_variables[] = $variable;
-
-                return 'R' . (count($this->_variables) - 1);
             }
-        }
         $this->error('Unknown error while getting register');
 
         return '';
+    }
+
+    /** Unsets a register, so a new one can be created.
+     *
+     * @param string $variable The variable to unset
+     *
+     * @return bool True, or errors out if it something went wrong.
+     */
+    private function unsetRegister($variable)
+    {
+        $variable = trim($variable);
+
+        //check if we have this variable
+        if (!in_array($variable, $this->_variables)) {
+            $this->error('Unsetting unknown variable.');
+        }
+
+        $register=array_search($variable, $this->_variables);
+        unset($this->_variables[$register]);
+        return true;
     }
 
     /** Create a new if/else function
@@ -940,7 +992,7 @@ class Compiler
                 $this->_functionsCompiled['conditional' . $i]->code = [];
                 $this->_functionsCompiled['conditional' . $i]->returns = [];
                 $this->_functionsCompiled['conditional' . $i]->isConditional = true;
-                $this->_functionsCompiled['conditional' . $i]->statement=$this->_line;
+                $this->_functionsCompiled['conditional' . $i]->statement = $this->_line;
 
                 $this->_lineNumber['conditional' . $i] = 0;
 
@@ -950,6 +1002,132 @@ class Compiler
         $this->error('Unknown error while getting conditional');
 
         return '';
+    }
+
+    private function processEqualStatement($line, $variable)
+    {
+        $rest = trim($variable[2][0]);
+        $variable = trim($variable[1][0]);
+        $register = '';
+        //lets see if we are dealing with a +/-
+        switch (substr($variable, -1)) {
+            case '+': {
+                //lets see if we are dealing with a variable
+                if (substr($variable, 0, 1) === '$') {
+                    $variable = substr($variable, 0, -1);
+                    //get the variable
+                    $register = $this->getRegister($variable);
+
+                    return [
+                        0,
+                        'ADD ' . $register . ' ' . $this->processArgument($rest)
+                    ];
+                }
+                $this->error('Addition on a non-variable.');
+                break;
+            }
+            case '-': {
+                if (substr($variable, 0, 1) === '$') {
+                    $variable = substr($variable, 0, -1);
+                    //get the variable
+                    $register = $this->getRegister($variable);
+
+                    return [
+                        0,
+                        'SUB ' . $register . ' ' . $this->processArgument($rest)
+                    ];
+                }
+                $this->error('Subtraction on a non-variable.');
+                break;
+            }
+            case '/': {
+                if (substr($variable, 0, 1) === '$') {
+                    $variable = substr($variable, 0, -1);
+                    //get the variable
+                    $register = $this->getRegister($variable);
+
+                    return [
+                        0,
+                        'DIV ' . $register . ' ' . $this->processArgument($rest)
+                    ];
+                }
+                $this->error('Division on a non-variable.');
+                break;
+            }
+            case '*': {
+                if (substr($variable, 0, 1) === '$') {
+                    $variable = substr($variable, 0, -1);
+                    //get the variable
+                    $register = $this->getRegister($variable);
+
+                    return [
+                        0,
+                        'MULS ' . $register . ' ' . $this->processArgument($rest)
+                    ];
+                }
+                $this->error('Multiplication on a non-variable.');
+                break;
+            }
+        }
+        //lets see if we are dealing with a variable
+        if (substr($variable, 0, 1) === '$') {
+            //get the variable
+            $register = $this->getRegister($variable);
+        }
+
+        //okay lets now do something with the rest
+        //lets see if there is a function
+        if (preg_match(
+            "/^\\b[^()]+\\((.*)\\)/", $rest, $function, PREG_OFFSET_CAPTURE
+        )) {
+            $arguments = $function[1][0];//the arguments
+            $function = substr(
+                $function[0][0], 0, $function[1][1] - 1
+            );//the actual function
+            //get the arguments
+            preg_match_all(
+                "/([^,]+\\(.+?\\))|([^,]+)/", $arguments, $arguments
+            );
+            $arguments = $arguments[0];//the arguments
+            switch ($function) {
+                case '_getRam'; {
+                    return [
+                        0,
+                        'LOAD ' . $register . ' [' . $this->processArgument(
+                            $arguments[0]
+                        ) . ']'
+                    ];
+                }
+                case '_getData'; {
+                    //check if we have to add a register
+                    if (substr(trim($arguments[1]), 0, 1) == '$') {
+                        return [
+                            4,
+                            'ADD ' . $this->processArgument($arguments[1]) . ' ' . trim($this->processArgument($arguments[0]),
+                                '\''),
+                            'LOAD ' . $register . ' [ GB + '
+                            . $this->processArgument($arguments[1]) . ']',
+                            'SUB ' . $this->processArgument($arguments[1]) . ' ' . trim($this->processArgument($arguments[0]),
+                                '\''),
+                        ];
+                    } else {
+                        return [
+                            0,
+                            'LOAD ' . $register . ' [ GB + ' . trim($this->processArgument($arguments[0]),
+                                '\'') . ' + ' . $this->processArgument($arguments[1]) . ' ]'
+                        ];
+                    }
+                }
+                default: {
+                    $this->error('unknown function "' . $function . '"');
+                }
+            }
+        }
+        //if nothing else, its a simple store
+        return [
+            0,
+            'LOAD ' . $register . ' ' . $this->processArgument($rest)
+        ];
     }
 
     /**
@@ -1082,14 +1260,14 @@ class Compiler
                 case 0: //everything went OK, nothing special
                 {
                     $i = count($this->_inConditional);
-                    $this->insertCode($functionName, $lineTMP[1], $i,$line);
+                    $this->insertCode($functionName, $lineTMP[1], $i, $line);
                     break;
                 }
                 case
                 1://if statement
                 {
                     $i = count($this->_inConditional) - 1; //to insert in the parent
-                    $this->insertCode($functionName, $lineTMP[1], $i,$line);
+                    $this->insertCode($functionName, $lineTMP[1], $i, $line);
                     $this->insertCode($functionName, $lineTMP[2], $i);
                     $this->_functionName = end($this->_inConditional)['name'];
                     if ($this->debug) {
@@ -1101,7 +1279,7 @@ class Compiler
                 case 2: {
                     $i = count($this->_inConditional);
                     //return of an if/else statement
-                    $this->insertCode($functionName, $lineTMP[1], $i,$line);
+                    $this->insertCode($functionName, $lineTMP[1], $i, $line);
                     array_pop($this->_inConditional);//remove the last one
                     break;
                 }
@@ -1119,15 +1297,12 @@ class Compiler
                     break;
                 }
                 case 4: {//multi-line response
-                    foreach ($lineTMP as $index=>$subLine) {
+                    foreach ($lineTMP as $index => $subLine) {
                         $i = count($this->_inConditional);
                         if (is_string($subLine)) {
-                            if ($index===1)
-                            {
-                                $this->insertCode($functionName, $subLine, $i,$line);
-                            }
-                            else
-                            {
+                            if ($index === 1) {
+                                $this->insertCode($functionName, $subLine, $i, $line);
+                            } else {
                                 $this->insertCode($functionName, $subLine, $i);
                             }
                             if ($this->debug) {
@@ -1187,12 +1362,11 @@ class Compiler
      * @param string $toInsert The _line to insert
      * @param int $startLevel How many if/else levels up/down to insert
      */
-    private function insertCode($functionName, $toInsert, $startLevel,$comment='')
+    private function insertCode($functionName, $toInsert, $startLevel, $comment = '')
     {
-        $comment=trim($comment);
-        if (!empty($comment) && $this->insertComments)
-        {
-            $toInsert.=';'.$comment;
+        $comment = trim($comment);
+        if (!empty($comment) && $this->insertComments) {
+            $toInsert .= ';' . $comment;
         }
         $i = $startLevel - 1;
         while ($i > -1 && $this->_inConditional[$i]['type'] === 'else') {
@@ -1232,26 +1406,23 @@ class Compiler
         $result[] = '';
 
         require_once 'defaultFunctions.php';
-        foreach ($this->_useFunction as $name=>$used)
-        {
-            if ($used)
-            {
+        foreach ($this->_useFunction as $name => $used) {
+            if ($used) {
                 $result = array_merge($result, $this->_defaultFunctions[$name]);
             }
         }
 
         //okay we have the outside code now, lets do the _functions
         $longestFunctionLength = 16;//beatify needs this.
-        $resultFunc=[];
+        $resultFunc = [];
         foreach ($this->_functionsCompiled as $funcName => $function) {
-            $resultFunc=$this->makeFunc($funcName, $function);
+            $resultFunc = $this->makeFunc($funcName, $function);
             if (strlen($funcName) > $longestFunctionLength) {
                 $longestFunctionLength = strlen($funcName);
             }
 
-            if ($function->isConditional===true)
-            {
-                array_unshift($resultFunc,';'.$function->statement);
+            if ($function->isConditional === true) {
+                array_unshift($resultFunc, ';' . $function->statement);
                 //$resultFunc[]=';}';
             }
 
@@ -1313,17 +1484,13 @@ class Compiler
         $return = [];
         foreach ($result as $line) {
             //check if this is only an BRA
-            if( preg_match("/^BRA.*/", trim($line)))
-            {
-                if ($branchPrev!==true)
-                {
+            if (preg_match("/^BRA.*/", trim($line))) {
+                if ($branchPrev !== true) {
                     $return[] = $line;
-                    $branchPrev=true;
+                    $branchPrev = true;
                 }
-            }
-            else
-            {
-                $branchPrev=false;
+            } else {
+                $branchPrev = false;
                 $return[] = $line;
             }
         }
@@ -1341,9 +1508,9 @@ class Compiler
     public function beautify($result, $longestFunctionLength)
     {
         $codeStarted = false;
-        $returnTmp=[];
+        $returnTmp = [];
         $lineLength = $longestFunctionLength + 4;
-        $longestLineLength=0;
+        $longestLineLength = 0;
         foreach ($result as $line) {
             if ($codeStarted === false) {
                 $line = str_replace('  ', ' ', trim($line)); //replace multiple spaces and trim the line.
@@ -1358,23 +1525,22 @@ class Compiler
                 } else {
                     //insert spaces in between.
                     preg_match("/^(.*:)(\\s*)(.*)$/", $line, $matches);
-                    $spaces=str_repeat(" ", $lineLength - strlen($matches[1]));
+                    $spaces = str_repeat(" ", $lineLength - strlen($matches[1]));
                     $line = $matches[1] . $spaces . $matches[3];
                 }
             }
-            $lineNoComment=$line;
+            $lineNoComment = $line;
             if (preg_match("/(.*);/", $line, $matches))//check for comments
             {
-                $lineNoComment=$matches[1];
+                $lineNoComment = $matches[1];
             }
 
-            if (strlen($lineNoComment)>$longestLineLength) {
+            if (strlen($lineNoComment) > $longestLineLength) {
                 $longestLineLength = strlen($lineNoComment);
             }
 
-            if ($this->insertComments)
-            {
-                $line=$lineNoComment;
+            if (!$this->insertComments) {
+                $line = $lineNoComment;
             }
             $returnTmp[] = $line;
         }
