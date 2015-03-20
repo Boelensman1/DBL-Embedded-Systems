@@ -75,7 +75,7 @@ function _getRam($location)
  * This will display $value in the middle of the display
  *
  * @param variable $what     what to display
- * @param variable $onWhat   on what to display
+ * @param string   $onWhat   on what to display
  * @param string   $location Where to show the value when using the display,
  *                           defaults to the right position
  *

@@ -367,7 +367,7 @@ class Compiler
         }
         //if not lets see if we are dealing with a = statement
         if (preg_match("/(.*?)=(.*)/", $line, $variable, PREG_OFFSET_CAPTURE)) {
-            return $this->processEqualStatement($line, $variable);
+            return $this->processEqualStatement($variable);
         }
         //maybe its an else
         if (preg_match("/^}\\s*else\\s*{/", $line)) {
@@ -530,6 +530,22 @@ class Compiler
                 break;
             }
 
+
+
+            case 'debug': {
+                $comments='False';
+                if ($this->insertComments)
+                {
+                    $comments='True';
+                }
+                $this->error(
+                    'max variables is ' . $this->maxVariables."\n"
+                    .'your current variables are: '.implode(', ',$this->_variables)."\n"
+                    .'Insert comments: '.$comments
+                );
+                break;
+            }
+
             case 'getInput': {
                 switch (trim(trim($arguments[1]), "'\"")) {
                     case 'buttons': {
@@ -682,6 +698,7 @@ class Compiler
                 break;
             }
         }
+        return false;
     }
 
     /**Process an argument, for example $abc + 1 gets translated into R0 +1.
@@ -748,10 +765,16 @@ class Compiler
         if ($less == true) {
             die("!!\tERROR while compiling:\n!!\t$error.");
         }
-        die("!!\tERROR while compiling around _line #"
+        $message="!!\tERROR while compiling around _line #"
             . $this->_lineNumber[$this->_functionName]
-            . " in function $this->_functionName:\n!!\t" . $this->_line
-            . "\n!!\t$error.");
+            . " in function $this->_functionName:\n!!\t" . $this->_line;
+        $error=explode("\n",$error);
+        foreach ($error as $errorLine)
+        {
+            $message.="\n!!\t$errorLine.";
+        }
+         //   . "\n!!\t$error.";
+        die($message);
     }
 
     /** Gets the register who belongs to the given variable, creates a new one if none exists.
@@ -779,7 +802,7 @@ class Compiler
                 }
                 $this->error(
                     'too many _variables, max is ' . $this->maxVariables."\n"
-                    .'!!  your current variables are: '.implode(', ',$this->_variables)
+                    .'your current variables are: '.implode(', ',$this->_variables)
                 );
             }
         $this->error('Unknown error while getting register');
@@ -847,7 +870,14 @@ class Compiler
         return '';
     }
 
-    private function processEqualStatement($line, $variable)
+
+    /** Process a $abc=5 statement
+     *
+     * @param string $variable The variable that is =, for example $abc
+     *
+     * @return string the name of the new conditional.
+     */
+    private function processEqualStatement($variable)
     {
         $rest = trim($variable[2][0]);
         $variable = trim($variable[1][0]);
@@ -1217,7 +1247,8 @@ class Compiler
      *
      * @param string $functionName Where to insert
      * @param string $toInsert The _line to insert
-     * @param int $startLevel How many if/else levels up/down to insert
+     * @param int    $startLevel How many if/else levels up/down to insert
+     * @param string $comment
      */
     private function insertCode($functionName, $toInsert, $startLevel, $comment = '')
     {
@@ -1271,7 +1302,6 @@ class Compiler
 
         //okay we have the outside code now, lets do the _functions
         $longestFunctionLength = 16;//beatify needs this.
-        $resultFunc = [];
         foreach ($this->_functionsCompiled as $funcName => $function) {
             $resultFunc = $this->makeFunc($funcName, $function);
             if (strlen($funcName) > $longestFunctionLength) {
