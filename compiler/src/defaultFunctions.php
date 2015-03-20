@@ -62,7 +62,8 @@ _powR:      RTS";
 $this->_defaultFunctions['pow'] = explode("\n", $this->_defaultFunctions['pow']);
 
 $this->_defaultFunctions['pressed'] = "
-_pressed: 	PUSH R4
+_pressed: 	PUSH R4 ;make sure all vars are the same at the end
+            PUSH R5
             LOAD R4 R3
             LOAD R5 2
             BRS _pow
@@ -71,7 +72,12 @@ _pressed: 	PUSH R4
             LOAD R4 [R5+".INPUT."]
             DIV R4 R3
             MOD R4 2
-            LOAD R5 R4
+
+            PUSH R4 ;the result
+            ADD SP 1 ;decrease the SP so we get the correct pulls
+
+            PULL R5
             PULL R4
+
             RTS";
 $this->_defaultFunctions['pressed'] = explode("\n", $this->_defaultFunctions['pressed']);

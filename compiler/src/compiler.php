@@ -634,18 +634,6 @@ class Compiler
                     'STOR R4 [R5+' . TIMER . ']'
                 ];
             }
-            case 'buttonPressed': {
-                $this->_useFunction['pressed'] = true;
-                $this->_useFunction['pow']=true;
-                //return [4,'LOAD R4 '.$this->processArgument($arguments[1]),'LOAD R5 '.$this->processArgument($arguments[0]),'BRS _pow'];
-                return [
-                    4,
-                    'PUSH R3',
-                    'LOAD R3 ' . $this->processArgument($arguments[0]),
-                    'BRS _pressed',
-                    'PULL R3'
-                ];
-            }
             case 'pow': {
                 $this->_useFunction['pow']=true;
 
@@ -798,6 +786,20 @@ class Compiler
                                 '\'') . ' + ' . $this->processArgument($arguments[1]) . ' ]'
                         ];
                     }
+                }
+                case '_getButtonPressed': {
+                    $this->_useFunction['pressed'] = true;
+                    $this->_useFunction['pow']=true;
+                    return [
+                        4,
+                        'PUSH R3',
+                        'LOAD R3 ' . $this->processArgument($arguments[0]),
+                        'BRS _pressed',
+                        'PULL R4',
+                        'SUB SP 5',
+                        'PULL '.$register,
+                        'ADD SP 4',
+                    ];
                 }
                 default: {
                     $this->error('unknown function "' . $function . '"');
