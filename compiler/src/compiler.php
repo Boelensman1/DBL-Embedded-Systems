@@ -503,7 +503,7 @@ class Compiler
                             1,
                             'CMP ' . $this->processArgument($matches[1]) . ' '
                             . $this->processArgument($matches[3]),
-                            'BPL ' . $this->getNextConditional('if')
+                            'BGT ' . $this->getNextConditional('if')
                         ];
                     }
                     case '>=': {
@@ -679,21 +679,14 @@ class Compiler
                     'STOR R4 [R5+' . TIMER . ']'
                 ];
             }
-            case 'pow': {
-                $this->_useFunction['pow'] = true;
-
-                return [
-                    4,
-                    'LOAD R4 ' . $this->processArgument($arguments[1]),
-                    'LOAD R5 ' . $this->processArgument($arguments[0]),
-                    'BRS _pow'
-                ];
-            }
             case 'stackPush': {
                 return [0, 'PUSH ' . $this->processArgument($arguments[0])];
             }
             case 'stackPull': {
                 return [0, 'PULL ' . $this->processArgument($arguments[0])];
+            }
+            case 'branch': {
+                return [0, 'BRA ' . trim(trim($arguments[0]), "'\"")];
             }
             default: {
                 //error or another function
@@ -1035,6 +1028,21 @@ class Compiler
                                 '\'') . ' + ' . $this->processArgument($arguments[1]) . ' ]'
                         ];
                     }
+                }
+                case 'pow': {
+                    $this->_useFunction['pow'] = true;
+
+                    return [
+                        4,
+                        'PUSH R4',
+                        'PUSH R5',
+                        'LOAD R4 ' . $this->processArgument($arguments[1]),
+                        'LOAD R5 ' . $this->processArgument($arguments[0]),
+                        'BRS _pow',
+                        'LOAD '.$register.' R5',
+                        'PULL R5',
+                        'PULL R4'
+                    ];
                 }
                 default: {
                     $this->error('unknown function "' . $function . '"');
