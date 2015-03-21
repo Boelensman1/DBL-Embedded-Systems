@@ -41,8 +41,8 @@
  *
  * Example: _storeRam($location,$value)
  *
- * @param variable $location The location to store the value in the ram
- * @param variable $value    The value to store
+ * @param mixed $location The location (a variable) to store the value in the ram
+ * @param mixed $value    The value to store, needs to be a variable
  *
  * @return void
  */
@@ -55,7 +55,7 @@ function _storeRam($location, $value)
  *
  * Example: $value=_getRam($location)
  *
- * @param variable $location The location where the value is stored
+ * @param mixed $location The location (a variable) where the value is stored
  *
  * @return mixed The value that is stored at the location
  */
@@ -74,7 +74,7 @@ function _getRam($location)
  * display($value, 'display',000100)
  * This will display $value in the middle of the display
  *
- * @param variable $what     what to display
+ * @param mixed $what     what to display
  * @param string   $onWhat   on what to display
  * @param string   $location Where to show the value when using the display,
  *                           defaults to the right position
@@ -92,7 +92,7 @@ function display($what, $onWhat, $location = '000001')
  * This will make $variable equal to 2^$variable
  *
  * @param int      $what     the number to power with
- * @param variable $variable variable to power
+ * @param mixed $variable variable to power
  *
  * @return void
  */
@@ -107,7 +107,7 @@ function pow($what,$variable)
  * This will return the mod 2 of $variable
  *
  * @param int      $what     modulo what
- * @param variable $variable variable to modulo over
+ * @param mixed $variable variable to modulo over
  *
  * @return void
  */
@@ -232,7 +232,7 @@ function _getData($location, $offset)
  * Example: _storeData($data,'data',1)
  * This will put the value of $data into the data segment "data" at position 1
  *
- * @param variable $variable The variable to store
+ * @param mixed $variable The variable to store
  * @param string   $location The name of the location where the variable is stored
  * @param int      $offset   The offset of the location
  *
@@ -255,5 +255,39 @@ function _storeData($variable, $location, $offset)
  * @return void
  */
 function sleep($howLong)
+{
+}
+
+
+/**
+ * Init a variable that is used in that data segment
+ *
+ * Example:
+ * initVar('outputs', 10);
+ * This will init the data segement outputs and reserve 10 spots
+ * If you just want to save a single variable, set $places to 1
+ *
+ * @param string $variable The name of the variable
+ * @param int    $places How long the array is
+ *
+ * @return void
+ */
+function initVar($variable,$places)
+{
+}
+
+
+/**
+ * branch to a function
+ *
+ * Example:
+ * branch('test');
+ * This will branch to the function test
+ *
+ * @param string $branchTO where to branch to
+ *
+ * @return void
+ */
+function branch($branchTO)
 {
 }

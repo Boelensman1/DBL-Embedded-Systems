@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <project title="API Documentation" version="v2.8.1">
   <partials/>
-  <file path="functions.php" generated-path="functions.html" hash="426171dba87a0f6c8fc3a260e03be878" package="Default">
+  <file path="functions.php" generated-path="functions.html" hash="865fa918c8d37c109a4ad8f8e478c8f9" package="Default">
     <docblock line="0">
       <description>This file contains the functions of the compiler.</description>
       <long-description>Include this in your code for autocompletion.
@@ -42,11 +42,11 @@ THE SOFTWARE.</long-description>
         <description>Store a value in the ram.</description>
         <long-description>Example: _storeRam($location,$value)</long-description>
         <tag name="package" line="49" description="Default"/>
-        <tag name="param" line="49" description="&lt;p&gt;The location to store the value in the ram&lt;/p&gt;" type="\variable" variable="$location">
-          <type>\variable</type>
+        <tag name="param" line="49" description="&lt;p&gt;The location (a variable) to store the value in the ram&lt;/p&gt;" type="mixed" variable="$location">
+          <type>mixed</type>
         </tag>
-        <tag name="param" line="49" description="&lt;p&gt;The value to store&lt;/p&gt;" type="\variable" variable="$value">
-          <type>\variable</type>
+        <tag name="param" line="49" description="&lt;p&gt;The value to store, needs to be a variable&lt;/p&gt;" type="mixed" variable="$value">
+          <type>mixed</type>
         </tag>
         <tag name="return" line="49" description="" type="void">
           <type>void</type>
@@ -55,12 +55,12 @@ THE SOFTWARE.</long-description>
       <argument line="0" by_reference="false">
         <name>$location</name>
         <default></default>
-        <type>\variable</type>
+        <type>mixed</type>
       </argument>
       <argument line="0" by_reference="false">
         <name>$value</name>
         <default></default>
-        <type>\variable</type>
+        <type>mixed</type>
       </argument>
     </function>
     <function namespace="" line="62" package="Default">
@@ -70,8 +70,8 @@ THE SOFTWARE.</long-description>
         <description>Get a value from the ram.</description>
         <long-description>Example: $value=_getRam($location)</long-description>
         <tag name="package" line="62" description="Default"/>
-        <tag name="param" line="62" description="&lt;p&gt;The location where the value is stored&lt;/p&gt;" type="\variable" variable="$location">
-          <type>\variable</type>
+        <tag name="param" line="62" description="&lt;p&gt;The location (a variable) where the value is stored&lt;/p&gt;" type="mixed" variable="$location">
+          <type>mixed</type>
         </tag>
         <tag name="return" line="62" description="The value that is stored at the location" type="mixed">
           <type>mixed</type>
@@ -80,7 +80,7 @@ THE SOFTWARE.</long-description>
       <argument line="0" by_reference="false">
         <name>$location</name>
         <default></default>
-        <type>\variable</type>
+        <type>mixed</type>
       </argument>
     </function>
     <function namespace="" line="84" package="Default">
@@ -96,8 +96,8 @@ Example:
 display($value, 'display',000100)
 This will display $value in the middle of the display</long-description>
         <tag name="package" line="84" description="Default"/>
-        <tag name="param" line="84" description="&lt;p&gt;what to display&lt;/p&gt;" type="\variable" variable="$what">
-          <type>\variable</type>
+        <tag name="param" line="84" description="&lt;p&gt;what to display&lt;/p&gt;" type="mixed" variable="$what">
+          <type>mixed</type>
         </tag>
         <tag name="param" line="84" description="&lt;p&gt;on what to display&lt;/p&gt;" type="string" variable="$onWhat">
           <type>string</type>
@@ -112,7 +112,7 @@ This will display $value in the middle of the display</long-description>
       <argument line="0" by_reference="false">
         <name>$what</name>
         <default></default>
-        <type>\variable</type>
+        <type>mixed</type>
       </argument>
       <argument line="0" by_reference="false">
         <name>$onWhat</name>
@@ -136,8 +136,8 @@ This will make $variable equal to 2^$variable</long-description>
         <tag name="param" line="99" description="&lt;p&gt;the number to power with&lt;/p&gt;" type="integer" variable="$what">
           <type>integer</type>
         </tag>
-        <tag name="param" line="99" description="&lt;p&gt;variable to power&lt;/p&gt;" type="\variable" variable="$variable">
-          <type>\variable</type>
+        <tag name="param" line="99" description="&lt;p&gt;variable to power&lt;/p&gt;" type="mixed" variable="$variable">
+          <type>mixed</type>
         </tag>
         <tag name="return" line="99" description="" type="void">
           <type>void</type>
@@ -151,7 +151,7 @@ This will make $variable equal to 2^$variable</long-description>
       <argument line="0" by_reference="false">
         <name>$variable</name>
         <default></default>
-        <type>\variable</type>
+        <type>mixed</type>
       </argument>
     </function>
     <function namespace="" line="114" package="Default">
@@ -165,8 +165,8 @@ This will return the mod 2 of $variable</long-description>
         <tag name="param" line="114" description="&lt;p&gt;modulo what&lt;/p&gt;" type="integer" variable="$what">
           <type>integer</type>
         </tag>
-        <tag name="param" line="114" description="&lt;p&gt;variable to modulo over&lt;/p&gt;" type="\variable" variable="$variable">
-          <type>\variable</type>
+        <tag name="param" line="114" description="&lt;p&gt;variable to modulo over&lt;/p&gt;" type="mixed" variable="$variable">
+          <type>mixed</type>
         </tag>
         <tag name="return" line="114" description="" type="void">
           <type>void</type>
@@ -180,7 +180,7 @@ This will return the mod 2 of $variable</long-description>
       <argument line="0" by_reference="false">
         <name>$variable</name>
         <default></default>
-        <type>\variable</type>
+        <type>mixed</type>
       </argument>
     </function>
     <function namespace="" line="130" package="Default">
@@ -371,8 +371,8 @@ This will put the value of the data segment "data" at position 1, into $data.</l
 Example: _storeData($data,'data',1)
 This will put the value of $data into the data segment "data" at position 1</long-description>
         <tag name="package" line="241" description="Default"/>
-        <tag name="param" line="241" description="&lt;p&gt;The variable to store&lt;/p&gt;" type="\variable" variable="$variable">
-          <type>\variable</type>
+        <tag name="param" line="241" description="&lt;p&gt;The variable to store&lt;/p&gt;" type="mixed" variable="$variable">
+          <type>mixed</type>
         </tag>
         <tag name="param" line="241" description="&lt;p&gt;The name of the location where the variable is stored&lt;/p&gt;" type="string" variable="$location">
           <type>string</type>
@@ -387,7 +387,7 @@ This will put the value of $data into the data segment "data" at position 1</lon
       <argument line="0" by_reference="false">
         <name>$variable</name>
         <default></default>
-        <type>\variable</type>
+        <type>mixed</type>
       </argument>
       <argument line="0" by_reference="false">
         <name>$location</name>
@@ -422,6 +422,59 @@ This will sleep for 10 clockticks</long-description>
         <type>integer</type>
       </argument>
     </function>
+    <function namespace="" line="275" package="Default">
+      <name>initVar</name>
+      <full_name>\initVar()</full_name>
+      <docblock line="275">
+        <description>Init a variable that is used in that data segment</description>
+        <long-description>Example:
+initVar('outputs', 10);
+This will init the data segement outputs and reserve 10 spots
+If you just want to save a single variable, set $places to 1</long-description>
+        <tag name="package" line="275" description="Default"/>
+        <tag name="param" line="275" description="&lt;p&gt;The name of the variable&lt;/p&gt;" type="string" variable="$variable">
+          <type>string</type>
+        </tag>
+        <tag name="param" line="275" description="&lt;p&gt;How long the array is&lt;/p&gt;" type="integer" variable="$places">
+          <type>integer</type>
+        </tag>
+        <tag name="return" line="275" description="" type="void">
+          <type>void</type>
+        </tag>
+      </docblock>
+      <argument line="0" by_reference="false">
+        <name>$variable</name>
+        <default></default>
+        <type>string</type>
+      </argument>
+      <argument line="0" by_reference="false">
+        <name>$places</name>
+        <default></default>
+        <type>integer</type>
+      </argument>
+    </function>
+    <function namespace="" line="291" package="Default">
+      <name>branch</name>
+      <full_name>\branch()</full_name>
+      <docblock line="291">
+        <description>branch to a function</description>
+        <long-description>Example:
+branch('test');
+This will branch to the function test</long-description>
+        <tag name="package" line="291" description="Default"/>
+        <tag name="param" line="291" description="&lt;p&gt;where to branch to&lt;/p&gt;" type="string" variable="$branchTO">
+          <type>string</type>
+        </tag>
+        <tag name="return" line="291" description="" type="void">
+          <type>void</type>
+        </tag>
+      </docblock>
+      <argument line="0" by_reference="false">
+        <name>$branchTO</name>
+        <default></default>
+        <type>string</type>
+      </argument>
+    </function>
     <parse_markers>
       <error line="49" code="PPC:ERR-50015">Argument $location is missing from the Docblock of _storeRam</error>
       <error line="62" code="PPC:ERR-50015">Argument $location is missing from the Docblock of _getRam</error>
@@ -437,8 +490,10 @@ This will sleep for 10 clockticks</long-description>
       <error line="224" code="PPC:ERR-50015">Argument $location is missing from the Docblock of _getData</error>
       <error line="241" code="PPC:ERR-50015">Argument $variable is missing from the Docblock of _storeData</error>
       <error line="257" code="PPC:ERR-50015">Argument $howLong is missing from the Docblock of sleep</error>
+      <error line="275" code="PPC:ERR-50015">Argument $variable is missing from the Docblock of initVar</error>
+      <error line="291" code="PPC:ERR-50015">Argument $branchTO is missing from the Docblock of branch</error>
     </parse_markers>
-    <source>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</source>
+    <source>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</source>
   </file>
   <package name="Default" full_name="Default"/>
   <package name="global" full_name="global"/>

@@ -31,7 +31,7 @@
 <a href="#reports" class="dropdown-toggle" data-toggle="dropdown">
                                     Reports <b class="caret"></b></a><ul class="dropdown-menu">
 <li><a href="../errors.html"><i class="icon-remove-sign"></i> Errors 
-                <span class="label label-info">14</span></a></li>
+                <span class="label label-info">16</span></a></li>
 <li><a href="../markers.html"><i class="icon-map-marker"></i> Markers 
                 <ul></ul></a></li>
 <li><a href="../deprecated.html"><i class="icon-stop"></i> Deprecated elements 
@@ -65,8 +65,10 @@
 <li class="function  "><a href="#function__getRam" title="_getRam() :: Get a value from the ram."><span class="description">Get a value from the ram.</span><pre>_getRam</pre></a></li>
 <li class="function  "><a href="#function__storeData" title="_storeData() :: Store data"><span class="description">Store data</span><pre>_storeData</pre></a></li>
 <li class="function  "><a href="#function__storeRam" title="_storeRam() :: Store a value in the ram."><span class="description">Store a value in the ram.</span><pre>_storeRam</pre></a></li>
+<li class="function  "><a href="#function_branch" title="branch() :: branch to a function"><span class="description">branch to a function</span><pre>branch</pre></a></li>
 <li class="function  "><a href="#function_display" title="display() :: Display something on either the display or the leds"><span class="description">Display something on either the display or the leds</span><pre>display</pre></a></li>
 <li class="function  "><a href="#function_getInput" title="getInput() :: Get button or analog input"><span class="description">Get button or analog input</span><pre>getInput</pre></a></li>
+<li class="function  "><a href="#function_initVar" title="initVar() :: Init a variable that is used in that data segment"><span class="description">Init a variable that is used in that data segment</span><pre>initVar</pre></a></li>
 <li class="function  "><a href="#function_installCountdown" title="installCountdown() :: Install the countdown"><span class="description">Install the countdown</span><pre>installCountdown</pre></a></li>
 <li class="function  "><a href="#function_mod" title="mod() :: Take the mod of a number"><span class="description">Take the mod of a number</span><pre>mod</pre></a></li>
 <li class="function  "><a href="#function_pow" title="pow() :: Get the power of a number"><span class="description">Get the power of a number</span><pre>pow</pre></a></li>
@@ -130,7 +132,7 @@ This will put the value of the data segment "data" at position 1, into $data.</p
 </div>
 <a xmlns:php="http://php.net/xsl" id="function__getRam"></a><div xmlns:php="http://php.net/xsl" class="element clickable function  function__getRam " data-toggle="collapse" data-target=".function__getRam .collapse" title="">
 <h2>Get a value from the ram.</h2>
-<pre>_getRam(\variable $location) : mixed</pre>
+<pre>_getRam(mixed $location) : mixed</pre>
 <div class="labels"></div>
 <div class="row collapse"><div class="detail-description">
 <div class="long_description"><p>Example: $value=_getRam($location)</p></div>
@@ -141,7 +143,7 @@ This will put the value of the data segment "data" at position 1, into $data.</p
 <h3>Parameters</h3>
 <div class="subelement argument">
 <h4>$location</h4>
-<code>\variable</code><p>The location where the value is stored</p></div>
+<code>mixed</code><p>The location (a variable) where the value is stored</p></div>
 <h3>Returns</h3>
 <div class="subelement response">
 <code>mixed</code>The value that is stored at the location</div>
@@ -149,7 +151,7 @@ This will put the value of the data segment "data" at position 1, into $data.</p
 </div>
 <a xmlns:php="http://php.net/xsl" id="function__storeData"></a><div xmlns:php="http://php.net/xsl" class="element clickable function  function__storeData " data-toggle="collapse" data-target=".function__storeData .collapse" title="">
 <h2>Store data</h2>
-<pre>_storeData(\variable $variable, string $location, integer $offset) : void</pre>
+<pre>_storeData(mixed $variable, string $location, integer $offset) : void</pre>
 <div class="labels"></div>
 <div class="row collapse"><div class="detail-description">
 <div class="long_description"><p>Use offset 0 when it is just a single value.
@@ -162,7 +164,7 @@ This will put the value of $data into the data segment "data" at position 1</p><
 <h3>Parameters</h3>
 <div class="subelement argument">
 <h4>$variable</h4>
-<code>\variable</code><p>The variable to store</p></div>
+<code>mixed</code><p>The variable to store</p></div>
 <div class="subelement argument">
 <h4>$location</h4>
 <code>string</code><p>The name of the location where the variable is stored</p></div>
@@ -173,7 +175,7 @@ This will put the value of $data into the data segment "data" at position 1</p><
 </div>
 <a xmlns:php="http://php.net/xsl" id="function__storeRam"></a><div xmlns:php="http://php.net/xsl" class="element clickable function  function__storeRam " data-toggle="collapse" data-target=".function__storeRam .collapse" title="">
 <h2>Store a value in the ram.</h2>
-<pre>_storeRam(\variable $location, \variable $value) : void</pre>
+<pre>_storeRam(mixed $location, mixed $value) : void</pre>
 <div class="labels"></div>
 <div class="row collapse"><div class="detail-description">
 <div class="long_description"><p>Example: _storeRam($location,$value)</p></div>
@@ -184,15 +186,33 @@ This will put the value of $data into the data segment "data" at position 1</p><
 <h3>Parameters</h3>
 <div class="subelement argument">
 <h4>$location</h4>
-<code>\variable</code><p>The location to store the value in the ram</p></div>
+<code>mixed</code><p>The location (a variable) to store the value in the ram</p></div>
 <div class="subelement argument">
 <h4>$value</h4>
-<code>\variable</code><p>The value to store</p></div>
+<code>mixed</code><p>The value to store, needs to be a variable</p></div>
+</div></div>
+</div>
+<a xmlns:php="http://php.net/xsl" id="function_branch"></a><div xmlns:php="http://php.net/xsl" class="element clickable function  function_branch " data-toggle="collapse" data-target=".function_branch .collapse" title="">
+<h2>branch to a function</h2>
+<pre>branch(string $branchTO) : void</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"><p>Example:
+branch('test');
+This will branch to the function test</p></div>
+<table class="table table-bordered"><tr>
+<th>package</th>
+<td><a href="../packages/Default.html">Default</a></td>
+</tr></table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$branchTO</h4>
+<code>string</code><p>where to branch to</p></div>
 </div></div>
 </div>
 <a xmlns:php="http://php.net/xsl" id="function_display"></a><div xmlns:php="http://php.net/xsl" class="element clickable function  function_display " data-toggle="collapse" data-target=".function_display .collapse" title="">
 <h2>Display something on either the display or the leds</h2>
-<pre>display(\variable $what, string $onWhat, string $location<code> = '000001'</code>) : void</pre>
+<pre>display(mixed $what, string $onWhat, string $location<code> = '000001'</code>) : void</pre>
 <div class="labels"></div>
 <div class="row collapse"><div class="detail-description">
 <div class="long_description"><p>Possible values for $onwhat:
@@ -209,7 +229,7 @@ This will display $value in the middle of the display</p></div>
 <h3>Parameters</h3>
 <div class="subelement argument">
 <h4>$what</h4>
-<code>\variable</code><p>what to display</p></div>
+<code>mixed</code><p>what to display</p></div>
 <div class="subelement argument">
 <h4>$onWhat</h4>
 <code>string</code><p>on what to display</p></div>
@@ -240,6 +260,28 @@ This will put the value of the analog into $variable</p></div>
 <code>string</code><p>Type of input, possible values are: buttons, analog</p></div>
 </div></div>
 </div>
+<a xmlns:php="http://php.net/xsl" id="function_initVar"></a><div xmlns:php="http://php.net/xsl" class="element clickable function  function_initVar " data-toggle="collapse" data-target=".function_initVar .collapse" title="">
+<h2>Init a variable that is used in that data segment</h2>
+<pre>initVar(string $variable, integer $places) : void</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"><p>Example:
+initVar('outputs', 10);
+This will init the data segement outputs and reserve 10 spots
+If you just want to save a single variable, set $places to 1</p></div>
+<table class="table table-bordered"><tr>
+<th>package</th>
+<td><a href="../packages/Default.html">Default</a></td>
+</tr></table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$variable</h4>
+<code>string</code><p>The name of the variable</p></div>
+<div class="subelement argument">
+<h4>$places</h4>
+<code>integer</code><p>How long the array is</p></div>
+</div></div>
+</div>
 <a xmlns:php="http://php.net/xsl" id="function_installCountdown"></a><div xmlns:php="http://php.net/xsl" class="element clickable function  function_installCountdown " data-toggle="collapse" data-target=".function_installCountdown .collapse" title="">
 <h2>Install the countdown</h2>
 <pre>installCountdown(string $functionName) : void</pre>
@@ -262,7 +304,7 @@ the function timerInterrupt is ran.</p></div>
 </div>
 <a xmlns:php="http://php.net/xsl" id="function_mod"></a><div xmlns:php="http://php.net/xsl" class="element clickable function  function_mod " data-toggle="collapse" data-target=".function_mod .collapse" title="">
 <h2>Take the mod of a number</h2>
-<pre>mod(integer $what, \variable $variable) : void</pre>
+<pre>mod(integer $what, mixed $variable) : void</pre>
 <div class="labels"></div>
 <div class="row collapse"><div class="detail-description">
 <div class="long_description"><p>Example: mod($variable,2)
@@ -277,12 +319,12 @@ This will return the mod 2 of $variable</p></div>
 <code>integer</code><p>modulo what</p></div>
 <div class="subelement argument">
 <h4>$variable</h4>
-<code>\variable</code><p>variable to modulo over</p></div>
+<code>mixed</code><p>variable to modulo over</p></div>
 </div></div>
 </div>
 <a xmlns:php="http://php.net/xsl" id="function_pow"></a><div xmlns:php="http://php.net/xsl" class="element clickable function  function_pow " data-toggle="collapse" data-target=".function_pow .collapse" title="">
 <h2>Get the power of a number</h2>
-<pre>pow(integer $what, \variable $variable) : void</pre>
+<pre>pow(integer $what, mixed $variable) : void</pre>
 <div class="labels"></div>
 <div class="row collapse"><div class="detail-description">
 <div class="long_description"><p>Example: pow(2,$variable)
@@ -297,7 +339,7 @@ This will make $variable equal to 2^$variable</p></div>
 <code>integer</code><p>the number to power with</p></div>
 <div class="subelement argument">
 <h4>$variable</h4>
-<code>\variable</code><p>variable to power</p></div>
+<code>mixed</code><p>variable to power</p></div>
 </div></div>
 </div>
 <a xmlns:php="http://php.net/xsl" id="function_pullStack"></a><div xmlns:php="http://php.net/xsl" class="element clickable function  function_pullStack " data-toggle="collapse" data-target=".function_pullStack .collapse" title="">
@@ -386,7 +428,7 @@ This will sleep for 10 clockticks</p></div>
 <div class="row"><footer class="span12">
             Template is built using <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap 2</a> and icons provided by <a href="http://glyphicons.com/">Glyphicons</a>.<br>
             Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor v2.8.1</a> and<br>
-            generated on 2015-03-20T17:22:52+01:00.<br></footer></div>
+            generated on 2015-03-21T15:28:58+01:00.<br></footer></div>
 </div>
 </body>
 </html>

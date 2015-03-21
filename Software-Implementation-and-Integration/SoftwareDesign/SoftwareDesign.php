@@ -12,7 +12,7 @@ include 'functions.php';
 
 //**DATA**
 //outputs
-initVar('$outputs', 10);
+initVar('outputs', 12);
 
 //**CODE**
 //inputs
@@ -41,31 +41,32 @@ define('LEDSTATEINDICATOR', 9);
 
 function main()
 {
-    $temp=0;
-    _storeData($temp,'$outputs',HBRIDGE1);
-    _storeData($temp,'$outputs',HBRIDGE0);
-    _storeData($temp,'$outputs',LENSLAMPPOSITION);
-    _storeData($temp,'$outputs',LENSLAMPSORTER);
-    _storeData($temp,'$outputs',LEDSTATEINDICATOR);
-    _storeData($temp,'$outputs',DISPLAY);
-    _storeData($temp,'$outputs',CONVEYORBELT);
-    _storeData($temp,'$outputs',FEEDERENGINE);
-    $state=0;
-    display($state,"leds2","");
+    $temp = 0;
+    _storeData($temp, 'outputs', HBRIDGE1);
+    _storeData($temp, 'outputs', HBRIDGE0);
+    _storeData($temp, 'outputs', LENSLAMPPOSITION);
+    _storeData($temp, 'outputs', LENSLAMPSORTER);
+    _storeData($temp, 'outputs', LEDSTATEINDICATOR);
+    _storeData($temp, 'outputs', DISPLAY);
+    _storeData($temp, 'outputs', CONVEYORBELT);
+    _storeData($temp, 'outputs', FEEDERENGINE);
+    $state = 0;
+    display($state, "leds2", "");
 
     //set HBridge so the sorter starts moving up
-    $temp=9;
-    _storeData($temp,'$outputs',HBRIDGE0);
+    $temp = 9;
+    _storeData($temp, 'outputs', HBRIDGE0);
 
     initial();
 }
+
 /*
 function initial()
 {
     $temp=6;
-    _storeData($temp,'$outputs',4);
+    _storeData($temp,'outputs',4);
     $temp=12;
-    _storeData($temp,'$outputs',5);
+    _storeData($temp,'outputs',5);
     timerManage();
     sleep(100);
     initial();
@@ -73,18 +74,18 @@ function initial()
 */
 function initial()
 {
-    global $outputs;
-    timerManage($outputs);
+    global $sleep;
+    timerManage();
     $push = _getButtonPressed(5);
     if ($push == 1) {
-        $temp=9;
-        _storeData($temp,'$outputs',HBRIDGE0);
-        $temp=0;
-        _storeData($temp,'$outputs',HBRIDGE1);
+        $temp = 9;
+        _storeData($temp, 'outputs', HBRIDGE0);
+        $temp = 0;
+        _storeData($temp, 'outputs', HBRIDGE1);
         $state = 1;
         display($state, "leds2", "");
-        unset( $state,$push);
-        $sleep=0;
+        unset($state, $push);
+        $sleep = 0;
         calibrateSorter();
 
     }
@@ -93,11 +94,11 @@ function initial()
 
 function calibrateSorter()
 {
-    global $outputs, $sleep;
-    timerManage($outputs);
+    global $sleep;
+    timerManage();
     if ($sleep == TIMEMOTORDOWN) {
-        $temp=9;
-        _storeData($temp,'$outputs',HBRIDGE1);
+        $temp = 9;
+        _storeData($temp, 'outputs', HBRIDGE1);
         $state = 2;
         display($state, "leds", "");
         $sleep = 0;
@@ -110,21 +111,21 @@ function calibrateSorter()
 
 function resting()
 {
-    global $outputs;
-    timerManage($outputs);
+
+    timerManage();
     $startStop = _getButtonPressed(0);
     if ($startStop == 1) {
-        $temp=12;
-        _storeData($temp,'$outputs',LENSLAMPPOSITION);
-        _storeData($temp,'$outputs',LENSLAMPSORTER);
-        $temp=9;
-        _storeData($temp,'$outputs',CONVEYORBELT);
-        $temp=5;
-        _storeData($temp,'$outputs',FEEDERENGINE);
+        $temp = 12;
+        _storeData($temp, 'outputs', LENSLAMPPOSITION);
+        _storeData($temp, 'outputs', LENSLAMPSORTER);
+        $temp = 9;
+        _storeData($temp, 'outputs', CONVEYORBELT);
+        $temp = 5;
+        _storeData($temp, 'outputs', FEEDERENGINE);
         setTimer(2 + BELT);
         $state = 3;
         display($state, "leds2", "");
-        unset($startStop,$state);
+        unset($startStop, $state);
         running();
     }
     resting();
@@ -132,16 +133,16 @@ function resting()
 
 function running()
 {
-    global $outputs, $position,$startStop;
-    timerManage($outputs);
+    global $position, $startStop;
+    timerManage();
     $position = _getButtonPressed(7);
     $startStop = _getButtonPressed(0);
     if ($startStop == 1) {
-        $temp=0;
-        _storeData($temp,'$outputs',FEEDERENGINE);
+        $temp = 0;
+        _storeData($temp, 'outputs', FEEDERENGINE);
         setTimer(BELT);
-        $state=9;
-        display($state,"leds2","");
+        $state = 9;
+        display($state, "leds2", "");
         unset($state);
         runningTimer();
 
@@ -151,7 +152,7 @@ function running()
 
         $state = 4;
         display($state, "leds2", "");
-        unset($state,$temp);
+        unset($state, $temp);
         runningWait();
     }
     running();
@@ -159,19 +160,19 @@ function running()
 
 function runningWait()
 {
-    global $outputs;
-    timerManage($outputs);
+    global $position;
+    timerManage();
     $position = _getButtonPressed(7);
     $colour = _getButtonPressed(6);
     $startStop = _getButtonPressed(0);
     if ($startStop == 1) {
-        $temp=0;
-        _storeData($temp,'$outputs',FEEDERENGINE);
+        $temp = 0;
+        _storeData($temp, 'outputs', FEEDERENGINE);
         setTimer(BELT);
         unset($colour);
-        $state=9;
-        display($state,"leds2","");
-        unset($position,$startStop,$state);
+        $state = 9;
+        display($state, "leds2", "");
+        unset($position, $startStop, $state);
         runningTimer();
 
     }
@@ -183,12 +184,12 @@ function runningWait()
 
     }
     if ($colour == 1) {
-        $temp=9;
-        _storeData($temp,'$outputs',HBRIDGE0);
+        $temp = 9;
+        _storeData($temp, 'outputs', HBRIDGE0);
         setTimer(SORT);
         $state = 6;
         display($state, "leds2", "");
-        unset($position,$state);
+        unset($position, $state);
         motorUp();
     }
     runningWait();
@@ -196,34 +197,34 @@ function runningWait()
 
 function runningTimerReset()
 {
-    global $outputs;
-    timerManage($outputs);
+
+    timerManage();
     runningWait();
 }
 
 function motorUp()
 {
-    global $outputs,$push,$startStop;
-    timerManage($outputs);
+    global $push, $startStop;
+    timerManage();
     $push = _getButtonPressed(7);
     $startStop = _getButtonPressed(0);
     if ($startStop == 1) {
-        $temp=0;
-        _storeData($temp,'$outputs',FEEDERENGINE);
+        $temp = 0;
+        _storeData($temp, 'outputs', FEEDERENGINE);
         setTimer(BELT);
         unset($temp);
-        $state=10;
-        display($state,"leds2","");
-        unset($startStop,$push,$state);
+        $state = 10;
+        display($state, "leds2", "");
+        unset($startStop, $push, $state);
         motorUpTimer();
 
     }
     if ($push == 1) {
-        $temp=0;
-        _storeData($temp,'$outputs',HBRIDGE0);
+        $temp = 0;
+        _storeData($temp, 'outputs', HBRIDGE0);
         $state = 7;
         display($state, "leds2", "");
-        unset($push,$state);
+        unset($push, $state);
         whiteWait();
 
     }
@@ -231,26 +232,27 @@ function motorUp()
 
 function whiteWait()
 {
-    global $outputs, $sleep;
-    timerManage($outputs);
+    global $sleep;
+    timerManage();
     $startStop = _getButtonPressed(0);
-    if ($sleep == SORT) {;
-        $temp=9;
-        _storeData($temp,'$outputs',HBRIDGE1);
+    if ($sleep == SORT) {
+        ;
+        $temp = 9;
+        _storeData($temp, 'outputs', HBRIDGE1);
         $state = 8;
         display($state, "leds2", "");
         $sleep = 0;
-        unset($state,$startStop);
+        unset($state, $startStop);
         motorDown();
 
     }
 
     if ($startStop == 1) {
-        $temp=0;
-        _storeData($temp,'$outputs',FEEDERENGINE);
+        $temp = 0;
+        _storeData($temp, 'outputs', FEEDERENGINE);
         setTimer(BELT);
-        $state=11;
-        display($state,"leds2","");
+        $state = 11;
+        display($state, "leds2", "");
         unset($startStop);
         whiteWaitTimer();
     }
@@ -260,27 +262,27 @@ function whiteWait()
 
 function motorDown()
 {
-    global $outputs, $sleep;
-    timerManage($outputs);
+    global $sleep, $startStop;
+    timerManage();
     $startStop = _getButtonPressed(0);
-    if ($sleep == TIMEMOTORDOWN ) {
-        $temp=0;
-        _storeData($temp,'$outputs',HBRIDGE1);
+    if ($sleep == TIMEMOTORDOWN) {
+        $temp = 0;
+        _storeData($temp, 'outputs', HBRIDGE1);
         $state = 9;
         $sleep = 0;
         display($state, "leds2", "");
-        unset($state,$startStop,$temp);
+        unset($state, $startStop, $temp);
         runningWait();
     }
 
     if ($startStop == 1) {
-        $temp=0;
-        _storeData($temp,'$outputs',FEEDERENGINE);
+        $temp = 0;
+        _storeData($temp, 'outputs', FEEDERENGINE);
         setTimer(BELT);
-        $state=12;
-        display($state,"leds2","");
+        $state = 12;
+        display($state, "leds2", "");
         motorDownTimer();
-        unset($state,$startStop);
+        unset($state, $startStop);
     }
     $sleep++;
     motorDown();
@@ -289,44 +291,44 @@ function motorDown()
 
 function runningTimer()
 {
-    global $outputs;
-    timerManage($outputs);
+
+    timerManage();
     runningStop();
 }
 
 function motorUpTimer()
 {
-    global $outputs;
-    timerManage($outputs);
+
+    timerManage();
     motorUpStop();
 }
 
 function whiteWaitTimer()
 {
-    global $outputs;
-    timerManage($outputs);
+
+    timerManage();
     whiteWaitStop();
 }
 
 function motorDownTimer()
 {
-    global $outputs;
-    timerManage($outputs);
+
+    timerManage();
     motorDownStop();
 }
 
 
 function runningStop()
 {
-    global $outputs;
-    timerManage($outputs);
+
+    timerManage();
     $colour = _getButtonPressed(6);
     if ($colour == 1) {
-        $temp=9;
-        _storeData($temp,'$outputs',HBRIDGE0);
+        $temp = 9;
+        _storeData($temp, 'outputs', HBRIDGE0);
         $state = 10;
         display($state, "leds2", "");
-        unset($colour,$state);
+        unset($colour, $state);
         motorUpStop();
     }
     runningStop();
@@ -334,27 +336,27 @@ function runningStop()
 
 function motorUpStop()
 {
-    global $outputs;
-    timerManage($outputs);
+
+    timerManage();
     $push = _getButtonPressed(5);
     if ($push == 1) {
-        $temp=0;
-        _storeData($temp,'$outputs',HBRIDGE0);
+        $temp = 0;
+        _storeData($temp, 'outputs', HBRIDGE0);
         $state = 11;
         display($state, "leds2", "");
         whiteWaitStop();
-        unset($push,$state);
+        unset($push, $state);
     }
     motorUpStop();
 }
 
 function whiteWaitStop()
 {
-    global $outputs, $sleep;
-    timerManage($outputs);
+    global $sleep;
+    timerManage();
     if ($sleep == SORT * 1000) {
-        $temp=9;
-        _storeData($temp,'$outputs',HBRIDGE1);
+        $temp = 9;
+        _storeData($temp, 'outputs', HBRIDGE1);
         $state = 12;
         display($state, "leds2", "");
         $sleep = 0;
@@ -368,11 +370,11 @@ function whiteWaitStop()
 
 function motorDownStop()
 {
-    global $outputs, $sleep;
-    timerManage($outputs);
-    if ($sleep == TIMEMOTORDOWN ) {
-        $temp=0;
-        _storeData($temp,'$outputs',HBRIDGE1);
+    global $sleep;
+    timerManage();
+    if ($sleep == TIMEMOTORDOWN) {
+        $temp = 0;
+        _storeData($temp, 'outputs', HBRIDGE1);
         $state = 9;
         $sleep = 0;
         display($state, "leds2", "");
@@ -385,18 +387,18 @@ function motorDownStop()
 
 function timerInterrupt()
 {
-    global $outputs;
-    timerManage($outputs);
-    $temp=9;
-    _storeData($temp,'$outputs',HBRIDGE1);
-    $temp=0;
-    _storeData($temp,'$outputs',HBRIDGE0);
-    _storeData($temp,'$outputs',LENSLAMPPOSITION);
-    _storeData($temp,'$outputs',LENSLAMPSORTER);
-    _storeData($temp,'$outputs',LEDSTATEINDICATOR);
-    _storeData($temp,'$outputs',DISPLAY);
-    _storeData($temp,'$outputs',CONVEYORBELT);
-    _storeData($temp,'$outputs',FEEDERENGINE);
+
+    timerManage();
+    $temp = 9;
+    _storeData($temp, 'outputs', HBRIDGE1);
+    $temp = 0;
+    _storeData($temp, 'outputs', HBRIDGE0);
+    _storeData($temp, 'outputs', LENSLAMPPOSITION);
+    _storeData($temp, 'outputs', LENSLAMPSORTER);
+    _storeData($temp, 'outputs', LEDSTATEINDICATOR);
+    _storeData($temp, 'outputs', DISPLAY);
+    _storeData($temp, 'outputs', CONVEYORBELT);
+    _storeData($temp, 'outputs', FEEDERENGINE);
 
     initial();
 
@@ -404,33 +406,33 @@ function timerInterrupt()
 
 function abort()
 {
-    global $outputs;
-    timerManage($outputs);
-    $temp=0;
-    _storeData($temp,'$outputs',HBRIDGE1);
-    _storeData($temp,'$outputs',HBRIDGE0);
-    _storeData($temp,'$outputs',LENSLAMPPOSITION);
-    _storeData($temp,'$outputs',LENSLAMPSORTER);
-    _storeData($temp,'$outputs',LEDSTATEINDICATOR);
-    _storeData($temp,'$outputs',DISPLAY);
-    _storeData($temp,'$outputs',CONVEYORBELT);
-    _storeData($temp,'$outputs',FEEDERENGINE);
+
+    timerManage();
+    $temp = 0;
+    _storeData($temp, 'outputs', HBRIDGE1);
+    _storeData($temp, 'outputs', HBRIDGE0);
+    _storeData($temp, 'outputs', LENSLAMPPOSITION);
+    _storeData($temp, 'outputs', LENSLAMPSORTER);
+    _storeData($temp, 'outputs', LEDSTATEINDICATOR);
+    _storeData($temp, 'outputs', DISPLAY);
+    _storeData($temp, 'outputs', CONVEYORBELT);
+    _storeData($temp, 'outputs', FEEDERENGINE);
     aborted();
 
 }
 
 function aborted()
 {
-    global $outputs;
-    timerManage($outputs);
+
+    timerManage();
     $startStop = _getButtonPressed(0);
     if ($startStop == 1) {
-        $temp=9;
-        _storeData($temp,'$outputs',HBRIDGE0);
+        $temp = 9;
+        _storeData($temp, 'outputs', HBRIDGE0);
         $state = 0;
         display($state, "leds2", "");
         initial();
-        unset($state,$startStop);
+        unset($state, $startStop);
     }
     aborted();
 
@@ -438,19 +440,19 @@ function aborted()
 
 function timerManage()
 {
-    global $outputs, $location, $counter, $engines;
-    mod(12,$counter); //makes sure that when $counter >13 it will reset to 0
-    $temp = _getData('$outputs', $location);
-    if ( $temp > $counter) {
-        $temp=$location;
-        $temp=pow(2, $temp);
+    global $location, $counter, $engines;
+    mod(12, $counter); //makes sure that when $counter >13 it will reset to 0
+    $temp = _getData('outputs', $location);
+    if ($temp > $counter) {
+        $temp = $location;
+        $temp = pow(2, $temp);
         $engines += $temp;
     }
 
     if ($location > 7) {
         display($engines, "leds", "");
         $engines = 0;
-        $location=0;
+        $location = 0;
         $counter++;
         return;
     }
