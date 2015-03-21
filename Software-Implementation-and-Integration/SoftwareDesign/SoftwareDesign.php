@@ -41,6 +41,10 @@ define('LEDSTATEINDICATOR', 9);
 
 function main()
 {
+    global $counter;
+    //the variables that are the same through the program:
+    $counter=0;
+
     $temp = 0;
     _storeData($temp, 'outputs', HBRIDGE1);
     _storeData($temp, 'outputs', HBRIDGE0);
@@ -56,7 +60,7 @@ function main()
     //set HBridge so the sorter starts moving up
     $temp = 9;
     _storeData($temp, 'outputs', HBRIDGE0);
-
+    unset($temp, $state);
     initial();
 }
 
@@ -111,7 +115,7 @@ function calibrateSorter()
 
 function resting()
 {
-
+    unset ($sleep);
     timerManage();
     $startStop = _getButtonPressed(0);
     if ($startStop == 1) {
@@ -135,7 +139,6 @@ function running()
 {
     global $position, $startStop;
     timerManage();
-    $position = _getButtonPressed(7);
     $startStop = _getButtonPressed(0);
     if ($startStop == 1) {
         $temp = 0;
@@ -143,16 +146,18 @@ function running()
         setTimer(BELT);
         $state = 9;
         display($state, "leds2", "");
-        unset($state);
+        unset($state, $temp);
         runningTimer();
 
     }
+    unset($startStop);
+    $position = _getButtonPressed(7);
     if ($position == 1) {
         setTimer(2 + BELT);
 
         $state = 4;
         display($state, "leds2", "");
-        unset($state, $temp);
+        unset($state);
         runningWait();
     }
     running();
@@ -234,28 +239,28 @@ function whiteWait()
 {
     global $sleep;
     timerManage();
-    $startStop = _getButtonPressed(0);
     if ($sleep == SORT) {
-        ;
         $temp = 9;
         _storeData($temp, 'outputs', HBRIDGE1);
         $state = 8;
         display($state, "leds2", "");
         $sleep = 0;
-        unset($state, $startStop);
+        unset($state, $temp);
         motorDown();
 
     }
 
+    $startStop = _getButtonPressed(0);
     if ($startStop == 1) {
         $temp = 0;
         _storeData($temp, 'outputs', FEEDERENGINE);
+        unset($temp);
         setTimer(BELT);
         $state = 11;
         display($state, "leds2", "");
-        unset($startStop);
         whiteWaitTimer();
     }
+    unset($startStop);
     $sleep++;
     whiteWait();
 }
