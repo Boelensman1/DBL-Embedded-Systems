@@ -324,22 +324,25 @@ This will return the mod 2 of $variable</p></div>
 </div>
 <a xmlns:php="http://php.net/xsl" id="function_pow"></a><div xmlns:php="http://php.net/xsl" class="element clickable function  function_pow " data-toggle="collapse" data-target=".function_pow .collapse" title="">
 <h2>Get the power of a number</h2>
-<pre>pow(integer $what, mixed $variable) : void</pre>
+<pre>pow(mixed $number, mixed $power) : integer</pre>
 <div class="labels"></div>
 <div class="row collapse"><div class="detail-description">
-<div class="long_description"><p>Example: pow(2,$variable)
-This will make $variable equal to 2^$variable</p></div>
+<div class="long_description"><p>Example: $temp=pow(2,$power)
+This will make $temp equal to 2^$power</p></div>
 <table class="table table-bordered"><tr>
 <th>package</th>
 <td><a href="../packages/Default.html">Default</a></td>
 </tr></table>
 <h3>Parameters</h3>
 <div class="subelement argument">
-<h4>$what</h4>
-<code>integer</code><p>the number to power with</p></div>
+<h4>$number</h4>
+<code>mixed</code><p>the number to power</p></div>
 <div class="subelement argument">
-<h4>$variable</h4>
-<code>mixed</code><p>variable to power</p></div>
+<h4>$power</h4>
+<code>mixed</code><p>the power value</p></div>
+<h3>Returns</h3>
+<div class="subelement response">
+<code>integer</code>The result</div>
 </div></div>
 </div>
 <a xmlns:php="http://php.net/xsl" id="function_pullStack"></a><div xmlns:php="http://php.net/xsl" class="element clickable function  function_pullStack " data-toggle="collapse" data-target=".function_pullStack .collapse" title="">
@@ -428,7 +431,7 @@ This will sleep for 10 clockticks</p></div>
 <div class="row"><footer class="span12">
             Template is built using <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap 2</a> and icons provided by <a href="http://glyphicons.com/">Glyphicons</a>.<br>
             Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor v2.8.1</a> and<br>
-            generated on 2015-03-21T15:28:58+01:00.<br></footer></div>
+            generated on 2015-03-22T12:05:31+01:00.<br></footer></div>
 </div>
 </body>
 </html>

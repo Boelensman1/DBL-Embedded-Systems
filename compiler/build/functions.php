@@ -88,15 +88,15 @@ function display($what, $onWhat, $location = '000001')
 /**
  * Get the power of a number
  *
- * Example: pow(2,$variable)
- * This will make $variable equal to 2^$variable
+ * Example: $temp=pow(2,$power)
+ * This will make $temp equal to 2^$power
  *
- * @param int      $what     the number to power with
- * @param mixed $variable variable to power
+ * @param mixed $number the number to power
+ * @param mixed $power  the power value
  *
- * @return void
+ * @return int The result
  */
-function pow($what,$variable)
+function pow($number,$power)
 {
 }
 

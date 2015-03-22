@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <project title="API Documentation" version="v2.8.1">
   <partials/>
-  <file path="functions.php" generated-path="functions.html" hash="865fa918c8d37c109a4ad8f8e478c8f9" package="Default">
+  <file path="functions.php" generated-path="functions.html" hash="5d45d3c757756c8db3fa4ed4c81bfe5b" package="Default">
     <docblock line="0">
       <description>This file contains the functions of the compiler.</description>
       <long-description>Include this in your code for autocompletion.
@@ -130,26 +130,26 @@ This will display $value in the middle of the display</long-description>
       <full_name>\pow()</full_name>
       <docblock line="99">
         <description>Get the power of a number</description>
-        <long-description>Example: pow(2,$variable)
-This will make $variable equal to 2^$variable</long-description>
+        <long-description>Example: $temp=pow(2,$power)
+This will make $temp equal to 2^$power</long-description>
         <tag name="package" line="99" description="Default"/>
-        <tag name="param" line="99" description="&lt;p&gt;the number to power with&lt;/p&gt;" type="integer" variable="$what">
-          <type>integer</type>
-        </tag>
-        <tag name="param" line="99" description="&lt;p&gt;variable to power&lt;/p&gt;" type="mixed" variable="$variable">
+        <tag name="param" line="99" description="&lt;p&gt;the number to power&lt;/p&gt;" type="mixed" variable="$number">
           <type>mixed</type>
         </tag>
-        <tag name="return" line="99" description="" type="void">
-          <type>void</type>
+        <tag name="param" line="99" description="&lt;p&gt;the power value&lt;/p&gt;" type="mixed" variable="$power">
+          <type>mixed</type>
+        </tag>
+        <tag name="return" line="99" description="The result" type="integer">
+          <type>integer</type>
         </tag>
       </docblock>
       <argument line="0" by_reference="false">
-        <name>$what</name>
+        <name>$number</name>
         <default></default>
-        <type>integer</type>
+        <type>mixed</type>
       </argument>
       <argument line="0" by_reference="false">
-        <name>$variable</name>
+        <name>$power</name>
         <default></default>
         <type>mixed</type>
       </argument>
@@ -479,7 +479,7 @@ This will branch to the function test</long-description>
       <error line="49" code="PPC:ERR-50015">Argument $location is missing from the Docblock of _storeRam</error>
       <error line="62" code="PPC:ERR-50015">Argument $location is missing from the Docblock of _getRam</error>
       <error line="84" code="PPC:ERR-50015">Argument $what is missing from the Docblock of display</error>
-      <error line="99" code="PPC:ERR-50015">Argument $what is missing from the Docblock of pow</error>
+      <error line="99" code="PPC:ERR-50015">Argument $number is missing from the Docblock of pow</error>
       <error line="114" code="PPC:ERR-50015">Argument $what is missing from the Docblock of mod</error>
       <error line="130" code="PPC:ERR-50015">Argument $writeTo is missing from the Docblock of getInput</error>
       <error line="144" code="PPC:ERR-50015">Argument $button is missing from the Docblock of _getButtonPressed</error>
@@ -493,7 +493,7 @@ This will branch to the function test</long-description>
       <error line="275" code="PPC:ERR-50015">Argument $variable is missing from the Docblock of initVar</error>
       <error line="291" code="PPC:ERR-50015">Argument $branchTO is missing from the Docblock of branch</error>
     </parse_markers>
-    <source>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</source>
+    <source>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</source>
   </file>
   <package name="Default" full_name="Default"/>
   <package name="global" full_name="global"/>
