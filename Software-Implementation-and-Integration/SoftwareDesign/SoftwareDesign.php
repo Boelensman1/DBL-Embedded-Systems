@@ -2,9 +2,9 @@
 /**
  * Sort of a simulation of the PP2 program controlling the Fischer Technik in order to sort black and white discs.
  * @team Group 16
- * @author Maarten Keet
- * @author stefan van den Berg
+ * @author Stefan van den Berg
  * @author Rolf Verschuuren
+ * @author Wigger Boelens
  * @since 13/3/2015
  */
 include 'functions.php';
@@ -47,7 +47,6 @@ function main()
 
     $temp = 0;
     _storeData($temp, 'outputs', HBRIDGE1);
-    _storeData($temp, 'outputs', HBRIDGE0);
     _storeData($temp, 'outputs', LENSLAMPPOSITION);
     _storeData($temp, 'outputs', LENSLAMPSORTER);
     _storeData($temp, 'outputs', LEDSTATEINDICATOR);
@@ -64,18 +63,6 @@ function main()
     initial();
 }
 
-/*
-function initial()
-{
-    $temp=6;
-    _storeData($temp,'outputs',4);
-    $temp=12;
-    _storeData($temp,'outputs',5);
-    timerManage();
-    sleep(100);
-    initial();
-}
-*/
 function initial()
 {
     global $sleep;
