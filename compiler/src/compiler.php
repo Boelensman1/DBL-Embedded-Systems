@@ -567,15 +567,19 @@ class Compiler
                     case 'buttons': {
                         return [
                             4,
+                            'PUSH R5',
                             'LOAD  R5  ' . IOAREA,
-                            'LOAD ' . $this->processArgument($arguments[0]) . ' [R5 + ' . INPUT . ']'
+                            'LOAD ' . $this->processArgument($arguments[0]) . ' [R5 + ' . INPUT . ']',
+                            'PULL R5'
                         ];
                     }
                     case 'analog': {
                         return [
                             4,
+                            'PUSH R5',
                             'LOAD  R5  ' . IOAREA,
-                            'LOAD ' . $this->processArgument($arguments[0]) . ' [R5 + ' . ADCONVS . ']'
+                            'LOAD ' . $this->processArgument($arguments[0]) . ' [R5 + ' . ADCONVS . ']',
+                            'PULL R5'
                         ];
                     }
                     default: {
@@ -590,7 +594,7 @@ class Compiler
                     case 'display': {
                         $this->_useFunction['display'] = true;
                         $counter = str_repeat('0', 6 - $arguments[2]) . '1' . str_repeat(
-                                '0', $arguments[2] - 1
+                                '0', intval($arguments[2])
                             );//000001
                         return [
                             4,
@@ -604,18 +608,20 @@ class Compiler
                     case 'leds': {//the led lights
                         return [
                             4,
+                            'PUSH R5',
                             'LOAD  R5  ' . IOAREA,
-                            'LOAD R4 ' . $this->processArgument($arguments[0]),
-                            'STOR R4 [R5+' . OUTPUT . ']'
+                            'STOR '.$this->processArgument($arguments[0]).' [R5+' . OUTPUT . ']',
+                            'PULL R5'
                         ];
                         break;
                     }
                     case 'leds2': {
                         return [
                             4,
-                            'LOAD  R5  ' . IOAREA,
-                            'LOAD R4 ' . $this->processArgument($arguments[0]),
-                            'STOR R4 [R5+' . OUTPUT2 . ']'
+                            'PUSH R5',
+                            'LOAD R5  ' . IOAREA,
+                            'STOR '.$this->processArgument($arguments[0]).' [R5+' . OUTPUT2 . ']',
+                            'PULL R5'
                         ];
                         break;
                     }
@@ -668,15 +674,19 @@ class Compiler
             case 'pullStack': {
                 return [0, 'PULL ' . $this->processArgument($arguments[0])];
             }
-            case 'setTimer': {
+            case 'setCountdown': {
                 return [
                     4,
+                    'PUSH R5',
+                    'PUSH R4',
                     'LOAD R5 ' . IOAREA,
                     'LOAD  R4  0',
                     'SUB  R4  [R5+' . TIMER . ']',
                     'STOR  R4  [R5+' . TIMER . ']',
                     'LOAD R4 ' . $this->processArgument($arguments[0]),
-                    'STOR R4 [R5+' . TIMER . ']'
+                    'STOR R4 [R5+' . TIMER . ']',
+                    'PULL R4',
+                    'PULL R5'
                 ];
             }
             case 'stackPush': {
@@ -1003,7 +1013,7 @@ class Compiler
                         'PUSH R3',
                         'LOAD R3 ' . $this->processArgument($arguments[0]),
                         'BRS _pressed',
-                        'PULL R4',
+                        'PULL R3',
                         'SUB SP 5',
                         'PULL '.$register,
                         'ADD SP 4',

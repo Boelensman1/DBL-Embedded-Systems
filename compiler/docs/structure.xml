@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <project title="API Documentation" version="v2.8.1">
   <partials/>
-  <file path="functions.php" generated-path="functions.html" hash="5d45d3c757756c8db3fa4ed4c81bfe5b" package="Default">
+  <file path="functions.php" generated-path="functions.html" hash="84d21302381134efa50e5c049148736d" package="Default">
     <docblock line="0">
       <description>This file contains the functions of the compiler.</description>
       <long-description>Include this in your code for autocompletion.
@@ -96,7 +96,7 @@ Example:
 display($value, 'display',000100)
 This will display $value in the middle of the display</long-description>
         <tag name="package" line="84" description="Default"/>
-        <tag name="param" line="84" description="&lt;p&gt;what to display&lt;/p&gt;" type="mixed" variable="$what">
+        <tag name="param" line="84" description="&lt;p&gt;what to display, must be a variable&lt;/p&gt;" type="mixed" variable="$what">
           <type>mixed</type>
         </tag>
         <tag name="param" line="84" description="&lt;p&gt;on what to display&lt;/p&gt;" type="string" variable="$onWhat">
@@ -219,7 +219,7 @@ This will put the value of the analog into $variable</long-description>
       <docblock line="144">
         <description>Check if a button is pressed</description>
         <long-description>Puts the result into R5
-Example: $pressed=buttonPressed($location);</long-description>
+Example: $pressed=_getButtonPressed($location);</long-description>
         <tag name="package" line="144" description="Default"/>
         <tag name="param" line="144" description="&lt;p&gt;Which button to check (input a variable)&lt;/p&gt;" type="mixed" variable="$button">
           <type>mixed</type>
@@ -319,8 +319,8 @@ the function timerInterrupt is ran.</long-description>
 Example: setTimer(10)
 This will interrupt the program after 10 timer ticks</long-description>
         <tag name="package" line="207" description="Default"/>
-        <tag name="param" line="207" description="&lt;p&gt;how long the timer should wait, in timer ticks&lt;/p&gt;" type="string" variable="$timer">
-          <type>string</type>
+        <tag name="param" line="207" description="&lt;p&gt;how long the timer should wait, in timer ticks&lt;/p&gt;" type="integer" variable="$timer">
+          <type>integer</type>
         </tag>
         <tag name="return" line="207" description="" type="void">
           <type>void</type>
@@ -329,7 +329,7 @@ This will interrupt the program after 10 timer ticks</long-description>
       <argument line="0" by_reference="false">
         <name>$timer</name>
         <default></default>
-        <type>string</type>
+        <type>integer</type>
       </argument>
     </function>
     <function namespace="" line="224" package="Default">
@@ -493,7 +493,7 @@ This will branch to the function test</long-description>
       <error line="275" code="PPC:ERR-50015">Argument $variable is missing from the Docblock of initVar</error>
       <error line="291" code="PPC:ERR-50015">Argument $branchTO is missing from the Docblock of branch</error>
     </parse_markers>
-    <source>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</source>
+    <source>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</source>
   </file>
   <package name="Default" full_name="Default"/>
   <package name="global" full_name="global"/>

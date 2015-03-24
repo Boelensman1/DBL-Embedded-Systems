@@ -74,7 +74,7 @@ function _getRam($location)
  * display($value, 'display',000100)
  * This will display $value in the middle of the display
  *
- * @param mixed $what     what to display
+ * @param mixed    $what     what to display, must be a variable
  * @param string   $onWhat   on what to display
  * @param string   $location Where to show the value when using the display,
  *                           defaults to the right position
@@ -135,7 +135,7 @@ function getInput($writeTo, $type)
  * Check if a button is pressed
  *
  * Puts the result into R5
- * Example: $pressed=buttonPressed($location);
+ * Example: $pressed=_getButtonPressed($location);
  *
  * @param mixed $button Which button to check (input a variable)
  *
@@ -200,7 +200,7 @@ function pullStack($variable)
  * Example: setTimer(10)
  * This will interrupt the program after 10 timer ticks
  *
- * @param string $timer how long the timer should wait, in timer ticks
+ * @param int $timer how long the timer should wait, in timer ticks
  *
  * @return void
  */

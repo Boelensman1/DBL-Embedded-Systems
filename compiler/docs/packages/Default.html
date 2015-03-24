@@ -92,7 +92,7 @@
 <div class="labels"></div>
 <div class="row collapse"><div class="detail-description">
 <div class="long_description"><p>Puts the result into R5
-Example: $pressed=buttonPressed($location);</p></div>
+Example: $pressed=_getButtonPressed($location);</p></div>
 <table class="table table-bordered"><tr>
 <th>package</th>
 <td><a href="../packages/Default.html">Default</a></td>
@@ -229,7 +229,7 @@ This will display $value in the middle of the display</p></div>
 <h3>Parameters</h3>
 <div class="subelement argument">
 <h4>$what</h4>
-<code>mixed</code><p>what to display</p></div>
+<code>mixed</code><p>what to display, must be a variable</p></div>
 <div class="subelement argument">
 <h4>$onWhat</h4>
 <code>string</code><p>on what to display</p></div>
@@ -379,7 +379,7 @@ This will make $temp equal to 2^$power</p></div>
 </div>
 <a xmlns:php="http://php.net/xsl" id="function_setTimer"></a><div xmlns:php="http://php.net/xsl" class="element clickable function  function_setTimer " data-toggle="collapse" data-target=".function_setTimer .collapse" title="">
 <h2>Set the timer interrupt to a value.</h2>
-<pre>setTimer(string $timer) : void</pre>
+<pre>setTimer(integer $timer) : void</pre>
 <div class="labels"></div>
 <div class="row collapse"><div class="detail-description">
 <div class="long_description"><p>It will first reset the timer to 0.
@@ -392,7 +392,7 @@ This will interrupt the program after 10 timer ticks</p></div>
 <h3>Parameters</h3>
 <div class="subelement argument">
 <h4>$timer</h4>
-<code>string</code><p>how long the timer should wait, in timer ticks</p></div>
+<code>integer</code><p>how long the timer should wait, in timer ticks</p></div>
 </div></div>
 </div>
 <a xmlns:php="http://php.net/xsl" id="function_sleep"></a><div xmlns:php="http://php.net/xsl" class="element clickable function  function_sleep " data-toggle="collapse" data-target=".function_sleep .collapse" title="">
@@ -431,7 +431,7 @@ This will sleep for 10 clockticks</p></div>
 <div class="row"><footer class="span12">
             Template is built using <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap 2</a> and icons provided by <a href="http://glyphicons.com/">Glyphicons</a>.<br>
             Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor v2.8.1</a> and<br>
-            generated on 2015-03-22T12:05:31+01:00.<br></footer></div>
+            generated on 2015-03-24T15:23:08+01:00.<br></footer></div>
 </div>
 </body>
 </html>

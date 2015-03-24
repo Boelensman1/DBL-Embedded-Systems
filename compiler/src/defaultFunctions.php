@@ -18,9 +18,9 @@ _Hex7Seg_tbl: CONS  %01111110    ;  7-segment pattern for '0'
               CONS  %00111101    ;  7-segment pattern for 'd'
               CONS  %01001111    ;  7-segment pattern for 'E'
               CONS  %01000111    ;  7-segment pattern for 'F'
-_Hex7Seg_bgn:   AND  R5  %01111   ;  R0 := R0 MOD 16 , just to be safe...
-              LOAD  R4  [SP++]   ;  R4 := address(tbl) (retrieve from stack)
-              LOAD  R4  [R4+R5]  ;  R4 := tbl[R0]
+_Hex7Seg_bgn: AND  R5  %01111   ;  R0 = R0 MOD 16 , just to be safe...
+              LOAD  R4  [SP++]   ;  R4 = address(tbl) (retrieve from stack)
+              LOAD  R4  [R4+R5]  ;  R4 = tbl[R0]
               LOAD  R5  ".IOAREA."
               STOR  R4  [R5+".DSPSEG."] ; and place this in the Display Element
                RTS";
