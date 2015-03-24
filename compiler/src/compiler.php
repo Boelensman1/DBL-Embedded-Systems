@@ -108,6 +108,17 @@ class Compiler
     private $_data = [];
 
     /**
+     * Functions that will move  up
+     *
+     * Is defined in the compiler segment.
+     *
+     * @var    array
+     * @access private
+     */
+    private $_moveFunction = [];
+
+
+    /**
      * Uncompiled functions
      *
      * All functions in the input file.
@@ -247,6 +258,7 @@ class Compiler
     {
         //remove all comments
         $isComment = false;
+        $compilerSegment=false;
         $codeSegment = false;
         $dataSegment = false;
         //split by _line
@@ -257,8 +269,16 @@ class Compiler
             }
             $line = trim($line);//trim the line.
 
-            //check if the _data segment codeSegment
-            if ($dataSegment == false && $codeSegment == false) {
+            //check if compilersegment starts
+            if ($compilerSegment==false && $dataSegment == false && $codeSegment == false) {
+                if ($line == '//**COMPILER**') {
+                    $compilerSegment = true;
+                }
+                continue;
+            }
+
+            //check if datasegment starts
+            if ($compilerSegment==false && $dataSegment == false && $codeSegment == false) {
                 if ($line == '//**DATA**') {
                     $dataSegment = true;
                 }
@@ -277,10 +297,10 @@ class Compiler
                     $isComment = true;
                     continue;
                 }
-                //check for comments, but not the code comment
+                //check for comments, but not the code/data comment
                 if (preg_match(
                         "/(^|[^\\\\])\\/\\//", $line, $matches, PREG_OFFSET_CAPTURE
-                    ) && $line != '//**CODE**'
+                    ) && $line != '//**CODE**' && $line != '//**DATA**'
                 ) {
                     $line = substr(
                         $line, 0, $matches[0][1] + 1
@@ -296,6 +316,19 @@ class Compiler
                 }
             }
             if (!empty($line)) {
+                if ($compilerSegment) {
+                    //check if the _data segment ends
+                    if ($codeSegment == false) {
+                        if ($line == '//**DATA**') {
+                            $compilerSegment=false;
+                            $dataSegment = true;//compilerSegment ends when dataSegment starts
+                            continue;
+                        }
+                    }
+
+                    //process it
+                    $this->processCompiler($line);
+                }
                 if ($dataSegment) {
                     //check if the _data segment ends
                     if ($codeSegment == false) {
@@ -345,6 +378,22 @@ class Compiler
         }
 
         return $return[1];
+    }
+
+    /** Processes the lines of compiler-code
+     *
+     * @param string $line The input line
+     *
+     * @return string The processed line of compiler-code
+     */
+    private function processCompiler($line)
+    {
+        //set the line number in case we get an error
+        $this->_functionName = '@COMPILER';
+        $this->_lineNumber['@COMPILER'] = 0;
+
+        //and do the compiler
+        $this->processLine($line);
     }
 
     /**Subroutine to process a single _line
@@ -559,6 +608,19 @@ class Compiler
                     .'your current variables are: '.implode(', ',$this->_variables)."\n"
                     .'Insert comments: '.$comments
                 );
+                break;
+            }
+
+            case 'functionMoveTo':{
+                $move['name']=trim(trim($arguments[0]), '\'"');
+                $move['pos']=trim($arguments[1]);
+                $this->_moveFunction[]=$move;
+                unset($move);
+                break;
+            }
+
+            case 'compile':{
+                $this->_functionsToCompile[] = trim(trim($arguments[0]), '\'"');//add it to the to compile functions
                 break;
             }
 
@@ -1327,6 +1389,10 @@ class Compiler
      */
     private function makeCode($codeOutside)
     {
+        //set the line number in case we get an error
+        $this->_functionName = 'COMPILER: making code';
+        $this->_lineNumber['COMPILER: making code'] = 0;
+
         $result = [];
 
         //insert the _data
@@ -1343,10 +1409,29 @@ class Compiler
         $result[] = '';
 
         require_once 'defaultFunctions.php';
+
         foreach ($this->_useFunction as $name => $used) {
             if ($used) {
                 $result = array_merge($result, $this->_defaultFunctions[$name]);
             }
+        }
+
+        //move the functions that where asked to do so
+        foreach ($this->_moveFunction as $moveFunction)
+        {
+            $functionToMove=[];
+            if (isset($this->_functionsCompiled[$moveFunction['name']]) && !empty($this->_functionsCompiled[$moveFunction['name']])) {
+                $functionToMove[$moveFunction['name']]=$this->_functionsCompiled[$moveFunction['name']];
+                unset($this->_functionsCompiled[$moveFunction['name']]);
+            }
+            else
+            {
+                //function not found!
+                $this->error('Trying to move uncompiled function: '.$moveFunction['name']);
+            }
+            $before=array_slice($this->_functionsCompiled,0,$moveFunction['pos']);
+            $after=array_slice($this->_functionsCompiled,$moveFunction['pos'],count($this->_functionsCompiled)-$moveFunction['pos']);
+            $this->_functionsCompiled=array_merge($before,$functionToMove,$after);
         }
 
         //okay we have the outside code now, lets do the _functions
