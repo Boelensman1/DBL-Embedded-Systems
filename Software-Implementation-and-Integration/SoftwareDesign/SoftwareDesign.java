@@ -70,7 +70,7 @@ class SoftwareDesign {
           $outputs[$lensLampSorter]=12;
           $outputs[$conveyorBelt]=9;
           $outputs[$feederEngine]=5;
-          setTimer(2+$belt);
+          setCountdown(2+$belt);
           
           
           $state=3;
@@ -86,11 +86,11 @@ class SoftwareDesign {
       $startStop=buttonPressed(0);
       if($startStop=true){
           $outputs[$feederEngine]=0;
-          setTimer($belt);
+          setCountdown($belt);
           runningTimer();
       }
       if($position=true){
-          setTimer(2+$belt);
+          setCountdown(2+$belt);
           
           $state=4;
           display($state,"leds2","");
@@ -106,11 +106,11 @@ class SoftwareDesign {
       $startStop=buttonPressed(0);
       if($startStop=true){
           $outputs[$feederEngine]=0;
-          setTimer($belt);
+          setCountdown($belt);
           runningTimer();
       }
       if($position){
-           setTimer(2+$belt);        
+           setCountdown(2+$belt);
           
           $state=5;
           display($state,"leds2","");
@@ -119,7 +119,7 @@ class SoftwareDesign {
       if($colour){
           $outputs[$hbridge0]=9;
           
-          setTimer($sort);
+          setCountdown($sort);
           
           $state=6;
           display($state,"leds2","");
@@ -139,7 +139,7 @@ class SoftwareDesign {
       $startStop=buttonPressed(0);
       if($startStop=true){
           $outputs[$feederEngine]=0;
-          setTimer($belt);
+          setCountdown($belt);
           motorUpTimer();          
       }
       if($push=true){
@@ -162,7 +162,7 @@ class SoftwareDesign {
       $startStop=buttonPressed(0);
       if($startStop=true){
           $outputs[$feederEngine]=0;
-          setTimer($belt);
+          setCountdown($belt);
           whiteWaitTimer();
       }
       $sleep++;
@@ -181,7 +181,7 @@ class SoftwareDesign {
      $startStop=buttonPressed(0);
      if($startStop=true){
           $outputs[$feederEngine]=0;
-          setTimer($belt);
+          setCountdown($belt);
           motorDownTimer();
       }
      $sleep++;
@@ -481,14 +481,14 @@ public void pullStack(int $variable)
  * Set the timer interrupt to a value.
  *
  * It will first reset the timer to 0.
- * Example: setTimer(10)
+ * Example: setCountdown(10)
  * This will interrupt the program after 10 timer ticks
  *
  * @param string $timer how long the timer should wait, in timer ticks
  *
  * @return void
  */
-public void setTimer(int $timer)
+public void setCountdown(int $timer)
 {
 }
 

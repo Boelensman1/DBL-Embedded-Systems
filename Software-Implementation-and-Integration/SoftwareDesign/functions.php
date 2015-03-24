@@ -172,6 +172,21 @@ function startCountdown()
 }
 
 /**
+ * Set the timer interrupt to a value.
+ *
+ * It will first reset the timer to 0.
+ * Example: setCountdown(10)
+ * This will interrupt the program after 10 timer ticks
+ *
+ * @param int $timer how long the timer should wait, in timer ticks
+ *
+ * @return void
+ */
+function setCountdown($timer)
+{
+}
+
+/**
  *Push a variable to the stack
  *
  * @param string $variable the variable to push to the stack
@@ -190,21 +205,6 @@ function pushStack($variable)
  * @return void
  */
 function pullStack($variable)
-{
-}
-
-/**
- * Set the timer interrupt to a value.
- *
- * It will first reset the timer to 0.
- * Example: setTimer(10)
- * This will interrupt the program after 10 timer ticks
- *
- * @param int $timer how long the timer should wait, in timer ticks
- *
- * @return void
- */
-function setTimer($timer)
 {
 }
 
