@@ -8,7 +8,8 @@
  * @since 13/3/2015
  */
 include 'functions.php';
-
+//**COMPILER**
+functionMoveTo('timerInterrupt',1);
 
 //**DATA**
 //outputs
@@ -38,9 +39,7 @@ define('CONVEYORBELT', 3);
 define('FEEDERENGINE', 7);
 define('DISPLAY', 8);
 define('LEDSTATEINDICATOR', 9);
-
 //not a state
-
 function main()
 {
     global $counter;
@@ -124,7 +123,7 @@ function resting()
         _storeData($temp, 'outputs', FEEDERENGINE);
 
         setCountdown(BELTROUND + BELT);
-        startCountdown();
+        //startCountdown();
 
         $state = 3;
         display($state, "leds2", "");
@@ -450,10 +449,10 @@ function motorDownStop()
     motorDownStop();
 }
 
-//state 17
+//not a state
 function timerInterrupt()
 {
-    $temp = SP + 3;
+    $temp = 3;
     display($temp, "display", "100");
 
     timerManage();

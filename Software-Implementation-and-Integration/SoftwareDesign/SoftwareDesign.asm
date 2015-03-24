@@ -205,7 +205,6 @@ conditional2:        PUSH R5                                      ;sleep(2000)
                      STOR R4 [R5+13]
                      PULL R4
                      PULL R5
-                     SETI 8                                       ;startCountdown()
                      LOAD R3 3                                    ;$state = 3
                      PUSH R5                                      ;display($state, "leds2", "")
                      LOAD R5 -16
@@ -722,7 +721,7 @@ conditional19:       PUSH R5                                      ;display($engi
                      RTS                                          ;return
                      BRA return19                                 ;}
                      
-timerInterrupt:      LOAD R2 SP + 3                               ;$temp = SP + 3
+timerInterrupt:      LOAD R2 3                                    ;$temp = 3
                      LOAD R5 R2                                   ;display($temp, "display", "100")
                      BRS _Hex7Seg
                      LOAD R4 %0000001
