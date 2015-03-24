@@ -14,7 +14,7 @@ class SoftwareDesign {
     //**@CODE**
     //inputs
     int $push,$startStop,$abort,$position,$colour;
-    //int $timer;
+    
     //variables
     int $state = 0;
     int $sleep = 0;
@@ -26,6 +26,7 @@ class SoftwareDesign {
 
     //constants
     final int TIMEMOTORDOWN = 30;
+    final int BELTROUND=2000;
     final int BELT = 1200;
     final int SORT = 850;
     final int LENSLAMPPOSITION = 5,
@@ -54,6 +55,8 @@ class SoftwareDesign {
 
         //start moving the sorter up
         SoftwareDesign._storeData(9, "outputs", SoftwareDesign.HBRIDGE0);
+        
+        SoftwareDesign.installCountdown("timerInterrupt");
 
         SoftwareDesign.initial();
     }
@@ -69,15 +72,16 @@ class SoftwareDesign {
             calibrateSorter();
 
         }
+        
         initial();
     }
 
     void calibrateSorter() {
         timerManage();
         if ($sleep == TIMEMOTORDOWN * 1000) {
-            _storeData(9,"outputs",HBRIDGE1);
+            _storeData(0,"outputs",HBRIDGE1);
             $state = 2;
-            display($state, "leds", "");
+            display($state, "leds2", "");
             resting();
             $sleep = 0;
         }
@@ -89,13 +93,13 @@ class SoftwareDesign {
         timerManage();
         $startStop = _getButtonPressed(0);
         if ($startStop == 1) {
+            sleep(2000);
             _storeData(12,"outputs",LENSLAMPPOSITION);
             _storeData(12,"outputs",LENSLAMPSORTER);
             _storeData(9,"outputs",CONVEYORBELT);
             _storeData(5,"outputs",FEEDERENGINE);
-            setTimer(2 + BELT);
-
-
+            setCountdown(BELTROUND+BELT);
+            startCountdown();
             $state = 3;
             display($state, "leds2", "");
             running();
@@ -109,11 +113,11 @@ class SoftwareDesign {
         $startStop = _getButtonPressed(0);
         if ($startStop == 1) {
             _storeData(0,"outputs",FEEDERENGINE);
-            setTimer(BELT);
+            setCountdown(BELT);
             runningTimer();
         }
         if ($position == 1) {
-            setTimer(2 + BELT);
+            setCountdown(BELTROUND+BELT);
 
             $state = 4;
             display($state, "leds2", "");
@@ -124,25 +128,25 @@ class SoftwareDesign {
 
     void runningWait() {
         timerManage();
-        $position = _getButtonPressed(7);
-        $colour = _getButtonPressed(6);
         $startStop = _getButtonPressed(0);
         if ($startStop == 1) {
             _storeData(0,"outputs",FEEDERENGINE);
-            setTimer(BELT);
+            setCountdown(BELT);
             runningTimer();
         }
+         $position = _getButtonPressed(7);
         if ($position==1) {
-            setTimer(2 + BELT);
+            setCountdown(BELTROUND+BELT);
 
             $state = 5;
             display($state, "leds2", "");
             runningTimerReset();
         }
+        $colour = _getButtonPressed(6);
         if ($colour==1) {
             _storeData(9,"outputs",HBRIDGE0);
 
-            setTimer(SORT);
+            setCountdown(SORT);
 
             $state = 6;
             display($state, "leds2", "");
@@ -153,24 +157,27 @@ class SoftwareDesign {
 
     void runningTimerReset() {
         timerManage();
+        $state=5;
+        display($state, "leds2", "");
         runningWait();
     }
 
     void motorUp() {
         timerManage();
-        $push = _getButtonPressed(7);
         $startStop = _getButtonPressed(0);
         if ($startStop == 1) {
             _storeData(0,"outputs",FEEDERENGINE);
-            setTimer(BELT);
+            setCountdown(BELT);
             motorUpTimer();
         }
+        $push = _getButtonPressed(5);
         if ($push == 1) {
             _storeData(0,"outputs",HBRIDGE0);
             $state = 7;
             display($state, "leds2", "");
             whiteWait();
         }
+        motorUp();
     }
 
     void whiteWait() {
@@ -185,7 +192,7 @@ class SoftwareDesign {
         $startStop = _getButtonPressed(0);
         if ($startStop == 1) {
             _storeData(0,"outputs",FEEDERENGINE);
-            setTimer(BELT);
+            setCountdown(BELT);
             whiteWaitTimer();
         }
         $sleep++;
@@ -204,7 +211,7 @@ class SoftwareDesign {
         $startStop = _getButtonPressed(0);
         if ($startStop == 1) {
             _storeData(0,"outputs",FEEDERENGINE);
-            setTimer(BELT);
+            setCountdown(BELT);
             motorDownTimer();
         }
         $sleep++;
@@ -267,7 +274,7 @@ class SoftwareDesign {
         }
 
         $sleep++;
-        whiteWait();
+        whiteWaitStop();
     }
 
     void motorDownStop() {
@@ -280,7 +287,7 @@ class SoftwareDesign {
             runningWait();
         }
         $sleep++;
-        motorDown();
+        motorDownStop();
     }
 
     void timerInterrupt() {
@@ -476,12 +483,12 @@ class SoftwareDesign {
      * Set the timer interrupt to a value.
      * <p/>
      * It will first reset the timer to 0.
-     * Example: setTimer(10)
+     * Example: setCountdown(10)
      * This will interrupt the program after 10 timer ticks
      *
      * @param $timer how long the timer should wait, in timer ticks
      */
-    public void setTimer(int $timer) {
+    public void setCountdown(int $timer) {
     }
 
 
