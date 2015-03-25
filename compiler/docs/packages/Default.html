@@ -60,14 +60,12 @@
 </li>
 <li class="nav-header">
 <i title="Functions" class="icon-custom icon-function"></i> Functions</li>
-<li class="function  "><a href="#function__getButtonPressed" title="_getButtonPressed() :: Check if a button is pressed"><span class="description">Check if a button is pressed</span><pre>_getButtonPressed</pre></a></li>
-<li class="function  "><a href="#function__getData" title="_getData() :: Get data"><span class="description">Get data</span><pre>_getData</pre></a></li>
-<li class="function  "><a href="#function__getRam" title="_getRam() :: Get a value from the ram."><span class="description">Get a value from the ram.</span><pre>_getRam</pre></a></li>
-<li class="function  "><a href="#function__storeData" title="_storeData() :: Store data"><span class="description">Store data</span><pre>_storeData</pre></a></li>
-<li class="function  "><a href="#function__storeRam" title="_storeRam() :: Store a value in the ram."><span class="description">Store a value in the ram.</span><pre>_storeRam</pre></a></li>
 <li class="function  "><a href="#function_branch" title="branch() :: Branch to a function"><span class="description">Branch to a function</span><pre>branch</pre></a></li>
 <li class="function  "><a href="#function_display" title="display() :: Display something on either the display or the leds"><span class="description">Display something on either the display or the leds</span><pre>display</pre></a></li>
+<li class="function  "><a href="#function_getButtonPressed" title="getButtonPressed() :: Check if a button is pressed"><span class="description">Check if a button is pressed</span><pre>getButtonPressed</pre></a></li>
+<li class="function  "><a href="#function_getData" title="getData() :: Get data"><span class="description">Get data</span><pre>getData</pre></a></li>
 <li class="function  "><a href="#function_getInput" title="getInput() :: Get button or analog input"><span class="description">Get button or analog input</span><pre>getInput</pre></a></li>
+<li class="function  "><a href="#function_getRam" title="getRam() :: Get a value from the ram."><span class="description">Get a value from the ram.</span><pre>getRam</pre></a></li>
 <li class="function  "><a href="#function_initVar" title="initVar() :: Init a variable that is used in that data segment"><span class="description">Init a variable that is used in that data segment</span><pre>initVar</pre></a></li>
 <li class="function  "><a href="#function_installCountdown" title="installCountdown() :: Install the countdown"><span class="description">Install the countdown</span><pre>installCountdown</pre></a></li>
 <li class="function  "><a href="#function_mod" title="mod() :: Take the mod of a number"><span class="description">Take the mod of a number</span><pre>mod</pre></a></li>
@@ -78,6 +76,8 @@
 <li class="function  "><a href="#function_setCountdown" title="setCountdown() :: Set the timer interrupt to a value."><span class="description">Set the timer interrupt to a value.</span><pre>setCountdown</pre></a></li>
 <li class="function  "><a href="#function_sleep" title="sleep() :: Pause the program"><span class="description">Pause the program</span><pre>sleep</pre></a></li>
 <li class="function  "><a href="#function_startCountdown" title="startCountdown() :: Start the countdown."><span class="description">Start the countdown.</span><pre>startCountdown</pre></a></li>
+<li class="function  "><a href="#function_storeData" title="storeData() :: Store data"><span class="description">Store data</span><pre>storeData</pre></a></li>
+<li class="function  "><a href="#function_storeRam" title="storeRam() :: Store a value in the ram."><span class="description">Store a value in the ram.</span><pre>storeRam</pre></a></li>
 </ul>
 </div>
 <div class="span8 package-contents">
@@ -87,112 +87,6 @@
 <div class="package-indent">
 <h3>
 <i title="Functions" class="icon-custom icon-function"></i> Functions</h3>
-<a xmlns:php="http://php.net/xsl" id="function__getButtonPressed"></a><div xmlns:php="http://php.net/xsl" class="element clickable function  function__getButtonPressed " data-toggle="collapse" data-target=".function__getButtonPressed .collapse" title="">
-<h2>Check if a button is pressed</h2>
-<pre>_getButtonPressed(mixed $button) : integer</pre>
-<div class="labels"></div>
-<div class="row collapse"><div class="detail-description">
-<div class="long_description"><p>Puts the result into R5
-Example: $pressed=_getButtonPressed($location);</p></div>
-<table class="table table-bordered"><tr>
-<th>package</th>
-<td><a href="../packages/Default.html">Default</a></td>
-</tr></table>
-<h3>Parameters</h3>
-<div class="subelement argument">
-<h4>$button</h4>
-<code>mixed</code><p>Which button to check (input a variable)</p></div>
-<h3>Returns</h3>
-<div class="subelement response">
-<code>integer</code>Whether or not the button is pressed.</div>
-</div></div>
-</div>
-<a xmlns:php="http://php.net/xsl" id="function__getData"></a><div xmlns:php="http://php.net/xsl" class="element clickable function  function__getData " data-toggle="collapse" data-target=".function__getData .collapse" title="">
-<h2>Get data</h2>
-<pre>_getData(string $location, integer $offset) : mixed</pre>
-<div class="labels"></div>
-<div class="row collapse"><div class="detail-description">
-<div class="long_description"><p>Use offset 0 when it is just a single value.
-Example: $data=_getData('data',1)
-This will put the value of the data segment "data" at position 1, into $data.</p></div>
-<table class="table table-bordered"><tr>
-<th>package</th>
-<td><a href="../packages/Default.html">Default</a></td>
-</tr></table>
-<h3>Parameters</h3>
-<div class="subelement argument">
-<h4>$location</h4>
-<code>string</code><p>The location where the variable is stored</p></div>
-<div class="subelement argument">
-<h4>$offset</h4>
-<code>integer</code><p>The offset of the location</p></div>
-<h3>Returns</h3>
-<div class="subelement response">
-<code>mixed</code>The value of the data segment</div>
-</div></div>
-</div>
-<a xmlns:php="http://php.net/xsl" id="function__getRam"></a><div xmlns:php="http://php.net/xsl" class="element clickable function  function__getRam " data-toggle="collapse" data-target=".function__getRam .collapse" title="">
-<h2>Get a value from the ram.</h2>
-<pre>_getRam(mixed $location) : mixed</pre>
-<div class="labels"></div>
-<div class="row collapse"><div class="detail-description">
-<div class="long_description"><p>Example: $value=_getRam($location)</p></div>
-<table class="table table-bordered"><tr>
-<th>package</th>
-<td><a href="../packages/Default.html">Default</a></td>
-</tr></table>
-<h3>Parameters</h3>
-<div class="subelement argument">
-<h4>$location</h4>
-<code>mixed</code><p>The location (a variable) where the value is stored</p></div>
-<h3>Returns</h3>
-<div class="subelement response">
-<code>mixed</code>The value that is stored at the location</div>
-</div></div>
-</div>
-<a xmlns:php="http://php.net/xsl" id="function__storeData"></a><div xmlns:php="http://php.net/xsl" class="element clickable function  function__storeData " data-toggle="collapse" data-target=".function__storeData .collapse" title="">
-<h2>Store data</h2>
-<pre>_storeData(mixed $variable, string $location, integer $offset) : void</pre>
-<div class="labels"></div>
-<div class="row collapse"><div class="detail-description">
-<div class="long_description"><p>Use offset 0 when it is just a single value.
-Example: _storeData($data,'data',1)
-This will put the value of $data into the data segment "data" at position 1</p></div>
-<table class="table table-bordered"><tr>
-<th>package</th>
-<td><a href="../packages/Default.html">Default</a></td>
-</tr></table>
-<h3>Parameters</h3>
-<div class="subelement argument">
-<h4>$variable</h4>
-<code>mixed</code><p>The variable to store</p></div>
-<div class="subelement argument">
-<h4>$location</h4>
-<code>string</code><p>The name of the location where the variable is stored</p></div>
-<div class="subelement argument">
-<h4>$offset</h4>
-<code>integer</code><p>The offset of the location</p></div>
-</div></div>
-</div>
-<a xmlns:php="http://php.net/xsl" id="function__storeRam"></a><div xmlns:php="http://php.net/xsl" class="element clickable function  function__storeRam " data-toggle="collapse" data-target=".function__storeRam .collapse" title="">
-<h2>Store a value in the ram.</h2>
-<pre>_storeRam(mixed $location, mixed $value) : void</pre>
-<div class="labels"></div>
-<div class="row collapse"><div class="detail-description">
-<div class="long_description"><p>Example: _storeRam($location,$value)</p></div>
-<table class="table table-bordered"><tr>
-<th>package</th>
-<td><a href="../packages/Default.html">Default</a></td>
-</tr></table>
-<h3>Parameters</h3>
-<div class="subelement argument">
-<h4>$location</h4>
-<code>mixed</code><p>The location (a variable) to store the value in the ram</p></div>
-<div class="subelement argument">
-<h4>$value</h4>
-<code>mixed</code><p>The value to store, needs to be a variable</p></div>
-</div></div>
-</div>
 <a xmlns:php="http://php.net/xsl" id="function_branch"></a><div xmlns:php="http://php.net/xsl" class="element clickable function  function_branch " data-toggle="collapse" data-target=".function_branch .collapse" title="">
 <h2>Branch to a function</h2>
 <pre>branch(string $branchTO) : void</pre>
@@ -240,12 +134,56 @@ This will display $value in the middle of the display</p></div>
                           defaults to the right position</p></div>
 </div></div>
 </div>
+<a xmlns:php="http://php.net/xsl" id="function_getButtonPressed"></a><div xmlns:php="http://php.net/xsl" class="element clickable function  function_getButtonPressed " data-toggle="collapse" data-target=".function_getButtonPressed .collapse" title="">
+<h2>Check if a button is pressed</h2>
+<pre>getButtonPressed(mixed $button) : integer</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"><p>Puts the result into R5
+Example: $pressed=getButtonPressed($location);</p></div>
+<table class="table table-bordered"><tr>
+<th>package</th>
+<td><a href="../packages/Default.html">Default</a></td>
+</tr></table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$button</h4>
+<code>mixed</code><p>Which button to check (input a variable)</p></div>
+<h3>Returns</h3>
+<div class="subelement response">
+<code>integer</code>Whether or not the button is pressed.</div>
+</div></div>
+</div>
+<a xmlns:php="http://php.net/xsl" id="function_getData"></a><div xmlns:php="http://php.net/xsl" class="element clickable function  function_getData " data-toggle="collapse" data-target=".function_getData .collapse" title="">
+<h2>Get data</h2>
+<pre>getData(string $location, integer $offset) : mixed</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"><p>Use offset 0 when it is just a single value.
+Example: $data=getData('data',1)
+This will put the value of the data segment "data" at position 1, into $data.</p></div>
+<table class="table table-bordered"><tr>
+<th>package</th>
+<td><a href="../packages/Default.html">Default</a></td>
+</tr></table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$location</h4>
+<code>string</code><p>The location where the variable is stored</p></div>
+<div class="subelement argument">
+<h4>$offset</h4>
+<code>integer</code><p>The offset of the location</p></div>
+<h3>Returns</h3>
+<div class="subelement response">
+<code>mixed</code>The value of the data segment</div>
+</div></div>
+</div>
 <a xmlns:php="http://php.net/xsl" id="function_getInput"></a><div xmlns:php="http://php.net/xsl" class="element clickable function  function_getInput " data-toggle="collapse" data-target=".function_getInput .collapse" title="">
 <h2>Get button or analog input</h2>
 <pre>getInput(mixed $writeTo, string $type) : void</pre>
 <div class="labels"></div>
 <div class="row collapse"><div class="detail-description">
-<div class="long_description"><p>When you just want hte input of 1 button, use buttonPressed instead
+<div class="long_description"><p>When you just want hte input of 1 button, use getButtonPressed instead
 Example: getInput($variable,'analog')
 This will put the value of the analog into $variable</p></div>
 <table class="table table-bordered"><tr>
@@ -259,6 +197,25 @@ This will put the value of the analog into $variable</p></div>
 <div class="subelement argument">
 <h4>$type</h4>
 <code>string</code><p>Type of input, possible values are: buttons, analog</p></div>
+</div></div>
+</div>
+<a xmlns:php="http://php.net/xsl" id="function_getRam"></a><div xmlns:php="http://php.net/xsl" class="element clickable function  function_getRam " data-toggle="collapse" data-target=".function_getRam .collapse" title="">
+<h2>Get a value from the ram.</h2>
+<pre>getRam(mixed $location) : mixed</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"><p>Example: $value=getRam($location)</p></div>
+<table class="table table-bordered"><tr>
+<th>package</th>
+<td><a href="../packages/Default.html">Default</a></td>
+</tr></table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$location</h4>
+<code>mixed</code><p>The location (a variable) where the value is stored</p></div>
+<h3>Returns</h3>
+<div class="subelement response">
+<code>mixed</code>The value that is stored at the location</div>
 </div></div>
 </div>
 <a xmlns:php="http://php.net/xsl" id="function_initVar"></a><div xmlns:php="http://php.net/xsl" class="element clickable function  function_initVar " data-toggle="collapse" data-target=".function_initVar .collapse" title="">
@@ -446,13 +403,56 @@ This will sleep for 10 clockticks</p></div>
 </tr></table>
 </div></div>
 </div>
+<a xmlns:php="http://php.net/xsl" id="function_storeData"></a><div xmlns:php="http://php.net/xsl" class="element clickable function  function_storeData " data-toggle="collapse" data-target=".function_storeData .collapse" title="">
+<h2>Store data</h2>
+<pre>storeData(mixed $variable, string $location, integer $offset) : void</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"><p>Use offset 0 when it is just a single value.
+Example: storeData($data,'data',1)
+This will put the value of $data into the data segment "data" at position 1</p></div>
+<table class="table table-bordered"><tr>
+<th>package</th>
+<td><a href="../packages/Default.html">Default</a></td>
+</tr></table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$variable</h4>
+<code>mixed</code><p>The variable to store</p></div>
+<div class="subelement argument">
+<h4>$location</h4>
+<code>string</code><p>The name of the location where the variable is stored</p></div>
+<div class="subelement argument">
+<h4>$offset</h4>
+<code>integer</code><p>The offset of the location</p></div>
+</div></div>
+</div>
+<a xmlns:php="http://php.net/xsl" id="function_storeRam"></a><div xmlns:php="http://php.net/xsl" class="element clickable function  function_storeRam " data-toggle="collapse" data-target=".function_storeRam .collapse" title="">
+<h2>Store a value in the ram.</h2>
+<pre>storeRam(mixed $location, mixed $value) : void</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"><p>Example: storeRam($location,$value)</p></div>
+<table class="table table-bordered"><tr>
+<th>package</th>
+<td><a href="../packages/Default.html">Default</a></td>
+</tr></table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$location</h4>
+<code>mixed</code><p>The location (a variable) to store the value in the ram</p></div>
+<div class="subelement argument">
+<h4>$value</h4>
+<code>mixed</code><p>The value to store, needs to be a variable</p></div>
+</div></div>
+</div>
 </div>
 </div>
 </div>
 <div class="row"><footer class="span12">
             Template is built using <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap 2</a> and icons provided by <a href="http://glyphicons.com/">Glyphicons</a>.<br>
             Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor v2.8.1</a> and<br>
-            generated on 2015-03-25T11:26:01+01:00.<br></footer></div>
+            generated on 2015-03-25T12:54:27+01:00.<br></footer></div>
 </div>
 </body>
 </html>

@@ -479,14 +479,14 @@ class Compiler
                     . $this->processArgument(trim($arguments[1]), "'\"")
                 ];
             }
-            case '_storeRam': {
+            case 'storeRam': {
                 return [
                     0,
                     'STOR ' . $this->processArgument($arguments[0]) . ' ['
                     . $this->processArgument($arguments[1]) . ']'
                 ];
             }
-            case '_storeData': {
+            case 'storeData': {
                 //check if we have to add a register
                 if (substr(trim($arguments[2]), 0, 1) == '$' && trim($this->processArgument($arguments[2])) != '0'
                 ) {
@@ -1067,7 +1067,7 @@ class Compiler
             );
             $arguments = $arguments[0];//the arguments
             switch ($function) {
-                case '_getRam'; {
+                case 'getRam'; {
                     return [
                         0,
                         'LOAD ' . $register . ' [' . $this->processArgument(
@@ -1075,7 +1075,7 @@ class Compiler
                         ) . ']'
                     ];
                 }
-                case '_getButtonPressed': {
+                case 'getButtonPressed': {
                     $this->_useFunction['pressed'] = true;
                     $this->_useFunction['pow']=true;
                     return [
@@ -1089,7 +1089,7 @@ class Compiler
                         'ADD SP 4',
                     ];
                 }
-                case '_getData'; {
+                case 'getData'; {
                     //check if we have to add a register
                     if (substr(trim($arguments[1]), 0, 1) == '$') {
                         return [

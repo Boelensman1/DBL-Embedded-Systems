@@ -42,19 +42,19 @@ function main()
     $counter = 0;
 
     $temp = 0;
-    _storeData($temp, 'outputs', HBRIDGE1);
-    _storeData($temp, 'outputs', LENSLAMPPOSITION);
-    _storeData($temp, 'outputs', LENSLAMPSORTER);
-    _storeData($temp, 'outputs', LEDSTATEINDICATOR);
-    _storeData($temp, 'outputs', DISPLAY);
-    _storeData($temp, 'outputs', CONVEYORBELT);
-    _storeData($temp, 'outputs', FEEDERENGINE);
+    storeData($temp, 'outputs', HBRIDGE1);
+    storeData($temp, 'outputs', LENSLAMPPOSITION);
+    storeData($temp, 'outputs', LENSLAMPSORTER);
+    storeData($temp, 'outputs', LEDSTATEINDICATOR);
+    storeData($temp, 'outputs', DISPLAY);
+    storeData($temp, 'outputs', CONVEYORBELT);
+    storeData($temp, 'outputs', FEEDERENGINE);
     $state = 0;
     display($state, "leds2", "");
 
     //set HBridge so the sorter starts moving up
     $temp = 9;
-    _storeData($temp, 'outputs', HBRIDGE0);
+    storeData($temp, 'outputs', HBRIDGE0);
     unset($temp, $state);
 
     //go to the first state
@@ -68,13 +68,13 @@ function initial()
     timerManage();
 
     //check if the sorter push button is pressed
-    $push = _getButtonPressed(5);
+    $push = getButtonPressed(5);
     if ($push == 1) {
         //move sorter down
         $temp = 0;
-        _storeData($temp, 'outputs', HBRIDGE0);
+        storeData($temp, 'outputs', HBRIDGE0);
         $temp = 9;
-        _storeData($temp, 'outputs', HBRIDGE1);
+        storeData($temp, 'outputs', HBRIDGE1);
 
         //update state
         $state = 1;
@@ -103,7 +103,7 @@ function calibrateSorter()
     if ($sleep == TIMEMOTORDOWN) {
         //stop the sorter
         $temp = 0;
-        _storeData($temp, 'outputs', HBRIDGE1);
+        storeData($temp, 'outputs', HBRIDGE1);
 
         //update the state
         $state = 2;
@@ -127,21 +127,21 @@ function resting()
     timerManage();
 
     //the program is now waiting for the user to press start/stop
-    $startStop = _getButtonPressed(0);
+    $startStop = getButtonPressed(0);
     if ($startStop == 1) {
         //sleep so we don't go to pause immediately
         sleep(2000);
 
         //power up the lamps
         $temp = 12;
-        _storeData($temp, 'outputs', LENSLAMPPOSITION);
-        _storeData($temp, 'outputs', LENSLAMPSORTER);
+        storeData($temp, 'outputs', LENSLAMPPOSITION);
+        storeData($temp, 'outputs', LENSLAMPSORTER);
 
         //start up the belt and feeder
         $temp = 9;
-        _storeData($temp, 'outputs', CONVEYORBELT);
+        storeData($temp, 'outputs', CONVEYORBELT);
         $temp = 5;
-        _storeData($temp, 'outputs', FEEDERENGINE);
+        storeData($temp, 'outputs', FEEDERENGINE);
 
         //set and start the countdown for the moment there are no more disks
         //this countdown will reset every time a disk is found
@@ -168,13 +168,14 @@ function running()
     timerManage();
 
     //check if we need to pause
-    $startStop = _getButtonPressed(0);
+    $startStop = getButtonPressed(0);
     if ($startStop == 1) {
         //stop the feeder engine
         $temp = 0;
-        _storeData($temp, 'outputs', FEEDERENGINE);
+        storeData($temp, 'outputs', FEEDERENGINE);
         unset($temp);
 
+        //exit after 1 rotation of the belt
         setCountdown(BELT);
 
         //update the state
@@ -188,7 +189,7 @@ function running()
     unset($startStop);
 
     //check if a disk is at the position detector
-    $position = _getButtonPressed(7);
+    $position = getButtonPressed(7);
     if ($position == 1) {
         //reset the countdown, because a disk was just detected
         setCountdown(BELTROUND + BELT);
@@ -212,13 +213,14 @@ function runningWait()
     timerManage();
 
     //check if we need to pause
-    $startStop = _getButtonPressed(0);
+    $startStop = getButtonPressed(0);
     if ($startStop == 1) {
         //stop the feeder engine
         $temp = 0;
-        _storeData($temp, 'outputs', FEEDERENGINE);
+        storeData($temp, 'outputs', FEEDERENGINE);
         unset($temp);
 
+        //exit after 1 rotation of the belt
         setCountdown(BELT);
 
         //update the state
@@ -232,7 +234,7 @@ function runningWait()
     unset ($startStop);
 
     //check if a disk is at the position detector
-    $position = _getButtonPressed(7);
+    $position = getButtonPressed(7);
     if ($position == 1) {
         //reset the countdown, because a disk was just detected
         setCountdown(BELTROUND + BELT);
@@ -248,14 +250,12 @@ function runningWait()
     unset ($position);
 
     //check if a white disk is at the colour detector
-    $colour = _getButtonPressed(6);
+    $colour = getButtonPressed(6);
     if ($colour == 1) {
         //move the sorter up so the disk goes to the correct box
         $temp = 9;
-        _storeData($temp, 'outputs', HBRIDGE0);
+        storeData($temp, 'outputs', HBRIDGE0);
         unset($temp);
-
-        setCountdown(SORT);//TODO: volgens mij klopt dit niet, en moet dit met $sleep gedaan worden
 
         //update state
         $state = 6;
@@ -290,14 +290,15 @@ function motorUp()
     timerManage();
 
     //check if we need to pause
-    $startStop = _getButtonPressed(0);
+    $startStop = getButtonPressed(0);
     if ($startStop == 1) {
         //stop the feeder engine
         $temp = 0;
-        _storeData($temp, 'outputs', FEEDERENGINE);
+        storeData($temp, 'outputs', FEEDERENGINE);
         unset($temp);
 
-        setCountdown(BELT);//TODO: klopt dit?
+        //exit after 1 rotation of the belt
+        setCountdown(BELT);
 
         //update the state
         $state = 10;
@@ -310,11 +311,11 @@ function motorUp()
     unset($startStop);
 
     //check if the sorter push button is pressed
-    $push = _getButtonPressed(5);
+    $push = getButtonPressed(5);
     if ($push == 1) {
         //stop the sorter engine, because its at its highest position
         $temp = 0;
-        _storeData($temp, 'outputs', HBRIDGE0);
+        storeData($temp, 'outputs', HBRIDGE0);
 
         //update state
         $state = 7;
@@ -342,7 +343,7 @@ function whiteWait()
     if ($sleep == SORT) {
         //start moving the sorter down
         $temp = 9;
-        _storeData($temp, 'outputs', HBRIDGE1);
+        storeData($temp, 'outputs', HBRIDGE1);
         unset($temp);
 
         //update state
@@ -357,14 +358,15 @@ function whiteWait()
     }
 
     //check if we need to pause
-    $startStop = _getButtonPressed(0);
+    $startStop = getButtonPressed(0);
     if ($startStop == 1) {
         //stop the feeder engine
         $temp = 0;
-        _storeData($temp, 'outputs', FEEDERENGINE);
+        storeData($temp, 'outputs', FEEDERENGINE);
         unset($temp);
 
-        setCountdown(BELT);//TODO: klopt dit?
+        //exit after 1 rotation of the belt
+        setCountdown(BELT);
 
         //update the state
         $state = 11;
@@ -390,7 +392,7 @@ function motorDown()
     if ($sleep == TIMEMOTORDOWN) {
         //stop the sorter, its where it should be
         $temp = 0;
-        _storeData($temp, 'outputs', HBRIDGE1);
+        storeData($temp, 'outputs', HBRIDGE1);
         unset($temp);
 
         //update state
@@ -403,14 +405,15 @@ function motorDown()
     }
 
     //check if we need to pause
-    $startStop = _getButtonPressed(0);
+    $startStop = getButtonPressed(0);
     if ($startStop == 1) {
         //stop the feeder engine
         $temp = 0;
-        _storeData($temp, 'outputs', FEEDERENGINE);
+        storeData($temp, 'outputs', FEEDERENGINE);
         unset($temp);
 
-        setCountdown(BELT);//TODO: klopt dit?
+        //exit after 1 rotation of the belt
+        setCountdown(BELT);
 
         //update the state
         $state = 12;
@@ -484,11 +487,11 @@ function runningStop()
 {
     timerManage();
 
-    //TODO: verder commenten
-    $colour = _getButtonPressed(6);
+    //
+    $colour = getButtonPressed(6);
     if ($colour == 1) {
         $temp = 9;
-        _storeData($temp, 'outputs', HBRIDGE0);
+        storeData($temp, 'outputs', HBRIDGE0);
         $state = 10;
         display($state, "leds2", "");
         unset($colour, $state);
@@ -503,10 +506,10 @@ function motorUpStop()
     timerManage();
 
     //check if the sorter push button is pressed
-    $push = _getButtonPressed(5);
+    $push = getButtonPressed(5);
     if ($push == 1) {
         $temp = 0;
-        _storeData($temp, 'outputs', HBRIDGE0);
+        storeData($temp, 'outputs', HBRIDGE0);
         $state = 11;
         display($state, "leds2", "");
         whiteWaitStop();
@@ -522,7 +525,7 @@ function whiteWaitStop()
     timerManage();
     if ($sleep == SORT * 1000) {
         $temp = 9;
-        _storeData($temp, 'outputs', HBRIDGE1);
+        storeData($temp, 'outputs', HBRIDGE1);
         $state = 12;
         display($state, "leds2", "");
         $sleep = 0;
@@ -541,7 +544,7 @@ function motorDownStop()
     timerManage();
     if ($sleep == TIMEMOTORDOWN) {
         $temp = 0;
-        _storeData($temp, 'outputs', HBRIDGE1);
+        storeData($temp, 'outputs', HBRIDGE1);
         $state = 9;
         $sleep = 0;
         display($state, "leds2", "");
@@ -560,15 +563,15 @@ function timerInterrupt()
 
     timerManage();
     $temp = 9;
-    _storeData($temp, 'outputs', HBRIDGE1);
+    storeData($temp, 'outputs', HBRIDGE1);
     $temp = 0;
-    _storeData($temp, 'outputs', HBRIDGE0);
-    _storeData($temp, 'outputs', LENSLAMPPOSITION);
-    _storeData($temp, 'outputs', LENSLAMPSORTER);
-    _storeData($temp, 'outputs', LEDSTATEINDICATOR);
-    _storeData($temp, 'outputs', DISPLAY);
-    _storeData($temp, 'outputs', CONVEYORBELT);
-    _storeData($temp, 'outputs', FEEDERENGINE);
+    storeData($temp, 'outputs', HBRIDGE0);
+    storeData($temp, 'outputs', LENSLAMPPOSITION);
+    storeData($temp, 'outputs', LENSLAMPSORTER);
+    storeData($temp, 'outputs', LEDSTATEINDICATOR);
+    storeData($temp, 'outputs', DISPLAY);
+    storeData($temp, 'outputs', CONVEYORBELT);
+    storeData($temp, 'outputs', FEEDERENGINE);
 
     initial();
 
@@ -580,14 +583,14 @@ function abort()
 
     timerManage();
     $temp = 0;
-    _storeData($temp, 'outputs', HBRIDGE1);
-    _storeData($temp, 'outputs', HBRIDGE0);
-    _storeData($temp, 'outputs', LENSLAMPPOSITION);
-    _storeData($temp, 'outputs', LENSLAMPSORTER);
-    _storeData($temp, 'outputs', LEDSTATEINDICATOR);
-    _storeData($temp, 'outputs', DISPLAY);
-    _storeData($temp, 'outputs', CONVEYORBELT);
-    _storeData($temp, 'outputs', FEEDERENGINE);
+    storeData($temp, 'outputs', HBRIDGE1);
+    storeData($temp, 'outputs', HBRIDGE0);
+    storeData($temp, 'outputs', LENSLAMPPOSITION);
+    storeData($temp, 'outputs', LENSLAMPSORTER);
+    storeData($temp, 'outputs', LEDSTATEINDICATOR);
+    storeData($temp, 'outputs', DISPLAY);
+    storeData($temp, 'outputs', CONVEYORBELT);
+    storeData($temp, 'outputs', FEEDERENGINE);
     aborted();
 
 }
@@ -596,10 +599,10 @@ function aborted()
 {
 
     timerManage();
-    $startStop = _getButtonPressed(0);
+    $startStop = getButtonPressed(0);
     if ($startStop == 1) {
         $temp = 9;
-        _storeData($temp, 'outputs', HBRIDGE0);
+        storeData($temp, 'outputs', HBRIDGE0);
         $state = 0;
         display($state, "leds2", "");
         initial();
@@ -613,7 +616,7 @@ function timerManage()
 {
     global $location, $counter, $engines;
     mod(12, $counter); //makes sure that when $counter >13 it will reset to 0
-    $temp = _getData('outputs', $location);
+    $temp = getData('outputs', $location);
     if ($temp > $counter) {
         $temp = $location;
         $temp = pow(2, $temp);

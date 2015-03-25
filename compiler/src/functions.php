@@ -39,27 +39,27 @@
 /**
  * Store a value in the ram.
  *
- * Example: _storeRam($location,$value)
+ * Example: storeRam($location,$value)
  *
  * @param mixed $location The location (a variable) to store the value in the ram
  * @param mixed $value    The value to store, needs to be a variable
  *
  * @return void
  */
-function _storeRam($location, $value)
+function storeRam($location, $value)
 {
 }
 
 /**
  * Get a value from the ram.
  *
- * Example: $value=_getRam($location)
+ * Example: $value=getRam($location)
  *
  * @param mixed $location The location (a variable) where the value is stored
  *
  * @return mixed The value that is stored at the location
  */
-function _getRam($location)
+function getRam($location)
 {
 }
 
@@ -118,7 +118,7 @@ function mod($what, $variable)
 /**
  * Get button or analog input
  *
- * When you just want hte input of 1 button, use buttonPressed instead
+ * When you just want hte input of 1 button, use getButtonPressed instead
  * Example: getInput($variable,'analog')
  * This will put the value of the analog into $variable
  *
@@ -135,13 +135,13 @@ function getInput($writeTo, $type)
  * Check if a button is pressed
  *
  * Puts the result into R5
- * Example: $pressed=_getButtonPressed($location);
+ * Example: $pressed=getButtonPressed($location);
  *
  * @param mixed $button Which button to check (input a variable)
  *
  * @return int Whether or not the button is pressed.
  */
-function _getButtonPressed($button)
+function getButtonPressed($button)
 {
 }
 
@@ -213,7 +213,7 @@ function setCountdown($countdown)
  * Get data
  *
  * Use offset 0 when it is just a single value.
- * Example: $data=_getData('data',1)
+ * Example: $data=getData('data',1)
  * This will put the value of the data segment "data" at position 1, into $data.
  *
  * @param string $location The location where the variable is stored
@@ -221,7 +221,7 @@ function setCountdown($countdown)
  *
  * @return mixed The value of the data segment
  */
-function _getData($location, $offset)
+function getData($location, $offset)
 {
 }
 
@@ -229,7 +229,7 @@ function _getData($location, $offset)
  * Store data
  *
  * Use offset 0 when it is just a single value.
- * Example: _storeData($data,'data',1)
+ * Example: storeData($data,'data',1)
  * This will put the value of $data into the data segment "data" at position 1
  *
  * @param mixed $variable The variable to store
@@ -238,7 +238,7 @@ function _getData($location, $offset)
  *
  * @return void
  */
-function _storeData($variable, $location, $offset)
+function storeData($variable, $location, $offset)
 {
 }
 

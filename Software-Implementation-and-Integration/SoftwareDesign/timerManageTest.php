@@ -46,19 +46,19 @@ function main()
     $counter=0;
 
     $temp = 0;
-    _storeData($temp, 'outputs', HBRIDGE1);
-    _storeData($temp, 'outputs', LENSLAMPPOSITION);
-    _storeData($temp, 'outputs', LENSLAMPSORTER);
-    _storeData($temp, 'outputs', LEDSTATEINDICATOR);
-    _storeData($temp, 'outputs', DISPLAY);
-    _storeData($temp, 'outputs', CONVEYORBELT);
-    _storeData($temp, 'outputs', FEEDERENGINE);
+    storeData($temp, 'outputs', HBRIDGE1);
+    storeData($temp, 'outputs', LENSLAMPPOSITION);
+    storeData($temp, 'outputs', LENSLAMPSORTER);
+    storeData($temp, 'outputs', LEDSTATEINDICATOR);
+    storeData($temp, 'outputs', DISPLAY);
+    storeData($temp, 'outputs', CONVEYORBELT);
+    storeData($temp, 'outputs', FEEDERENGINE);
     $state = 0;
     display($state, "leds2", "");
 
     //set HBridge so the sorter starts moving up
     $temp = 9;
-    _storeData($temp, 'outputs', HBRIDGE0);
+    storeData($temp, 'outputs', HBRIDGE0);
     unset($temp, $state);
     setVars();
 }
@@ -68,15 +68,15 @@ function setVars()
     timerManage();
     //reset Hbridge
     $temp = 0;
-    _storeData($temp, 'outputs', HBRIDGE0);
+    storeData($temp, 'outputs', HBRIDGE0);
 
     $temp = 12;
-    _storeData($temp, 'outputs', LENSLAMPPOSITION);
-    _storeData($temp, 'outputs', LENSLAMPSORTER);
+    storeData($temp, 'outputs', LENSLAMPPOSITION);
+    storeData($temp, 'outputs', LENSLAMPSORTER);
     $temp = 9;
-    _storeData($temp, 'outputs', CONVEYORBELT);
+    storeData($temp, 'outputs', CONVEYORBELT);
     $temp = 5;
-    _storeData($temp, 'outputs', FEEDERENGINE);
+    storeData($temp, 'outputs', FEEDERENGINE);
 
 
 
@@ -93,7 +93,7 @@ function timerManage()
 {
     global $location, $counter, $engines;
     mod(12, $counter); //makes sure that when $counter >13 it will reset to 0
-    $temp = _getData('outputs', $location);
+    $temp = getData('outputs', $location);
     if ($temp > $counter) {
         $temp = $location;
         $temp = pow(2, $temp);

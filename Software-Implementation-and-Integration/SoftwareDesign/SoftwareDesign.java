@@ -336,27 +336,27 @@ public void sleep(int $seconds)
 /**
  * Store a value in the ram.
  *
- * Example: _storeRam($location,$value)
+ * Example: storeRam($location,$value)
  *
  * @param variable $location The location to store the value in the ram
  * @param variable $value    The value to store
  *
  * @return void
  */
-public void _storeRam(int $location,int $value)
+public void storeRam(int $location,int $value)
 {
 }
 
 /**
  * Get a value from the ram.
  *
- * Example: $value=_getRam($location)
+ * Example: $value=getRam($location)
  *
  * @param variable $location The location where the value is stored
  *
  * @return void
  */
-public void _getRam( int $location)
+public void getRam( int $location)
 {
 }
 
@@ -497,7 +497,7 @@ public void setCountdown(int $timer)
  * Get data
  *
  * Use offset 0 when it is just a single value.
- * Example: $data=_getData('data',1)
+ * Example: $data=getData('data',1)
  * This will put the value of the data segment "data" at position 1, into $data.
  *
  * @param string $location The location where the variable is stored
@@ -505,7 +505,7 @@ public void setCountdown(int $timer)
  *
  * @return mixed The value of the data segment
  */
-public int _getData(int $location, int $offset)
+public int getData(int $location, int $offset)
 {
     return 0;
 }
@@ -514,7 +514,7 @@ public int _getData(int $location, int $offset)
  * Store data
  *
  * Use offset 0 when it is just a single value.
- * Example: _storeData($data,'data',1)
+ * Example: storeData($data,'data',1)
  * This will put the value of $data into the data segment "data" at position 1
  *
  * @param string $variable The variable to store
@@ -523,7 +523,7 @@ public int _getData(int $location, int $offset)
  *
  * @return void
  */
-public void _storeData(int $variable, int $location, int $offset)
+public void storeData(int $variable, int $location, int $offset)
 {
 }
 

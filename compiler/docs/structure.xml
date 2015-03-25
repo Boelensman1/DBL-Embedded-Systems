@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <project title="API Documentation" version="v2.8.1">
   <partials/>
-  <file path="functions.php" generated-path="functions.html" hash="1046a1be093f1a475742c49c6ccc6c69" package="Default">
+  <file path="functions.php" generated-path="functions.html" hash="30638558b3d7f1a82dcd217759063d14" package="Default">
     <docblock line="0">
       <description>This file contains the functions of the compiler.</description>
       <long-description>Include this in your code for autocompletion.
@@ -36,11 +36,11 @@ THE SOFTWARE.</long-description>
       <tag name="version" line="0" description="v0.2"/>
     </docblock>
     <function namespace="" line="49" package="Default">
-      <name>_storeRam</name>
-      <full_name>\_storeRam()</full_name>
+      <name>storeRam</name>
+      <full_name>\storeRam()</full_name>
       <docblock line="49">
         <description>Store a value in the ram.</description>
-        <long-description>Example: _storeRam($location,$value)</long-description>
+        <long-description>Example: storeRam($location,$value)</long-description>
         <tag name="package" line="49" description="Default"/>
         <tag name="param" line="49" description="&lt;p&gt;The location (a variable) to store the value in the ram&lt;/p&gt;" type="mixed" variable="$location">
           <type>mixed</type>
@@ -64,11 +64,11 @@ THE SOFTWARE.</long-description>
       </argument>
     </function>
     <function namespace="" line="62" package="Default">
-      <name>_getRam</name>
-      <full_name>\_getRam()</full_name>
+      <name>getRam</name>
+      <full_name>\getRam()</full_name>
       <docblock line="62">
         <description>Get a value from the ram.</description>
-        <long-description>Example: $value=_getRam($location)</long-description>
+        <long-description>Example: $value=getRam($location)</long-description>
         <tag name="package" line="62" description="Default"/>
         <tag name="param" line="62" description="&lt;p&gt;The location (a variable) where the value is stored&lt;/p&gt;" type="mixed" variable="$location">
           <type>mixed</type>
@@ -188,7 +188,7 @@ This will return the mod 2 of $variable</long-description>
       <full_name>\getInput()</full_name>
       <docblock line="130">
         <description>Get button or analog input</description>
-        <long-description>When you just want hte input of 1 button, use buttonPressed instead
+        <long-description>When you just want hte input of 1 button, use getButtonPressed instead
 Example: getInput($variable,'analog')
 This will put the value of the analog into $variable</long-description>
         <tag name="package" line="130" description="Default"/>
@@ -214,12 +214,12 @@ This will put the value of the analog into $variable</long-description>
       </argument>
     </function>
     <function namespace="" line="144" package="Default">
-      <name>_getButtonPressed</name>
-      <full_name>\_getButtonPressed()</full_name>
+      <name>getButtonPressed</name>
+      <full_name>\getButtonPressed()</full_name>
       <docblock line="144">
         <description>Check if a button is pressed</description>
         <long-description>Puts the result into R5
-Example: $pressed=_getButtonPressed($location);</long-description>
+Example: $pressed=getButtonPressed($location);</long-description>
         <tag name="package" line="144" description="Default"/>
         <tag name="param" line="144" description="&lt;p&gt;Which button to check (input a variable)&lt;/p&gt;" type="mixed" variable="$button">
           <type>mixed</type>
@@ -333,12 +333,12 @@ This will interrupt the program after 10 timer ticks</long-description>
       </argument>
     </function>
     <function namespace="" line="224" package="Default">
-      <name>_getData</name>
-      <full_name>\_getData()</full_name>
+      <name>getData</name>
+      <full_name>\getData()</full_name>
       <docblock line="224">
         <description>Get data</description>
         <long-description>Use offset 0 when it is just a single value.
-Example: $data=_getData('data',1)
+Example: $data=getData('data',1)
 This will put the value of the data segment "data" at position 1, into $data.</long-description>
         <tag name="package" line="224" description="Default"/>
         <tag name="param" line="224" description="&lt;p&gt;The location where the variable is stored&lt;/p&gt;" type="string" variable="$location">
@@ -363,12 +363,12 @@ This will put the value of the data segment "data" at position 1, into $data.</l
       </argument>
     </function>
     <function namespace="" line="241" package="Default">
-      <name>_storeData</name>
-      <full_name>\_storeData()</full_name>
+      <name>storeData</name>
+      <full_name>\storeData()</full_name>
       <docblock line="241">
         <description>Store data</description>
         <long-description>Use offset 0 when it is just a single value.
-Example: _storeData($data,'data',1)
+Example: storeData($data,'data',1)
 This will put the value of $data into the data segment "data" at position 1</long-description>
         <tag name="package" line="241" description="Default"/>
         <tag name="param" line="241" description="&lt;p&gt;The variable to store&lt;/p&gt;" type="mixed" variable="$variable">
@@ -500,25 +500,25 @@ It's the 3rd position after the standard functions.</long-description>
       </argument>
     </function>
     <parse_markers>
-      <error line="49" code="PPC:ERR-50015">Argument $location is missing from the Docblock of _storeRam</error>
-      <error line="62" code="PPC:ERR-50015">Argument $location is missing from the Docblock of _getRam</error>
+      <error line="49" code="PPC:ERR-50015">Argument $location is missing from the Docblock of storeRam</error>
+      <error line="62" code="PPC:ERR-50015">Argument $location is missing from the Docblock of getRam</error>
       <error line="84" code="PPC:ERR-50015">Argument $what is missing from the Docblock of display</error>
       <error line="99" code="PPC:ERR-50015">Argument $number is missing from the Docblock of pow</error>
       <error line="114" code="PPC:ERR-50015">Argument $what is missing from the Docblock of mod</error>
       <error line="130" code="PPC:ERR-50015">Argument $writeTo is missing from the Docblock of getInput</error>
-      <error line="144" code="PPC:ERR-50015">Argument $button is missing from the Docblock of _getButtonPressed</error>
+      <error line="144" code="PPC:ERR-50015">Argument $button is missing from the Docblock of getButtonPressed</error>
       <error line="161" code="PPC:ERR-50015">Argument $functionName is missing from the Docblock of installCountdown</error>
       <error line="181" code="PPC:ERR-50015">Argument $variable is missing from the Docblock of pushStack</error>
       <error line="192" code="PPC:ERR-50015">Argument $variable is missing from the Docblock of pullStack</error>
       <error line="207" code="PPC:ERR-50015">Argument $countdown is missing from the Docblock of setCountdown</error>
-      <error line="224" code="PPC:ERR-50015">Argument $location is missing from the Docblock of _getData</error>
-      <error line="241" code="PPC:ERR-50015">Argument $variable is missing from the Docblock of _storeData</error>
+      <error line="224" code="PPC:ERR-50015">Argument $location is missing from the Docblock of getData</error>
+      <error line="241" code="PPC:ERR-50015">Argument $variable is missing from the Docblock of storeData</error>
       <error line="257" code="PPC:ERR-50015">Argument $howLong is missing from the Docblock of sleep</error>
       <error line="275" code="PPC:ERR-50015">Argument $variable is missing from the Docblock of initVar</error>
       <error line="291" code="PPC:ERR-50015">Argument $branchTO is missing from the Docblock of branch</error>
       <error line="308" code="PPC:ERR-50015">Argument $branchTO is missing from the Docblock of moveFunction</error>
     </parse_markers>
-    <source>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</source>
+    <source>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</source>
   </file>
   <package name="Default" full_name="Default"/>
   <package name="global" full_name="global"/>
