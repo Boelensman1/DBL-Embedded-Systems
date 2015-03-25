@@ -74,7 +74,7 @@ function _getRam($location)
  * display($value, 'display',000100)
  * This will display $value in the middle of the display
  *
- * @param mixed $what     what to display
+ * @param mixed    $what     what to display, must be a variable
  * @param string   $onWhat   on what to display
  * @param string   $location Where to show the value when using the display,
  *                           defaults to the right position
@@ -172,21 +172,6 @@ function startCountdown()
 }
 
 /**
- * Set the timer interrupt to a value.
- *
- * It will first reset the timer to 0.
- * Example: setCountdown(10)
- * This will interrupt the program after 10 timer ticks
- *
- * @param int $timer how long the timer should wait, in timer ticks
- *
- * @return void
- */
-function setCountdown($timer)
-{
-}
-
-/**
  *Push a variable to the stack
  *
  * @param string $variable the variable to push to the stack
@@ -205,6 +190,21 @@ function pushStack($variable)
  * @return void
  */
 function pullStack($variable)
+{
+}
+
+/**
+ * Set the timer interrupt to a value.
+ *
+ * It will first reset the timer to 0.
+ * Example: setTimer(10)
+ * This will interrupt the program after 10 timer ticks
+ *
+ * @param int $timer how long the timer should wait, in timer ticks
+ *
+ * @return void
+ */
+function setTimer($timer)
 {
 }
 
@@ -278,7 +278,7 @@ function initVar($variable,$places)
 
 
 /**
- * branch to a function
+ * Branch to a function
  *
  * Example:
  * branch('test');
@@ -289,5 +289,22 @@ function initVar($variable,$places)
  * @return void
  */
 function branch($branchTO)
+{
+}
+
+/**
+ * Move a function in the assembly code
+ *
+ * Example:
+ * moveFunction('function',3);
+ * This will move 'function' to the 3rd position
+ * Of course only in the assembly code.
+ * It's the 3rd position after the standard functions.
+ *
+ * @param string $branchTO where to branch to
+ *
+ * @return void
+ */
+function moveFunction($branchTO)
 {
 }

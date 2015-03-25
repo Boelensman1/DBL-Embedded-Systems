@@ -278,7 +278,7 @@ function initVar($variable,$places)
 
 
 /**
- * branch to a function
+ * Branch to a function
  *
  * Example:
  * branch('test');
@@ -289,5 +289,22 @@ function initVar($variable,$places)
  * @return void
  */
 function branch($branchTO)
+{
+}
+
+/**
+ * Move a function in the assembly code
+ *
+ * Example:
+ * moveFunction('function',3);
+ * This will move 'function' to the 3rd position
+ * Of course only in the assembly code.
+ * It's the 3rd position after the standard functions.
+ *
+ * @param string $branchTO where to branch to
+ *
+ * @return void
+ */
+function moveFunction($branchTO)
 {
 }

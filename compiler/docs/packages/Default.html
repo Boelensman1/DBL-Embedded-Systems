@@ -31,7 +31,7 @@
 <a href="#reports" class="dropdown-toggle" data-toggle="dropdown">
                                     Reports <b class="caret"></b></a><ul class="dropdown-menu">
 <li><a href="../errors.html"><i class="icon-remove-sign"></i> Errors 
-                <span class="label label-info">16</span></a></li>
+                <span class="label label-info">17</span></a></li>
 <li><a href="../markers.html"><i class="icon-map-marker"></i> Markers 
                 <ul></ul></a></li>
 <li><a href="../deprecated.html"><i class="icon-stop"></i> Deprecated elements 
@@ -65,12 +65,13 @@
 <li class="function  "><a href="#function__getRam" title="_getRam() :: Get a value from the ram."><span class="description">Get a value from the ram.</span><pre>_getRam</pre></a></li>
 <li class="function  "><a href="#function__storeData" title="_storeData() :: Store data"><span class="description">Store data</span><pre>_storeData</pre></a></li>
 <li class="function  "><a href="#function__storeRam" title="_storeRam() :: Store a value in the ram."><span class="description">Store a value in the ram.</span><pre>_storeRam</pre></a></li>
-<li class="function  "><a href="#function_branch" title="branch() :: branch to a function"><span class="description">branch to a function</span><pre>branch</pre></a></li>
+<li class="function  "><a href="#function_branch" title="branch() :: Branch to a function"><span class="description">Branch to a function</span><pre>branch</pre></a></li>
 <li class="function  "><a href="#function_display" title="display() :: Display something on either the display or the leds"><span class="description">Display something on either the display or the leds</span><pre>display</pre></a></li>
 <li class="function  "><a href="#function_getInput" title="getInput() :: Get button or analog input"><span class="description">Get button or analog input</span><pre>getInput</pre></a></li>
 <li class="function  "><a href="#function_initVar" title="initVar() :: Init a variable that is used in that data segment"><span class="description">Init a variable that is used in that data segment</span><pre>initVar</pre></a></li>
 <li class="function  "><a href="#function_installCountdown" title="installCountdown() :: Install the countdown"><span class="description">Install the countdown</span><pre>installCountdown</pre></a></li>
 <li class="function  "><a href="#function_mod" title="mod() :: Take the mod of a number"><span class="description">Take the mod of a number</span><pre>mod</pre></a></li>
+<li class="function  "><a href="#function_moveFunction" title="moveFunction() :: Move a function in the assembly code"><span class="description">Move a function in the assembly code</span><pre>moveFunction</pre></a></li>
 <li class="function  "><a href="#function_pow" title="pow() :: Get the power of a number"><span class="description">Get the power of a number</span><pre>pow</pre></a></li>
 <li class="function  "><a href="#function_pullStack" title="pullStack() :: Pull a mixed from the stack"><span class="description">Pull a mixed from the stack</span><pre>pullStack</pre></a></li>
 <li class="function  "><a href="#function_pushStack" title="pushStack() :: Push a variable to the stack"><span class="description">Push a variable to the stack</span><pre>pushStack</pre></a></li>
@@ -193,7 +194,7 @@ This will put the value of $data into the data segment "data" at position 1</p><
 </div></div>
 </div>
 <a xmlns:php="http://php.net/xsl" id="function_branch"></a><div xmlns:php="http://php.net/xsl" class="element clickable function  function_branch " data-toggle="collapse" data-target=".function_branch .collapse" title="">
-<h2>branch to a function</h2>
+<h2>Branch to a function</h2>
 <pre>branch(string $branchTO) : void</pre>
 <div class="labels"></div>
 <div class="row collapse"><div class="detail-description">
@@ -322,6 +323,26 @@ This will return the mod 2 of $variable</p></div>
 <code>mixed</code><p>variable to modulo over</p></div>
 </div></div>
 </div>
+<a xmlns:php="http://php.net/xsl" id="function_moveFunction"></a><div xmlns:php="http://php.net/xsl" class="element clickable function  function_moveFunction " data-toggle="collapse" data-target=".function_moveFunction .collapse" title="">
+<h2>Move a function in the assembly code</h2>
+<pre>moveFunction(string $branchTO) : void</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"><p>Example:
+moveFunction('function',3);
+This will move 'function' to the 3rd position
+Of course only in the assembly code.
+It's the 3rd position after the standard functions.</p></div>
+<table class="table table-bordered"><tr>
+<th>package</th>
+<td><a href="../packages/Default.html">Default</a></td>
+</tr></table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$branchTO</h4>
+<code>string</code><p>where to branch to</p></div>
+</div></div>
+</div>
 <a xmlns:php="http://php.net/xsl" id="function_pow"></a><div xmlns:php="http://php.net/xsl" class="element clickable function  function_pow " data-toggle="collapse" data-target=".function_pow .collapse" title="">
 <h2>Get the power of a number</h2>
 <pre>pow(mixed $number, mixed $power) : integer</pre>
@@ -431,7 +452,7 @@ This will sleep for 10 clockticks</p></div>
 <div class="row"><footer class="span12">
             Template is built using <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap 2</a> and icons provided by <a href="http://glyphicons.com/">Glyphicons</a>.<br>
             Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor v2.8.1</a> and<br>
-            generated on 2015-03-24T16:04:23+01:00.<br></footer></div>
+            generated on 2015-03-25T10:44:12+01:00.<br></footer></div>
 </div>
 </body>
 </html>
