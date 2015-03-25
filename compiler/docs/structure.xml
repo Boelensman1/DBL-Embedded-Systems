@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <project title="API Documentation" version="v2.8.1">
   <partials/>
-  <file path="functions.php" generated-path="functions.html" hash="1e579d45621756896f65298d059658c5" package="Default">
+  <file path="functions.php" generated-path="functions.html" hash="1046a1be093f1a475742c49c6ccc6c69" package="Default">
     <docblock line="0">
       <description>This file contains the functions of the compiler.</description>
       <long-description>Include this in your code for autocompletion.
@@ -311,15 +311,15 @@ the function timerInterrupt is ran.</long-description>
       </argument>
     </function>
     <function namespace="" line="207" package="Default">
-      <name>setTimer</name>
-      <full_name>\setTimer()</full_name>
+      <name>setCountdown</name>
+      <full_name>\setCountdown()</full_name>
       <docblock line="207">
         <description>Set the timer interrupt to a value.</description>
         <long-description>It will first reset the timer to 0.
 Example: setTimer(10)
 This will interrupt the program after 10 timer ticks</long-description>
         <tag name="package" line="207" description="Default"/>
-        <tag name="param" line="207" description="&lt;p&gt;how long the timer should wait, in timer ticks&lt;/p&gt;" type="integer" variable="$timer">
+        <tag name="param" line="207" description="&lt;p&gt;how long the countdown should wait, in timer ticks&lt;/p&gt;" type="integer" variable="$countdown">
           <type>integer</type>
         </tag>
         <tag name="return" line="207" description="" type="void">
@@ -327,7 +327,7 @@ This will interrupt the program after 10 timer ticks</long-description>
         </tag>
       </docblock>
       <argument line="0" by_reference="false">
-        <name>$timer</name>
+        <name>$countdown</name>
         <default></default>
         <type>integer</type>
       </argument>
@@ -510,7 +510,7 @@ It's the 3rd position after the standard functions.</long-description>
       <error line="161" code="PPC:ERR-50015">Argument $functionName is missing from the Docblock of installCountdown</error>
       <error line="181" code="PPC:ERR-50015">Argument $variable is missing from the Docblock of pushStack</error>
       <error line="192" code="PPC:ERR-50015">Argument $variable is missing from the Docblock of pullStack</error>
-      <error line="207" code="PPC:ERR-50015">Argument $timer is missing from the Docblock of setTimer</error>
+      <error line="207" code="PPC:ERR-50015">Argument $countdown is missing from the Docblock of setCountdown</error>
       <error line="224" code="PPC:ERR-50015">Argument $location is missing from the Docblock of _getData</error>
       <error line="241" code="PPC:ERR-50015">Argument $variable is missing from the Docblock of _storeData</error>
       <error line="257" code="PPC:ERR-50015">Argument $howLong is missing from the Docblock of sleep</error>
@@ -518,7 +518,7 @@ It's the 3rd position after the standard functions.</long-description>
       <error line="291" code="PPC:ERR-50015">Argument $branchTO is missing from the Docblock of branch</error>
       <error line="308" code="PPC:ERR-50015">Argument $branchTO is missing from the Docblock of moveFunction</error>
     </parse_markers>
-    <source>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</source>
+    <source>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</source>
   </file>
   <package name="Default" full_name="Default"/>
   <package name="global" full_name="global"/>

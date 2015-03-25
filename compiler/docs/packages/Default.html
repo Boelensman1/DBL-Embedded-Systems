@@ -75,7 +75,7 @@
 <li class="function  "><a href="#function_pow" title="pow() :: Get the power of a number"><span class="description">Get the power of a number</span><pre>pow</pre></a></li>
 <li class="function  "><a href="#function_pullStack" title="pullStack() :: Pull a mixed from the stack"><span class="description">Pull a mixed from the stack</span><pre>pullStack</pre></a></li>
 <li class="function  "><a href="#function_pushStack" title="pushStack() :: Push a variable to the stack"><span class="description">Push a variable to the stack</span><pre>pushStack</pre></a></li>
-<li class="function  "><a href="#function_setTimer" title="setTimer() :: Set the timer interrupt to a value."><span class="description">Set the timer interrupt to a value.</span><pre>setTimer</pre></a></li>
+<li class="function  "><a href="#function_setCountdown" title="setCountdown() :: Set the timer interrupt to a value."><span class="description">Set the timer interrupt to a value.</span><pre>setCountdown</pre></a></li>
 <li class="function  "><a href="#function_sleep" title="sleep() :: Pause the program"><span class="description">Pause the program</span><pre>sleep</pre></a></li>
 <li class="function  "><a href="#function_startCountdown" title="startCountdown() :: Start the countdown."><span class="description">Start the countdown.</span><pre>startCountdown</pre></a></li>
 </ul>
@@ -398,9 +398,9 @@ This will make $temp equal to 2^$power</p></div>
 <code>string</code><p>the variable to push to the stack</p></div>
 </div></div>
 </div>
-<a xmlns:php="http://php.net/xsl" id="function_setTimer"></a><div xmlns:php="http://php.net/xsl" class="element clickable function  function_setTimer " data-toggle="collapse" data-target=".function_setTimer .collapse" title="">
+<a xmlns:php="http://php.net/xsl" id="function_setCountdown"></a><div xmlns:php="http://php.net/xsl" class="element clickable function  function_setCountdown " data-toggle="collapse" data-target=".function_setCountdown .collapse" title="">
 <h2>Set the timer interrupt to a value.</h2>
-<pre>setTimer(integer $timer) : void</pre>
+<pre>setCountdown(integer $countdown) : void</pre>
 <div class="labels"></div>
 <div class="row collapse"><div class="detail-description">
 <div class="long_description"><p>It will first reset the timer to 0.
@@ -412,8 +412,8 @@ This will interrupt the program after 10 timer ticks</p></div>
 </tr></table>
 <h3>Parameters</h3>
 <div class="subelement argument">
-<h4>$timer</h4>
-<code>integer</code><p>how long the timer should wait, in timer ticks</p></div>
+<h4>$countdown</h4>
+<code>integer</code><p>how long the countdown should wait, in timer ticks</p></div>
 </div></div>
 </div>
 <a xmlns:php="http://php.net/xsl" id="function_sleep"></a><div xmlns:php="http://php.net/xsl" class="element clickable function  function_sleep " data-toggle="collapse" data-target=".function_sleep .collapse" title="">
@@ -452,7 +452,7 @@ This will sleep for 10 clockticks</p></div>
 <div class="row"><footer class="span12">
             Template is built using <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap 2</a> and icons provided by <a href="http://glyphicons.com/">Glyphicons</a>.<br>
             Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor v2.8.1</a> and<br>
-            generated on 2015-03-25T10:44:12+01:00.<br></footer></div>
+            generated on 2015-03-25T10:59:59+01:00.<br></footer></div>
 </div>
 </body>
 </html>

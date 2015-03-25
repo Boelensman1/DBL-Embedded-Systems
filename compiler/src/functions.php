@@ -200,11 +200,11 @@ function pullStack($variable)
  * Example: setTimer(10)
  * This will interrupt the program after 10 timer ticks
  *
- * @param int $timer how long the timer should wait, in timer ticks
+ * @param int $countdown how long the countdown should wait, in timer ticks
  *
  * @return void
  */
-function setTimer($timer)
+function setCountdown($countdown)
 {
 }
 
