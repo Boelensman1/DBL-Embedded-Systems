@@ -661,10 +661,14 @@ class Compiler
                             );//000001
                         return [
                             4,
+                            'PUSH R5',
+                            'PUSH R4',
                             'LOAD  R5 ' . $this->processArgument($arguments[0]),
                             'BRS _Hex7Seg',
                             'LOAD  R4  %' . $counter,
-                            'STOR  R4  [R5+' . DSPDIG . ']'
+                            'STOR  R4  [R5+' . DSPDIG . ']',
+                            'PULL R4',
+                            'PULL R5'
                         ];
                         break;
                     }
