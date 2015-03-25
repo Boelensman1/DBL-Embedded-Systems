@@ -1,5 +1,6 @@
 @DATA
-outputs DS 12
+offset DS 1
+stackPointer DS 1
 
 @CODE
                     
@@ -17,92 +18,105 @@ outputs DS 12
 begin:              BRA main
                     
                     
-_pow:               CMP R4 0
-                    BEQ _pow1
-                    CMP R4 1
-                    BEQ _powR
-                    PUSH R3
+                                                         ;sleep
+_timer:             MULS R5 10
                     PUSH R4
-                    SUB R4 1
-                    LOAD R3 R5
-_powLoop:           MULS R5 R3
-                    SUB R4 1
-                    CMP R4 0
-                    BEQ _powReturn
-                    BRA _powLoop
-_powReturn:         PULL R4
-                    PULL R3
-                    RTS
-_pow1:              LOAD R5 1
-                    RTS
-_powR:              RTS
-main:               LOAD R0 0                                    ;$counter=0
-                    LOAD R1 0                                    ;$temp = 0
-                    STOR R1 [GB +outputs + HBRIDGE1]             ;storeData($temp, 'outputs', HBRIDGE1)
-                    STOR R1 [GB +outputs + LENSLAMPPOSITION]     ;storeData($temp, 'outputs', LENSLAMPPOSITION)
-                    STOR R1 [GB +outputs + LENSLAMPSORTER]       ;storeData($temp, 'outputs', LENSLAMPSORTER)
-                    STOR R1 [GB +outputs + LEDSTATEINDICATOR]    ;storeData($temp, 'outputs', LEDSTATEINDICATOR)
-                    STOR R1 [GB +outputs + DISPLAY]              ;storeData($temp, 'outputs', DISPLAY)
-                    STOR R1 [GB +outputs + CONVEYORBELT]         ;storeData($temp, 'outputs', CONVEYORBELT)
-                    STOR R1 [GB +outputs + FEEDERENGINE]         ;storeData($temp, 'outputs', FEEDERENGINE)
-                    LOAD R2 0                                    ;$state = 0
-                    PUSH R5                                      ;display($state, "leds2", "")
+                    LOAD R4 R5
                     LOAD R5 -16
-                    STOR R2 [R5+10]
-                    PULL R5
-                    LOAD R1 9                                    ;$temp = 9
-                    STOR R1 [GB +outputs + HBRIDGE0]             ;storeData($temp, 'outputs', HBRIDGE0)
-                                                                 ;unset($temp, $state)
-                    BRA setVars                                  ;setVars()
-                    
-setVars:            BRS timerManage                              ;timerManage()
-                    LOAD R1 0                                    ;$temp = 0
-                    STOR R1 [GB +outputs + HBRIDGE0]             ;storeData($temp, 'outputs', HBRIDGE0)
-                    LOAD R1 12                                   ;$temp = 12
-                    STOR R1 [GB +outputs + LENSLAMPPOSITION]     ;storeData($temp, 'outputs', LENSLAMPPOSITION)
-                    STOR R1 [GB +outputs + LENSLAMPSORTER]       ;storeData($temp, 'outputs', LENSLAMPSORTER)
-                    LOAD R1 9                                    ;$temp = 9
-                    STOR R1 [GB +outputs + CONVEYORBELT]         ;storeData($temp, 'outputs', CONVEYORBELT)
-                    LOAD R1 5                                    ;$temp = 5
-                    STOR R1 [GB +outputs + FEEDERENGINE]         ;storeData($temp, 'outputs', FEEDERENGINE)
-                    BRA test                                     ;test()
-                    
-test:               BRS timerManage                              ;timerManage()
-                    BRA test                                     ;test()
-                    
-timerManage:        MOD R0 12                                    ;mod(12, $counter)
-                    ADD R2 outputs                               ;$temp = getData('outputs', $location)
-                    LOAD R1 [ GB + R2]
-                    SUB R2 outputs
-                    CMP R1 R0                                    ;if ($temp > $counter) {
-                    BGT conditional0
-return0:            CMP R2 7                                     ;if ($location > 7) {
-                    BGT conditional1
-return1:            ADD R2 1                                     ;$location+=1
-                    BRA timerManage                              ;branch('timerManage')
-                    
-                                                                 ;if ($temp > $counter) {
-conditional0:       LOAD R1 R2                                   ;$temp = $location
-                    PUSH R4                                      ;$temp = pow(2, $temp)
-                    PUSH R5
-                    LOAD R4 R1
-                    LOAD R5 2
-                    BRS _pow
-                    LOAD R1 R5
-                    PULL R5
+                    LOAD R5 [R5+13]
+                    SUB  R5 R4
+                    LOAD R4 -16
+_wait:              CMP  R5 [R4+13]                      ; Compare the timer to 0
+                    BMI  _wait
                     PULL R4
-                    ADD R3 R1                                    ;$engines += $temp
-                    BRA return0                                  ;}
+                    RTS
+main:               STOR R5 [GB +offset + 0]             ;storeData(R5,'offset',0)
+                    LOAD R0 interrupt                    ;installCountdown('interrupt')
+                    ADD R0 R5
+                    LOAD R1 16
+                    STOR R0 [R1]
                     
-                                                                 ;if ($location > 7) {
-conditional1:       PUSH R5                                      ;display($engines, "leds", "")
                     LOAD R5 -16
-                    STOR R3 [R5+11]
+                    
+                                                         ; Set the timer to 0
+                    LOAD R0 0
+                    SUB R0 [R5+13]
+                    STOR R0 [R5+13]
+                    STOR SP [GB +stackPointer + 0]       ;storeData(SP,'stackPointer',0)
+                    LOAD R0 0                            ;$temp = 0
+                    PUSH R5                              ;display($temp, 'leds2', '')
+                    LOAD R5 -16
+                    STOR R0 [R5+10]
                     PULL R5
-                    LOAD R3 0                                    ;$engines = 0
-                    LOAD R2 0                                    ;$location = 0
-                    ADD R0 1                                     ;$counter+=1
-                    RTS                                          ;return
-                    BRA return1                                  ;}
+                    LOAD R1 0                            ;$counter = 0
+                    PUSH R5 ;reset timer                 ;setCountdown(2000)
+                    PUSH R4
+                    LOAD R5 -16
+                    LOAD R4 0
+                    SUB R4 [R5+13]
+                    STOR R4 [R5+13]                      ;set timer
+                    LOAD R4 2000
+                    STOR R4 [R5+13]
+                    PULL R4
+                    PULL R5
+                    LOAD R0 93492304                     ;$temp=93492304
+                    PUSH R0                              ;pushStack($temp)
+                    PUSH R0                              ;pushStack($temp)
+                    PUSH R0                              ;pushStack($temp)
+                    PUSH R0                              ;pushStack($temp)
+                    PUSH R0                              ;pushStack($temp)
+                    PUSH R0                              ;pushStack($temp)
+                    PUSH R0                              ;pushStack($temp)
+                    PUSH R0                              ;pushStack($temp)
+                    BRA init                             ;init()
+                    
+interrupt:          LOAD R0 5                            ;$temp = 5
+                    PUSH R5                              ;display($temp, 'leds2', '')
+                    LOAD R5 -16
+                    STOR R0 [R5+10]
+                    PULL R5
+                    PUSH R5                              ;sleep(1000)
+                    LOAD R5 1000
+                    BRS _timer
+                    PULL R5
+                    LOAD R0 0                            ;$temp = 0
+                    PUSH R5                              ;display($temp, 'leds2', '')
+                    LOAD R5 -16
+                    STOR R0 [R5+10]
+                    PULL R5
+                    PUSH R5 ;reset timer                 ;setCountdown(2000)
+                    PUSH R4
+                    LOAD R5 -16
+                    LOAD R4 0
+                    SUB R4 [R5+13]
+                    STOR R4 [R5+13]                      ;set timer
+                    LOAD R4 2000
+                    STOR R4 [R5+13]
+                    PULL R4
+                    PULL R5
+                    SETI 8                               ;startCountdown()
+                    LOAD R0 [ GB + offset + 0 ]          ;$temp=getData('offset',0)
+                    LOAD R2 init                         ;$temp2=getFuncLocation('init')
+                    ADD R0 R2                            ;$temp+=$temp2
+                    ADD SP 2                             ;addStackPointer(2)
+                    PUSH R0                              ;pushStack($temp)
+                    ADD SP -1                            ;addStackPointer(-1)
+                    RTE                                  ;returnt
+                    RTE
+                    
+init:               LOAD R0 [ GB + stackPointer + 0 ]    ;$temp=getData('stackPointer',0)
+                    LOAD SP R0                           ;setStackPointer($temp)
+                    LOAD R0 0                            ;$temp=0
+                    ADD R0 1                             ;$temp+=1
+                    PUSH R0                              ;pushStack($temp)
+                    ADD R0 1                             ;$temp+=1
+                    PUSH R0                              ;pushStack($temp)
+                    ADD R0 1                             ;$temp+=1
+                    PUSH R0                              ;pushStack($temp)
+                    ADD R0 1                             ;$temp+=1
+                    PUSH R0                              ;pushStack($temp)
+                    ADD R0 1                             ;$temp+=1
+                    PUSH R0                              ;pushStack($temp)
+                    BRA init                             ;init()
                     
                     @END

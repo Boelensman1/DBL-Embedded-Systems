@@ -9,22 +9,15 @@
  */
 include 'functions.php';
 
+//**COMPILER**
+moveFunction('interrupt', 1);
 
 //**DATA**
 //outputs
-initVar('outputs', 12);
+initVar('offset', 1);
+initVar('stackPointer', 1);
 
 //**CODE**
-//inputs
-//Boolean $startStop, $abort, $push, $position, $colour;
-//int $timer;
-//variables
-//int $state = 0;
-//int $sleep = 0;
-//int $location;
-//int $counter;
-//int $engines;
-
 //constants
 define('TIMEMOTORDOWN', 30);
 define('BELT', 1200);
@@ -41,77 +34,89 @@ define('LEDSTATEINDICATOR', 9);
 
 function main()
 {
-    global $counter;
-    //the variables that are the same through the program:
-    $counter=0;
+    //install the countdown
+    storeData(R5,'offset',0);
+    installCountdown('interrupt');
 
+    storeData(SP,'stackPointer',0);
+
+    //reset lights
     $temp = 0;
-    storeData($temp, 'outputs', HBRIDGE1);
-    storeData($temp, 'outputs', LENSLAMPPOSITION);
-    storeData($temp, 'outputs', LENSLAMPSORTER);
-    storeData($temp, 'outputs', LEDSTATEINDICATOR);
-    storeData($temp, 'outputs', DISPLAY);
-    storeData($temp, 'outputs', CONVEYORBELT);
-    storeData($temp, 'outputs', FEEDERENGINE);
-    $state = 0;
-    display($state, "leds2", "");
+    display($temp, 'leds2', '');
+    $counter = 0;
 
-    //set HBridge so the sorter starts moving up
-    $temp = 9;
-    storeData($temp, 'outputs', HBRIDGE0);
-    unset($temp, $state);
-    setVars();
+    //start the countdown
+    setCountdown(2000);
+    //startCountdown();
+
+    $temp=93492304;
+    pushStack($temp);
+    pushStack($temp);
+    pushStack($temp);
+    pushStack($temp);
+    pushStack($temp);
+    pushStack($temp);
+    pushStack($temp);
+    pushStack($temp);
+    init();
+    //loop();
 }
 
-function setVars()
-{
-    timerManage();
-    //reset Hbridge
-    $temp = 0;
-    storeData($temp, 'outputs', HBRIDGE0);
 
-    $temp = 12;
-    storeData($temp, 'outputs', LENSLAMPPOSITION);
-    storeData($temp, 'outputs', LENSLAMPSORTER);
-    $temp = 9;
-    storeData($temp, 'outputs', CONVEYORBELT);
+function interrupt()
+{
     $temp = 5;
-    storeData($temp, 'outputs', FEEDERENGINE);
+    display($temp, 'leds2', '');
+    sleep(1000);
+
+    //reset the lights
+    $temp = 0;
+    display($temp, 'leds2', '');
+
+    //start the countdown
+    setCountdown(2000);
+    startCountdown();
+
+    $temp=getData('offset',0);
+    $temp2=getFuncLocation('init');
+    $temp+=$temp2;
 
 
+    addStackPointer(2);
+    pushStack($temp);
+    addStackPointer(-1);
 
-    test();
+    returnt;
 }
 
-function test()
+
+
+
+function init()
 {
-    timerManage();
-    test();
+    $temp=getData('stackPointer',0);
+    setStackPointer($temp);
+    $temp=0;
+    $temp++;
+    pushStack($temp);
+    $temp++;
+    pushStack($temp);
+    $temp++;
+    pushStack($temp);
+    $temp++;
+    pushStack($temp);
+    $temp++;
+    pushStack($temp);
+    init();
 }
 
-function timerManage()
+function loop()
 {
-    global $location, $counter, $engines;
-    mod(12, $counter); //makes sure that when $counter >13 it will reset to 0
-    $temp = getData('outputs', $location);
-    if ($temp > $counter) {
-        $temp = $location;
-        $temp = pow(2, $temp);
-        $engines += $temp;
-    }
-
-    if ($location > 7) {
-        display($engines, "leds", "");
-        $engines = 0;
-        $location = 0;
-        $counter++;
-        return;
-    }
-
-    $location++;
-    branch('timerManage');
+    global $counter;
+    mod(255, $counter);
+    $counter++;
+    display($counter, 'leds', '');
+    sleep(1);
+    loop();
 }
-
-
-
 
