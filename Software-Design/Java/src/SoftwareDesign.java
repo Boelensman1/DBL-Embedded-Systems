@@ -45,16 +45,16 @@ class SoftwareDesign {
         SoftwareDesign.initVar("outputs",12);
 
         //reset outputs
-        SoftwareDesign._storeData(0, "outputs", SoftwareDesign.HBRIDGE1);
-        SoftwareDesign._storeData(0, "outputs", SoftwareDesign.LENSLAMPPOSITION);
-        SoftwareDesign._storeData(0, "outputs", SoftwareDesign.LENSLAMPSORTER);
-        SoftwareDesign._storeData(0, "outputs", SoftwareDesign.LEDSTATEINDICATOR);
-        SoftwareDesign._storeData(0, "outputs", SoftwareDesign.DISPLAY);
-        SoftwareDesign._storeData(0, "outputs", SoftwareDesign.CONVEYORBELT);
-        SoftwareDesign._storeData(0, "outputs", SoftwareDesign.FEEDERENGINE);
+        SoftwareDesign.storeData(0, "outputs", SoftwareDesign.HBRIDGE1);
+        SoftwareDesign.storeData(0, "outputs", SoftwareDesign.LENSLAMPPOSITION);
+        SoftwareDesign.storeData(0, "outputs", SoftwareDesign.LENSLAMPSORTER);
+        SoftwareDesign.storeData(0, "outputs", SoftwareDesign.LEDSTATEINDICATOR);
+        SoftwareDesign.storeData(0, "outputs", SoftwareDesign.DISPLAY);
+        SoftwareDesign.storeData(0, "outputs", SoftwareDesign.CONVEYORBELT);
+        SoftwareDesign.storeData(0, "outputs", SoftwareDesign.FEEDERENGINE);
 
         //start moving the sorter up
-        SoftwareDesign._storeData(9, "outputs", SoftwareDesign.HBRIDGE0);
+        SoftwareDesign.storeData(9, "outputs", SoftwareDesign.HBRIDGE0);
         
         SoftwareDesign.installCountdown("timerInterrupt");
 
@@ -63,10 +63,10 @@ class SoftwareDesign {
 
     void initial() {
         timerManage();
-        $push = _getButtonPressed(5);
+        $push = getButtonPressed(5);
         if ($push == 1) {
-            _storeData(0,"outputs",HBRIDGE0);
-            _storeData(9,"outputs",HBRIDGE1);
+            storeData(0,"outputs",HBRIDGE0);
+            storeData(9,"outputs",HBRIDGE1);
             $state = 1;
             display($state, "leds2", "");
             calibrateSorter();
@@ -79,7 +79,7 @@ class SoftwareDesign {
     void calibrateSorter() {
         timerManage();
         if ($sleep == TIMEMOTORDOWN * 1000) {
-            _storeData(0,"outputs",HBRIDGE1);
+            storeData(0,"outputs",HBRIDGE1);
             $state = 2;
             display($state, "leds2", "");
             resting();
@@ -91,13 +91,13 @@ class SoftwareDesign {
 
     void resting() {
         timerManage();
-        $startStop = _getButtonPressed(0);
+        $startStop = getButtonPressed(0);
         if ($startStop == 1) {
             sleep(2000);
-            _storeData(12,"outputs",LENSLAMPPOSITION);
-            _storeData(12,"outputs",LENSLAMPSORTER);
-            _storeData(9,"outputs",CONVEYORBELT);
-            _storeData(5,"outputs",FEEDERENGINE);
+            storeData(12,"outputs",LENSLAMPPOSITION);
+            storeData(12,"outputs",LENSLAMPSORTER);
+            storeData(9,"outputs",CONVEYORBELT);
+            storeData(5,"outputs",FEEDERENGINE);
             setCountdown(BELTROUND+BELT);
             startCountdown();
             $state = 3;
@@ -109,10 +109,10 @@ class SoftwareDesign {
 
     void running() {
         timerManage();
-        $position = _getButtonPressed(7);
-        $startStop = _getButtonPressed(0);
+        $position = getButtonPressed(7);
+        $startStop = getButtonPressed(0);
         if ($startStop == 1) {
-            _storeData(0,"outputs",FEEDERENGINE);
+            storeData(0,"outputs",FEEDERENGINE);
             setCountdown(BELT);
             runningTimer();
         }
@@ -128,13 +128,13 @@ class SoftwareDesign {
 
     void runningWait() {
         timerManage();
-        $startStop = _getButtonPressed(0);
+        $startStop = getButtonPressed(0);
         if ($startStop == 1) {
-            _storeData(0,"outputs",FEEDERENGINE);
+            storeData(0,"outputs",FEEDERENGINE);
             setCountdown(BELT);
             runningTimer();
         }
-         $position = _getButtonPressed(7);
+         $position = getButtonPressed(7);
         if ($position==1) {
             setCountdown(BELTROUND+BELT);
 
@@ -142,9 +142,9 @@ class SoftwareDesign {
             display($state, "leds2", "");
             runningTimerReset();
         }
-        $colour = _getButtonPressed(6);
+        $colour = getButtonPressed(6);
         if ($colour==1) {
-            _storeData(9,"outputs",HBRIDGE0);
+            storeData(9,"outputs",HBRIDGE0);
 
             setCountdown(SORT);
 
@@ -164,15 +164,15 @@ class SoftwareDesign {
 
     void motorUp() {
         timerManage();
-        $startStop = _getButtonPressed(0);
+        $startStop = getButtonPressed(0);
         if ($startStop == 1) {
-            _storeData(0,"outputs",FEEDERENGINE);
+            storeData(0,"outputs",FEEDERENGINE);
             setCountdown(BELT);
             motorUpTimer();
         }
-        $push = _getButtonPressed(5);
+        $push = getButtonPressed(5);
         if ($push == 1) {
-            _storeData(0,"outputs",HBRIDGE0);
+            storeData(0,"outputs",HBRIDGE0);
             $state = 7;
             display($state, "leds2", "");
             whiteWait();
@@ -183,15 +183,15 @@ class SoftwareDesign {
     void whiteWait() {
         timerManage();
         if ($sleep == SORT * 1000) {
-            _storeData(9,"outputs",HBRIDGE1);
+            storeData(9,"outputs",HBRIDGE1);
             $state = 8;
             display($state, "leds2", "");
             motorDown();
             $sleep = 0;
         }
-        $startStop = _getButtonPressed(0);
+        $startStop = getButtonPressed(0);
         if ($startStop == 1) {
-            _storeData(0,"outputs",FEEDERENGINE);
+            storeData(0,"outputs",FEEDERENGINE);
             setCountdown(BELT);
             whiteWaitTimer();
         }
@@ -202,15 +202,15 @@ class SoftwareDesign {
     void motorDown() {
         timerManage();
         if ($sleep == TIMEMOTORDOWN * 1000) {
-            _storeData(0,"outputs",HBRIDGE1);
+            storeData(0,"outputs",HBRIDGE1);
             $state = 9;
             $sleep = 0;
             display($state, "leds2", "");
             runningWait();
         }
-        $startStop = _getButtonPressed(0);
+        $startStop = getButtonPressed(0);
         if ($startStop == 1) {
-            _storeData(0,"outputs",FEEDERENGINE);
+            storeData(0,"outputs",FEEDERENGINE);
             setCountdown(BELT);
             motorDownTimer();
         }
@@ -242,9 +242,9 @@ class SoftwareDesign {
 
     void runningStop() {
         timerManage();
-        $colour = _getButtonPressed(6);
+        $colour = getButtonPressed(6);
         if ($colour == 1) {
-            _storeData(9,"outputs",HBRIDGE0);
+            storeData(9,"outputs",HBRIDGE0);
             $state = 10;
             display($state, "leds2", "");
             motorUpStop();
@@ -254,9 +254,9 @@ class SoftwareDesign {
 
     void motorUpStop() {
         timerManage();
-        $push = _getButtonPressed(5);
+        $push = getButtonPressed(5);
         if ($push == 1) {
-            _storeData(0,"outputs",HBRIDGE0);
+            storeData(0,"outputs",HBRIDGE0);
             $state = 11;
             display($state, "leds2", "");
         }
@@ -266,7 +266,7 @@ class SoftwareDesign {
     void whiteWaitStop() {
         timerManage();
         if ($sleep == SORT * 1000) {
-            _storeData(9,"outputs",HBRIDGE1);
+            storeData(9,"outputs",HBRIDGE1);
             $state = 12;
             display($state, "leds2", "");
             motorDown();
@@ -280,7 +280,7 @@ class SoftwareDesign {
     void motorDownStop() {
         timerManage();
         if ($sleep == TIMEMOTORDOWN * 1000) {
-            _storeData(0,"outputs",HBRIDGE1);
+            storeData(0,"outputs",HBRIDGE1);
             $state = 9;
             $sleep = 0;
             display($state, "leds2", "");
@@ -292,37 +292,37 @@ class SoftwareDesign {
 
     void timerInterrupt() {
         timerManage();
-        _storeData(1,"outputs",HBRIDGE0);
-        _storeData(0,"outputs",HBRIDGE1);
-        _storeData(0,"outputs",LENSLAMPPOSITION);
-        _storeData(0,"outputs",LENSLAMPSORTER);
-        _storeData(0,"outputs",LEDSTATEINDICATOR);
-        _storeData(0,"outputs",DISPLAY);
-        _storeData(0,"outputs",CONVEYORBELT);
-        _storeData(0,"outputs",FEEDERENGINE);
+        storeData(1,"outputs",HBRIDGE0);
+        storeData(0,"outputs",HBRIDGE1);
+        storeData(0,"outputs",LENSLAMPPOSITION);
+        storeData(0,"outputs",LENSLAMPSORTER);
+        storeData(0,"outputs",LEDSTATEINDICATOR);
+        storeData(0,"outputs",DISPLAY);
+        storeData(0,"outputs",CONVEYORBELT);
+        storeData(0,"outputs",FEEDERENGINE);
         initial();
 
     }
 
     void abort() {
         timerManage();
-        _storeData(0,"outputs",HBRIDGE0);
-        _storeData(0,"outputs",HBRIDGE1);
-        _storeData(0,"outputs",LENSLAMPPOSITION);
-        _storeData(0,"outputs",LENSLAMPSORTER);
-        _storeData(0,"outputs",LEDSTATEINDICATOR);
-        _storeData(0,"outputs",DISPLAY);
-        _storeData(0,"outputs",CONVEYORBELT);
-        _storeData(0,"outputs",FEEDERENGINE);
+        storeData(0,"outputs",HBRIDGE0);
+        storeData(0,"outputs",HBRIDGE1);
+        storeData(0,"outputs",LENSLAMPPOSITION);
+        storeData(0,"outputs",LENSLAMPSORTER);
+        storeData(0,"outputs",LEDSTATEINDICATOR);
+        storeData(0,"outputs",DISPLAY);
+        storeData(0,"outputs",CONVEYORBELT);
+        storeData(0,"outputs",FEEDERENGINE);
         aborted();
 
     }
 
     void aborted() {
         timerManage();
-        $startStop = _getButtonPressed(0);
+        $startStop = getButtonPressed(0);
         if ($startStop == 1) {
-            _storeData(1,"outputs",HBRIDGE0);
+            storeData(1,"outputs",HBRIDGE0);
             $state = 0;
             display($state, "leds2", "");
             initial();
@@ -332,9 +332,12 @@ class SoftwareDesign {
     }
 
     void timerManage() {
+        
+      
+        
         $counter = $counter % 12;
 
-        int $intensity=_getData("outputs", $location);
+        int $intensity=getData("outputs", $location);
 
         if ($intensity > $counter) {
             $engines += pow(2, $intensity);
@@ -345,6 +348,12 @@ class SoftwareDesign {
             $engines = 0;
             $location = 0;
             $counter++;
+            
+              //check if abort is set
+            $abort=getButtonPressed(1);
+            if($abort==1){
+               abort();
+             }
             return;
         }
 
@@ -356,22 +365,22 @@ class SoftwareDesign {
     /**
      * Store a value in the ram.
      * <p/>
-     * Example: _storeRam($location,$value)
+     * Example: storeRam($location,$value)
      *
      * @param $location The location (a variable) to store the value in the ram
      * @param $value    The value to store, needs to be a variable
      */
-    public void _storeRam(int $location, int $value) {
+    public void storeRam(int $location, int $value) {
     }
 
     /**
      * Get a value from the ram.
      * <p/>
-     * Example: $value=_getRam($location)
+     * Example: $value=getRam($location)
      *
      * @param $location The location (a variable) where the value is stored
      */
-    public void _getRam(int $location) {
+    public void getRam(int $location) {
     }
 
     /**
@@ -421,7 +430,7 @@ class SoftwareDesign {
     /**
      * Get button or analog input
      * <p/>
-     * When you just want hte input of 1 button, use _getButtonPressed instead
+     * When you just want hte input of 1 button, use getButtonPressed instead
      * Example: getInput($variable,'analog')
      * This will put the value of the analog into $variable
      *
@@ -435,11 +444,11 @@ class SoftwareDesign {
      * Check if a button is pressed
      * <p/>
      * Puts the result into R5
-     * Example: $pressed=_getButtonPressed($location);
+     * Example: $pressed=getButtonPressed($location);
      *
      * @param $button Which button to check (input a variable)
      */
-    public int _getButtonPressed(int $button) {
+    public int getButtonPressed(int $button) {
         return 1;
     }
 
@@ -496,13 +505,13 @@ class SoftwareDesign {
      * Get data
      * <p/>
      * Use offset 0 when it is just a single value.
-     * Example: $data=_getData('data',1)
+     * Example: $data=getData('data',1)
      * This will put the value of the data segment "data" at position 1, into $data.
      *
      * @param $location The location where the variable is stored
      * @param $offset   The offset of the location
      */
-    public int _getData(String $location, int $offset) {
+    public int getData(String $location, int $offset) {
         return 1;
     }
 
@@ -510,14 +519,14 @@ class SoftwareDesign {
      * Store data
      * <p/>
      * Use offset 0 when it is just a single value.
-     * Example: _storeData($data,'data',1)
+     * Example: storeData($data,'data',1)
      * This will put the value of $data into the data segment "data" at position 1
      *
      * @param $variable The variable to store
      * @param $location The name of the location where the variable is stored
      * @param $offset   The offset of the location
      */
-    public void _storeData(int $variable, String $location, int $offset) {
+    public void storeData(int $variable, String $location, int $offset) {
     }
 
 
