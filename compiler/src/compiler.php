@@ -44,6 +44,7 @@ define('IOAREA', -16);
 define('DSPSEG', 8);
 define('DSPDIG', 9);
 define('TIMER', 13);
+define('TIMEREXP', 8);
 define('INPUT', 7);
 define('OUTPUT', 11);
 define('OUTPUT2', 10);
@@ -710,7 +711,7 @@ class Compiler
             case 'installCountdown': {
                 $countdown = "LOAD  R0  " . trim(trim($arguments[0]), '\'"') . "
                        ADD  R0  R5
-                      LOAD  R1  16
+                      LOAD  R1  ".(TIMEREXP*2)."
                       STOR  R0  [R1]
 
                       LOAD  R5  " . IOAREA . "
@@ -728,7 +729,7 @@ class Compiler
             }
 
             case 'startCountdown': {
-                return [0, 'SETI  8'];
+                return [0, 'SETI  '.TIMEREXP];
             }
             case 'pushStack': {
                 return [0, 'PUSH ' . $this->processArgument($arguments[0])];
@@ -736,27 +737,29 @@ class Compiler
             case 'pullStack': {
                 return [0, 'PULL ' . $this->processArgument($arguments[0])];
             }
+            case 'addStackPointer': {
+                return [0,'ADD SP '.$this->processArgument($arguments[0])];
+            }
+            case 'setStackPointer': {
+                return [0,'LOAD SP '.$this->processArgument($arguments[0])];
+            }
+
             case 'setCountdown': {
                 return [
                     4,
-                    'PUSH R5',
+                    'PUSH R5 ;reset timer',
                     'PUSH R4',
                     'LOAD R5 ' . IOAREA,
                     'LOAD  R4  0',
                     'SUB  R4  [R5+' . TIMER . ']',
-                    'STOR  R4  [R5+' . TIMER . ']',
+                    'STOR  R4  [R5+' . TIMER . '] ;set timer',
                     'LOAD R4 ' . $this->processArgument($arguments[0]),
                     'STOR R4 [R5+' . TIMER . ']',
                     'PULL R4',
                     'PULL R5'
                 ];
             }
-            case 'stackPush': {
-                return [0, 'PUSH ' . $this->processArgument($arguments[0])];
-            }
-            case 'stackPull': {
-                return [0, 'PULL ' . $this->processArgument($arguments[0])];
-            }
+
             case 'branch': {
                 return [0, 'BRA ' . trim(trim($arguments[0]), "'\"")];
             }
@@ -1108,6 +1111,10 @@ class Compiler
                                 '\'') . ' + ' . $this->processArgument($arguments[1]) . ' ]'
                         ];
                     }
+                }
+                case 'getFuncLocation':
+                {
+                    return [0,'LOAD '.$register.' '.trim(trim($arguments[0]), "'\"")];
                 }
                 case 'pow': {
                     $this->_useFunction['pow'] = true;

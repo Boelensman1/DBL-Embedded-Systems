@@ -103,7 +103,7 @@ function pow($number,$power)
 /**
  * Take the mod of a number
  *
- * Example: mod($variable,2)
+ * Example: mod(2, $variable)
  * This will return the mod 2 of $variable
  *
  * @param int      $what     modulo what
