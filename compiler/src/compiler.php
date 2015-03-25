@@ -526,7 +526,7 @@ class Compiler
                     case '!=': {
                         return [
                             1,
-                            'CMP ' . $this->processArgument($matches[1]) . ' '
+                            'CMP ' . $this->processArgument($matches[1],true) . ' '
                             . $this->processArgument($matches[3]),
                             'BNE ' . $this->getNextConditional('if')
                         ];
@@ -534,7 +534,7 @@ class Compiler
                     case '==': {
                         return [
                             1,
-                            'CMP ' . $this->processArgument($matches[1]) . ' '
+                            'CMP ' . $this->processArgument($matches[1],true) . ' '
                             . $this->processArgument($matches[3]),
                             'BEQ ' . $this->getNextConditional('if')
                         ];
@@ -542,7 +542,7 @@ class Compiler
                     case '<': {
                         return [
                             1,
-                            'CMP ' . $this->processArgument($matches[1]) . ' '
+                            'CMP ' . $this->processArgument($matches[1],true) . ' '
                             . $this->processArgument($matches[3]),
                             'BMI ' . $this->getNextConditional('if')
                         ];
@@ -550,7 +550,7 @@ class Compiler
                     case '>': {
                         return [
                             1,
-                            'CMP ' . $this->processArgument($matches[1]) . ' '
+                            'CMP ' . $this->processArgument($matches[1],true) . ' '
                             . $this->processArgument($matches[3]),
                             'BGT ' . $this->getNextConditional('if')
                         ];
@@ -558,7 +558,7 @@ class Compiler
                     case '>=': {
                         return [
                             1,
-                            'CMP ' . $this->processArgument($matches[1]) . ' '
+                            'CMP ' . $this->processArgument($matches[1],true) . ' '
                             . $this->processArgument($matches[3]),
                             'BGE ' . $this->getNextConditional('if')
                         ];
@@ -566,7 +566,7 @@ class Compiler
                     case '<=': {
                         return [
                             1,
-                            'CMP ' . $this->processArgument($matches[1]) . ' '
+                            'CMP ' . $this->processArgument($matches[1],true) . ' '
                             . $this->processArgument($matches[3]),
                             'BLE ' . $this->getNextConditional('if')
                         ];
@@ -581,8 +581,8 @@ class Compiler
             case 'mod': {
                 return [
                     0,
-                    'MOD ' . $this->processArgument($arguments[1]) . ' '
-                    . $this->processArgument($arguments[0])
+                    'MOD ' . $this->processArgument($arguments[1],true) . ' '
+                    . $this->processArgument($arguments[0],true)
                 ];
             }
 
@@ -786,11 +786,12 @@ class Compiler
 
     /**Process an argument, for example $abc + 1 gets translated into R0 +1.
      *
-     * @param string $argument The argument to process
+     * @param string $argument  The argument to process
+     * @param bool  $errorOnNew Whether to error when the register is not initialized.
      *
      * @return string The processed argument
      */
-    private function processArgument($argument)
+    private function processArgument($argument, $errorOnNew=false)
     {
         $argument = trim($argument);
         //lets see if we are dealing with a +, -, * etc.
@@ -802,7 +803,7 @@ class Compiler
             }
             $argument = '';
             foreach ($arguments as $arg) {
-                $argument .= $this->processArgument($arg) . ' + ';
+                $argument .= $this->processArgument($arg,$errorOnNew) . ' + ';
             }
             $argument = substr($argument, 0, -3);
 
@@ -816,7 +817,7 @@ class Compiler
             }
             $argument = '';
             foreach ($arguments as $arg) {
-                $argument .= $this->processArgument($arg) . ' - ';
+                $argument .= $this->processArgument($arg,$errorOnNew) . ' - ';
             }
             $argument = substr($argument, 0, -3);
 
@@ -829,7 +830,7 @@ class Compiler
         //check if variable
         if (substr($argument, 0, 1) === '$') {
             //get the variable
-            $argument = $this->getRegister($argument);
+            $argument = $this->getRegister($argument,$errorOnNew);
 
             return $argument;
         }
@@ -872,31 +873,38 @@ class Compiler
 
     /** Gets the register who belongs to the given variable, creates a new one if none exists.
      *
-     * @param string $variable The variable to look for
+     * @param string $variable   The variable to look for
+     * @param bool   $errorOnNew Whether to error when the register is not initialized.
      *
      * @return string The register belonging to the variable.
      */
-    private function getRegister($variable)
+    private function getRegister($variable, $errorOnNew=false)
     {
         $variable = trim($variable);
         //check if we already have this variable
         if (in_array($variable, $this->_variables)) {
             return 'R' . array_search($variable, $this->_variables);
         } else {
-            //if not, make a new one
-                for ($i=0;$i<$this->maxVariables;$i++)
-                {
-                    if (!isset($this->_variables[$i]))
-                    {
-                        $this->_variables[$i] = $variable;
-                        return 'R' . $i;
-                    }
+            //if not, make a new one, if allowed
+            if ($errorOnNew===true)
+            {
+                $this->error('Using uninitialized variable: '.$variable);
+            }
 
+            //ok, lets make the var
+            for ($i=0;$i<$this->maxVariables;$i++)
+            {
+                if (!isset($this->_variables[$i]))
+                {
+                    $this->_variables[$i] = $variable;
+                    return 'R' . $i;
                 }
-                $this->error(
-                    'too many _variables, max is ' . $this->maxVariables."\n"
-                    .'your current variables are: '.implode(', ',$this->_variables)
-                );
+
+            }
+            $this->error(
+                'too many _variables, max is ' . $this->maxVariables."\n"
+                .'your current variables are: '.implode(', ',$this->_variables)
+            );
             }
         $this->error('Unknown error while getting register');
 
