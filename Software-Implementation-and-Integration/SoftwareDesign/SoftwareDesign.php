@@ -9,7 +9,7 @@
  */
 include 'functions.php';
 //**COMPILER**
-functionMoveTo('timerInterrupt',1);
+moveFunction('timerInterrupt',1);
 
 //**DATA**
 //outputs

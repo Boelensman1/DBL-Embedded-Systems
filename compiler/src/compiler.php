@@ -611,7 +611,7 @@ class Compiler
                 break;
             }
 
-            case 'functionMoveTo':{
+            case 'moveFunction':{
                 $move['name']=trim(trim($arguments[0]), '\'"');
                 $move['pos']=trim($arguments[1]);
                 $this->_moveFunction[]=$move;

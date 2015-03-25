@@ -124,6 +124,25 @@ main:                LOAD R0 timerInterrupt                       ;installCountd
                                                                   ;unset($temp, $state)
                      BRA initial                                  ;initial()
                      
+timerInterrupt:      LOAD R2 3                                    ;$temp = 3
+                     LOAD R5 R2                                   ;display($temp, "display", "100")
+                     BRS _Hex7Seg
+                     LOAD R4 %0000001
+                     STOR R4 [R5+9]
+                     BRS timerManage                              ;timerManage()
+                     LOAD R2 9                                    ;$temp = 9
+                     STOR R2 [GB +outputs + HBRIDGE1]             ;_storeData($temp, 'outputs', HBRIDGE1)
+                     LOAD R2 0                                    ;$temp = 0
+                     STOR R2 [GB +outputs + HBRIDGE0]             ;_storeData($temp, 'outputs', HBRIDGE0)
+                     STOR R2 [GB +outputs + LENSLAMPPOSITION]     ;_storeData($temp, 'outputs', LENSLAMPPOSITION)
+                     STOR R2 [GB +outputs + LENSLAMPSORTER]       ;_storeData($temp, 'outputs', LENSLAMPSORTER)
+                     STOR R2 [GB +outputs + LEDSTATEINDICATOR]    ;_storeData($temp, 'outputs', LEDSTATEINDICATOR)
+                     STOR R2 [GB +outputs + DISPLAY]              ;_storeData($temp, 'outputs', DISPLAY)
+                     STOR R2 [GB +outputs + CONVEYORBELT]         ;_storeData($temp, 'outputs', CONVEYORBELT)
+                     STOR R2 [GB +outputs + FEEDERENGINE]         ;_storeData($temp, 'outputs', FEEDERENGINE)
+                     BRA initial                                  ;initial()
+                     RTE
+                     
 initial:             BRS timerManage                              ;timerManage()
                      PUSH R3                                      ;$push = _getButtonPressed(5)
                      LOAD R3 5
@@ -720,24 +739,5 @@ conditional19:       PUSH R5                                      ;display($engi
                      ADD R0 1                                     ;$counter+=1
                      RTS                                          ;return
                      BRA return19                                 ;}
-                     
-timerInterrupt:      LOAD R2 3                                    ;$temp = 3
-                     LOAD R5 R2                                   ;display($temp, "display", "100")
-                     BRS _Hex7Seg
-                     LOAD R4 %0000001
-                     STOR R4 [R5+9]
-                     BRS timerManage                              ;timerManage()
-                     LOAD R2 9                                    ;$temp = 9
-                     STOR R2 [GB +outputs + HBRIDGE1]             ;_storeData($temp, 'outputs', HBRIDGE1)
-                     LOAD R2 0                                    ;$temp = 0
-                     STOR R2 [GB +outputs + HBRIDGE0]             ;_storeData($temp, 'outputs', HBRIDGE0)
-                     STOR R2 [GB +outputs + LENSLAMPPOSITION]     ;_storeData($temp, 'outputs', LENSLAMPPOSITION)
-                     STOR R2 [GB +outputs + LENSLAMPSORTER]       ;_storeData($temp, 'outputs', LENSLAMPSORTER)
-                     STOR R2 [GB +outputs + LEDSTATEINDICATOR]    ;_storeData($temp, 'outputs', LEDSTATEINDICATOR)
-                     STOR R2 [GB +outputs + DISPLAY]              ;_storeData($temp, 'outputs', DISPLAY)
-                     STOR R2 [GB +outputs + CONVEYORBELT]         ;_storeData($temp, 'outputs', CONVEYORBELT)
-                     STOR R2 [GB +outputs + FEEDERENGINE]         ;_storeData($temp, 'outputs', FEEDERENGINE)
-                     BRA initial                                  ;initial()
-                     RTE
                      
                      @END
