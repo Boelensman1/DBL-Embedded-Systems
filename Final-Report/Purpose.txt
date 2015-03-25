@@ -1,4 +1,0 @@
-This document will contain the documents of the preceding phases and give an introduction and conclusion to the project. "The Final Report presents the reader with a
-clear picture of the designed machine, the method of working followed, the speci-
-cation, validation, and design of the software, and a motivation of the main design
-decisions. " (Source: "Project Guide Design Based Learning "DBL 2IO70" "Sort It Out"")
