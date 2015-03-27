@@ -3,8 +3,8 @@
 /List of decisions
 M	+	Work Plan
 		+	Schema
-D	-	Problem?
-M	-	A working day
+D	+	Problem?
+M	+	A working day
 		
 /Work Plan
 To streamline the group process we needed a Work Plan. We started this Work Plan with the inventory of the goals and objectives of each phase of the project. For the roles in the group we chose to have them the same as described in /Project Guide Design Based Learning "DBL 2IO70" "Sort It Out"/. 
