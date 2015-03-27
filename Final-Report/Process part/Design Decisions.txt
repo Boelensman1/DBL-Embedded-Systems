@@ -1,6 +1,6 @@
 /List of decisions
-	-	Work Plan
-		-	Schema
+	+	Work Plan
+		+	Schema
 		
 /Work Plan
 To streamline the group process we needed a Work Plan. We started this Work Plan with the inventory of the goals and objectives of each phase of the project. For the roles in the group we chose to have them the same as described in /Project Guide Design Based Learning "DBL 2IO70" "Sort It Out"/. 
@@ -8,4 +8,5 @@ Then we come to the definition of our terms. We chose to have abbreviations of t
 Before we use those abbreviations we first have an inventory of the amount of work and an overview of the main deliverables. The amount of work is given per phase and week in a nifty table. The overview of deliverables contains who's responsible for a certain deliverable and the date and week the deliverable is due. 
 Then we come to the weekly tables. Tuesday and Friday we have a tutor meeting and we work afterwards till in the afternoon. On Wednesday we have Data Structures in the morning and work on the project afterwards. Those times are included in the tables. Everyone has his column with his role if applicable. For every hour and person it's defined what he will be working on. 
 
-With this Work Plan and the collective logbook we're able to have an indication of how much time was spent on each task by each member. 
+With this Work Plan and the collective logbook we're able to have an indication of how much time was spent on each task by each member. If necessary action can be taken based on this indication. 
+If unforeseen problems arise and the deadline is close, this means we have to work harder. Deadlines aren't easily moved. If someone spends too less time according to the Work Plan it's expected he does his work at home. 
