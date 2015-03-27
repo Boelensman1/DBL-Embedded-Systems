@@ -742,6 +742,9 @@ class Compiler
             case 'startCountdown': {
                 return [0, 'SETI  '.TIMEREXP];
             }
+            case 'stopCountdown': {
+            return [0, 'SETI  0'];
+            }
             case 'pushStack': {
                 return [0, 'PUSH ' . $this->processArgument($arguments[0])];
             }
