@@ -1,6 +1,10 @@
+#When text is between /'s this means it needs to be italic
+
 /List of decisions
-	+	Work Plan
+M	+	Work Plan
 		+	Schema
+D	-	Problem?
+M	-	A working day
 		
 /Work Plan
 To streamline the group process we needed a Work Plan. We started this Work Plan with the inventory of the goals and objectives of each phase of the project. For the roles in the group we chose to have them the same as described in /Project Guide Design Based Learning "DBL 2IO70" "Sort It Out"/. 
@@ -10,3 +14,6 @@ Then we come to the weekly tables. Tuesday and Friday we have a tutor meeting an
 
 With this Work Plan and the collective logbook we're able to have an indication of how much time was spent on each task by each member. If necessary action can be taken based on this indication. 
 If unforeseen problems arise and the deadline is close, this means we have to work harder. Deadlines aren't easily moved. If someone spends too less time according to the Work Plan it's expected he does his work at home. 
+
+/A working day
+A working day as defined in the Work Plan starts off with the inventory of the tasks we need to do. These tasks are put on the whiteboard. Then people are assigned to the tasks in consultation. If a task is done it gets checked off or removed from the board and the person working on it looks for his next task. If that's not on the whiteboard, he asks the other group members if he can help. If he can't do anything any more he's free to go, but often people stay to do something for an other course and discuss about the project if needed. 
