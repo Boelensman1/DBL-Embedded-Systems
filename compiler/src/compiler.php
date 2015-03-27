@@ -656,9 +656,16 @@ class Compiler
                 switch (trim(trim($arguments[1]), '"\'')) {
                     case 'display': {
                         $this->_useFunction['display'] = true;
-                        $counter = str_repeat('0', 6 - $arguments[2]) . '1' . str_repeat(
-                                '0', intval($arguments[2])
-                            );//000001
+                        if (!isset($arguments[2]) && empty($arguments[2]))
+                        {
+                            $arguments[2]=1;
+                        }
+                        else
+                        {
+                            $arguments[2]= intval($arguments[2]);
+                        }
+                        $counter = str_repeat('0', 7 - $arguments[2]) . '1';
+                        $counter.= str_repeat('0',$arguments[2]-1);
                         return [
                             4,
                             'PUSH R5',
@@ -1123,17 +1130,32 @@ class Compiler
                 case 'pow': {
                     $this->_useFunction['pow'] = true;
 
-                    return [
-                        4,
-                        'PUSH R4',
-                        'PUSH R5',
-                        'LOAD R4 ' . $this->processArgument($arguments[1]),
+                    $return=[4];
+                    if ($register!='R4')
+                    {
+                        $return[]=['PUSH R4'];
+                        $return[]='LOAD R4 ' . $this->processArgument($arguments[1]);
+                    }
+                    if ($register!='R5')
+                    {
+                        $return[]='PUSH R5';
+                    }
+
+                    $return=array_merge($return,[
                         'LOAD R5 ' . $this->processArgument($arguments[0]),
-                        'BRS _pow',
-                        'LOAD '.$register.' R5',
-                        'PULL R5',
-                        'PULL R4'
-                    ];
+                        'BRS _pow'
+                    ]);
+
+                    if ($register!='R4')
+                    {
+                        $return[]='PULL R4';
+                    }
+                    if ($register!='R5')
+                    {
+                        $return[]='LOAD '.$register.' R5';
+                        $return[]='PULL R5';
+                    }
+                    return $return;
                 }
                 default: {
                     $this->error('unknown function "' . $function . '"');
