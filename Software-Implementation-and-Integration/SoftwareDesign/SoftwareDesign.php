@@ -168,7 +168,7 @@ function resting()
         //start up the belt and feeder
         $temp = 9;
         storeData($temp, 'outputs', CONVEYORBELT);
-        $temp = 7;
+        $temp = 5;
         storeData($temp, 'outputs', FEEDERENGINE);
         unset($temp);
 
@@ -176,7 +176,7 @@ function resting()
         //this countdown will reset every time a disk is found
         //when it triggers, timerInterrupt will be ran.
         setCountdown(COUNTDOWN);
-        //startCountdown();
+        startCountdown();
 
         //update the state
         $state = 3;
@@ -585,7 +585,7 @@ function whiteWaitStop()
         //it has, so lets start moving the sorter down
         $temp = 9;
         storeData($temp, 'outputs', HBRIDGE1);
-        $temp=5;
+        $temp=0;
         storeData($temp,'outputs',FEEDERENGINE);
         unset($temp);
 
@@ -635,7 +635,7 @@ function timerInterrupt()
 {
     timerManage();
     //show that we are in the timer interrupt
-    $temp = 7;
+    $temp = 5;
     display($temp, 'display');
 
     //start moving the sorter up, to start the calibration
@@ -781,7 +781,7 @@ function timerManage()
             $temp = getData('state', 0);
             //get the last digit of the state
             //we have no variables left, so we use $sleep
-            
+
             $sleep = $temp;
             mod(10, $sleep);
             $temp -= $sleep;
