@@ -21,18 +21,18 @@ initVar('outputs', 12);
 initVar('state', 1);
 
 //**CODE**
-define('TIMEMOTORDOWN', 230); //how long the sorter takes to move down
+define('TIMEMOTORDOWN', 200); //how long the sorter takes to move down
 define('BELT', 2000);//TODO: ????
 define('BELTROUND', 2000);//Time for the belt to make a rotation
-define('SORT', 300);//Clockticks to make a rotation
-
+define('SORT', 1);//Clockticks to make a rotation
+define('COUNTDOWN',40000);
 //outputs
-define('LENSLAMPPOSITION', 5);
+define('LENSLAMPPOSITION', 2);
 define('LENSLAMPSORTER', 6);
 define('HBRIDGE0', 0);
 define('HBRIDGE1', 1);
-define('CONVEYORBELT', 3);
-define('FEEDERENGINE', 7);
+define('CONVEYORBELT', 7);
+define('FEEDERENGINE', 3);
 define('DISPLAY', 8);
 define('LEDSTATEINDICATOR', 9);
 
@@ -150,25 +150,33 @@ function resting()
     $startStop = getButtonPressed(0);
     if ($startStop == 1) {
         //sleep so we don't go to pause immediately
-        sleep(2000);
+
 
         //power up the lamps
         $temp = 12;
         storeData($temp, 'outputs', LENSLAMPPOSITION);
+        unset($temp);
+        timerManage();
+        sleep(1000);
+        $temp=12;
         storeData($temp, 'outputs', LENSLAMPSORTER);
+        unset($temp);
+        timerManage();
+        sleep(2000);
+
 
         //start up the belt and feeder
         $temp = 9;
         storeData($temp, 'outputs', CONVEYORBELT);
-        $temp = 5;
+        $temp = 7;
         storeData($temp, 'outputs', FEEDERENGINE);
         unset($temp);
 
         //set and start the countdown for the moment there are no more disks
         //this countdown will reset every time a disk is found
         //when it triggers, timerInterrupt will be ran.
-        setCountdown(BELTROUND + BELT);
-       // startCountdown();
+        setCountdown(COUNTDOWN);
+        //startCountdown();
 
         //update the state
         $state = 3;
@@ -197,7 +205,7 @@ function running()
         unset($temp);
 
         //exit after 1 rotation of the belt
-        setCountdown(BELT);
+        setCountdown(BELT*10);
 
         //update the state
         $state = 9;//TODO: echte state
@@ -213,7 +221,7 @@ function running()
     $position = getButtonPressed(7);
     if ($position == 1) {
         //reset the countdown, because a disk was just detected
-        setCountdown(BELTROUND + BELT);
+        setCountdown(COUNTDOWN);
 
         //update the state
         $state = 4;
@@ -241,7 +249,7 @@ function runningWait()
         unset($temp);
 
         //exit after 1 rotation of the belt
-        setCountdown(BELT);
+        setCountdown(BELT*10);
 
         //update the state
         $state = 9;
@@ -257,7 +265,7 @@ function runningWait()
     $position = getButtonPressed(7);
     if ($position == 0) {
         //reset the countdown, because a disk was just detected
-        setCountdown(BELTROUND + BELT);
+        setCountdown(COUNTDOWN);
 
         //update state
         $state = 5;
@@ -275,6 +283,10 @@ function runningWait()
         //move the sorter up so the disk goes to the correct box
         $temp = 9;
         storeData($temp, 'outputs', HBRIDGE0);
+
+        //stop the feeder engine
+        $temp = 0;
+        storeData($temp, 'outputs', FEEDERENGINE);
         unset($temp);
 
         //update state
@@ -318,7 +330,7 @@ function motorUp()
         unset($temp);
 
         //exit after 1 rotation of the belt
-        setCountdown(BELT);
+        setCountdown(BELT*10);
 
         //update the state
         $state = 10;
@@ -364,7 +376,7 @@ function whiteWait()
     if ($sleep == SORT) {
         //start moving the sorter down
         $temp = 9;
-        storeData($state, 'state', 0);
+        storeData($temp, 'outputs', HBRIDGE1);
         unset($temp);
 
         //update state
@@ -387,7 +399,7 @@ function whiteWait()
         unset($temp);
 
         //exit after 1 rotation of the belt
-        setCountdown(BELT);
+        setCountdown(BELT*10);
 
         //update the state
         $state = 11;
@@ -414,6 +426,8 @@ function motorDown()
         //stop the sorter, its where it should be
         $temp = 0;
         storeData($temp, 'outputs', HBRIDGE1);
+        $temp=5;
+        storeData($temp,'outputs',FEEDERENGINE);
         unset($temp);
 
         //update state
@@ -435,7 +449,7 @@ function motorDown()
         unset($temp);
 
         //exit after 1 rotation of the belt
-        setCountdown(BELT);
+        setCountdown(BELT*10);
 
         //update the state
         $state = 12;
@@ -515,6 +529,10 @@ function runningStop()
         //stop the sorter engine, because its at its highest position
         $temp = 9;
         storeData($temp, 'outputs', HBRIDGE0);
+
+        //stop the feeder engine
+        $temp = 0;
+        storeData($temp, 'outputs', FEEDERENGINE);
         unset($temp);
 
         //update state
@@ -567,6 +585,8 @@ function whiteWaitStop()
         //it has, so lets start moving the sorter down
         $temp = 9;
         storeData($temp, 'outputs', HBRIDGE1);
+        $temp=5;
+        storeData($temp,'outputs',FEEDERENGINE);
         unset($temp);
 
         //update state
@@ -615,7 +635,7 @@ function timerInterrupt()
 {
     timerManage();
     //show that we are in the timer interrupt
-    $temp = 5;
+    $temp = 7;
     display($temp, 'display');
 
     //start moving the sorter up, to start the calibration
@@ -674,11 +694,11 @@ function abort()
     //update the state
     $state = 17;
     storeData($state, 'state', 0);
-    unset($state);
+
 
     //show we aborted
     $state = 7;
-    storeData($state, 'state', 0);
+    display($state, 'leds2', 0);
     unset($state);
 
     aborted();
@@ -687,6 +707,7 @@ function abort()
 //state 17
 function aborted()
 {
+    timerManage();
     //check if we can start again
     $startStop = getButtonPressed(0);
     if ($startStop == 1) {
@@ -759,10 +780,11 @@ function timerManage()
             $temp = getData('state', 0);
             //get the last digit of the state
             //we have no variables left, so we use $sleep
+            
             $sleep = $temp;
             mod(10, $temp);
             $temp -= $sleep;
-
+            $temp /=10;
             //display the last digit
             display($temp, 'display', 2);
 
