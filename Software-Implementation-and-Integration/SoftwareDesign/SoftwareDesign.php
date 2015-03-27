@@ -21,10 +21,10 @@ initVar('outputs', 12);
 initVar('state', 1);
 
 //**CODE**
-define('TIMEMOTORDOWN', 3); //how long the sorter takes to move down
-define('BELT', 12000);//TODO: ????
-define('BELTROUND', 20000);//Time for the belt to make a rotation
-define('SORT', 8500);//Clockticks to make a rotation
+define('TIMEMOTORDOWN', 230); //how long the sorter takes to move down
+define('BELT', 2000);//TODO: ????
+define('BELTROUND', 2000);//Time for the belt to make a rotation
+define('SORT', 300);//Clockticks to make a rotation
 
 //outputs
 define('LENSLAMPPOSITION', 5);
@@ -168,7 +168,7 @@ function resting()
         //this countdown will reset every time a disk is found
         //when it triggers, timerInterrupt will be ran.
         setCountdown(BELTROUND + BELT);
-        //startCountdown();
+       // startCountdown();
 
         //update the state
         $state = 3;
@@ -255,7 +255,7 @@ function runningWait()
 
     //check if a disk is at the position detector
     $position = getButtonPressed(7);
-    if ($position == 1) {
+    if ($position == 0) {
         //reset the countdown, because a disk was just detected
         setCountdown(BELTROUND + BELT);
 
@@ -732,7 +732,7 @@ function timerManage()
     //check if we did all outputs
     if ($location == 7) {
         //actually output the result
-        sleep(100);
+        sleep(1);
         display($engines, 'leds');
 
 

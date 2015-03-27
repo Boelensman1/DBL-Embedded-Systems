@@ -6,10 +6,10 @@ state DS 1
 
 @CODE
                      
-                     TIMEMOTORDOWN EQU 3
-                     BELT EQU 12000
-                     BELTROUND EQU 20000
-                     SORT EQU 8500
+                     TIMEMOTORDOWN EQU 230
+                     BELT EQU 2000
+                     BELTROUND EQU 2000
+                     SORT EQU 300
                      LENSLAMPPOSITION EQU 5
                      LENSLAMPSORTER EQU 6
                      HBRIDGE0 EQU 0
@@ -322,7 +322,7 @@ return5:                                                          ;unset($startS
                      SUB SP 5
                      PULL R3
                      ADD SP 4
-                     CMP R3 1                                     ;if ($position == 1) {
+                     CMP R3 0                                     ;if ($position == 0) {
                      BEQ conditional6
 return6:                                                          ;unset($position)
                      PUSH R3                                      ;$colour = getButtonPressed(6)
@@ -356,7 +356,7 @@ conditional5:        LOAD R4 0                                    ;$temp = 0
                                                                   ;unset($state)
                      BRA runningTimer                             ;runningTimer()
                      
-                                                                  ;if ($position == 1) {
+                                                                  ;if ($position == 0) {
 conditional6:        PUSH R5 ;reset timer                         ;setCountdown(BELTROUND + BELT)
                      PUSH R4
                      LOAD R5 -16
@@ -644,8 +644,8 @@ conditional19:       LOAD R4 R1                                   ;$voltage = $l
                      BRA return19                                 ;}
                      
                                                                   ;if ($location == 7) {
-conditional20:       PUSH R5                                      ;sleep(100)
-                     LOAD R5 100
+conditional20:       PUSH R5                                      ;sleep(1)
+                     LOAD R5 1
                      BRS _timer
                      PULL R5
                      PUSH R5                                      ;display($engines, 'leds')
