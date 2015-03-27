@@ -697,6 +697,7 @@ conditional21:       BRA abort                                    ;abort()
                      
                                                                   ;if ($counter == 6) {
 conditional22:       LOAD R4 [ GB + state + 0 ]                   ;$temp = getData('state', 0)
+                     MOD R4 10                                    ;mod(10,$temp)
                      PUSH R5                                      ;display($temp, 'display',1)
                      PUSH R4
                      LOAD R5 R4
@@ -712,7 +713,7 @@ conditional22:       LOAD R4 [ GB + state + 0 ]                   ;$temp = getDa
 conditional23:       PUSH R2                                      ;pushStack($sleep)
                      LOAD R4 [ GB + state + 0 ]                   ;$temp = getData('state', 0)
                      LOAD R2 R4                                   ;$sleep = $temp
-                     MOD R4 10                                    ;mod(10, $temp)
+                     MOD R2 10                                    ;mod(10, $sleep)
                      SUB R4 R2                                    ;$temp -= $sleep
                      DIV R4 10                                    ;$temp /=10
                      PUSH R5                                      ;display($temp, 'display', 2)

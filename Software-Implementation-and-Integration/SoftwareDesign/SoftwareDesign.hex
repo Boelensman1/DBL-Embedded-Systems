@@ -1,4 +1,4 @@
-@C 3ffff 00294
+@C 3ffff 00295
 00044       ; 00000 begin :             BRA main
 1a80a       ; 00001 _timer :            MULS R5 10
 3e5ff       ; 00002                     STOR R4 [--R7]
@@ -94,7 +94,7 @@
 09809       ; 0005c                     LOAD R3 9
 3dcc2       ; 0005d                     STOR R3 [R6+(outputs+HBRIDGE0)]
 00024       ; 0005e                     BRA initial
-00300 00227 ; 0005f timerInterrupt :    BRS timerManage
+00300 00228 ; 0005f timerInterrupt :    BRS timerManage
 09807       ; 00061                     LOAD R3 7
 3edff       ; 00062                     STOR R5 [--R7]
 3e5ff       ; 00063                     STOR R4 [--R7]
@@ -130,7 +130,7 @@
 025f1       ; 00082                     RTE
 09cc1       ; 00083 initial :           LOAD R3 [R6+(stackPointer+0)]
 0b903       ; 00084                     LOAD R7 R3
-00300 00201 ; 00085                     BRS timerManage
+00300 00202 ; 00085                     BRS timerManage
 3ddff       ; 00087                     STOR R3 [--R7]
 09805       ; 00088                     LOAD R3 5
 00382       ; 00089                     BRS _pressed
@@ -149,7 +149,7 @@
 3dcce       ; 00096                     STOR R3 [R6+(state+0)]
 09000       ; 00097                     LOAD R2 0
 00000       ; 00098                     BRA calibrateSorter
-00300 001ed ; 00099 calibrateSorter :   BRS timerManage
+00300 001ee ; 00099 calibrateSorter :   BRS timerManage
 15080 000c8 ; 0009b                     CMP R2 TIMEMOTORDOWN
 00402       ; 0009d                     BEQ conditional1
 0d001       ; 0009e return1 :           ADD R2 1
@@ -160,7 +160,7 @@
 3e4ce       ; 000a3                     STOR R4 [R6+(state+0)]
 09000       ; 000a4                     LOAD R2 0
 00000       ; 000a5                     BRA resting
-00300 001e0 ; 000a6 resting :           BRS timerManage
+00300 001e1 ; 000a6 resting :           BRS timerManage
 3ddff       ; 000a8                     STOR R3 [--R7]
 09800       ; 000a9                     LOAD R3 0
 00361       ; 000aa                     BRS _pressed
@@ -173,14 +173,14 @@
 001f4       ; 000b1 return2 :           BRA resting
 0980c       ; 000b2 conditional2 :      LOAD R3 12
 3dcc4       ; 000b3                     STOR R3 [R6+(outputs+LENSLAMPPOSITION)]
-00300 001d2 ; 000b4                     BRS timerManage
+00300 001d3 ; 000b4                     BRS timerManage
 3edff       ; 000b6                     STOR R5 [--R7]
 0a880 003e8 ; 000b7                     LOAD R5 1000
 00347       ; 000b9                     BRS _timer
 0adf1       ; 000ba                     LOAD R5 [R7++]
 0980c       ; 000bb                     LOAD R3 12
 3dcc8       ; 000bc                     STOR R3 [R6+(outputs+LENSLAMPSORTER)]
-00300 001c9 ; 000bd                     BRS timerManage
+00300 001ca ; 000bd                     BRS timerManage
 3edff       ; 000bf                     STOR R5 [--R7]
 0a880 007d0 ; 000c0                     LOAD R5 2000
 0033e       ; 000c2                     BRS _timer
@@ -202,7 +202,7 @@
 09803       ; 000d3                     LOAD R3 3
 3dcce       ; 000d4                     STOR R3 [R6+(state+0)]
 00000       ; 000d5                     BRA running
-00300 001b0 ; 000d6 running :           BRS timerManage
+00300 001b1 ; 000d6 running :           BRS timerManage
 3ddff       ; 000d8                     STOR R3 [--R7]
 09800       ; 000d9                     LOAD R3 0
 00331       ; 000da                     BRS _pressed
@@ -250,7 +250,7 @@
 0a004       ; 00107                     LOAD R4 4
 3e4ce       ; 00108                     STOR R4 [R6+(state+0)]
 00000       ; 00109                     BRA runningWait
-00300 0017c ; 0010a runningWait :       BRS timerManage
+00300 0017d ; 0010a runningWait :       BRS timerManage
 3ddff       ; 0010c                     STOR R3 [--R7]
 09800       ; 0010d                     LOAD R3 0
 00300 3fefc ; 0010e                     BRS _pressed
@@ -314,7 +314,7 @@
 0a006       ; 0014d                     LOAD R4 6
 3e4ce       ; 0014e                     STOR R4 [R6+(state+0)]
 00000       ; 0014f                     BRA motorUp
-00300 00136 ; 00150 motorUp :           BRS timerManage
+00300 00137 ; 00150 motorUp :           BRS timerManage
 3ddff       ; 00152                     STOR R3 [--R7]
 09800       ; 00153                     LOAD R3 0
 00300 3feb6 ; 00154                     BRS _pressed
@@ -355,7 +355,7 @@
 3e4ce       ; 0017a                     STOR R4 [R6+(state+0)]
 09000       ; 0017b                     LOAD R2 0
 00000       ; 0017c                     BRA whiteWait
-00300 00109 ; 0017d whiteWait :         BRS timerManage
+00300 0010a ; 0017d whiteWait :         BRS timerManage
 15001       ; 0017f                     CMP R2 SORT
 0040c       ; 00180                     BEQ conditional10
 3ddff       ; 00181 return10 :          STOR R3 [--R7]
@@ -390,11 +390,11 @@
 0a00b       ; 001a0                     LOAD R4 11
 3e4ce       ; 001a1                     STOR R4 [R6+(state+0)]
 00000       ; 001a2                     BRA whiteWaitTimer
-002e4       ; 001a3 whiteWaitTimer :    BRS timerManage
+002e5       ; 001a3 whiteWaitTimer :    BRS timerManage
 0980f       ; 001a4                     LOAD R3 15
 3dcce       ; 001a5                     STOR R3 [R6+(state+0)]
 00000       ; 001a6                     BRA whiteWaitStop
-002e0       ; 001a7 whiteWaitStop :     BRS timerManage
+002e1       ; 001a7 whiteWaitStop :     BRS timerManage
 15001       ; 001a8                     CMP R2 SORT
 00402       ; 001a9                     BEQ conditional12
 0d001       ; 001aa return12 :          ADD R2 1
@@ -407,7 +407,7 @@
 3dcce       ; 001b1                     STOR R3 [R6+(state+0)]
 09000       ; 001b2                     LOAD R2 0
 00000       ; 001b3                     BRA motorDownStop
-002d3       ; 001b4 motorDownStop :     BRS timerManage
+002d4       ; 001b4 motorDownStop :     BRS timerManage
 15080 000c8 ; 001b5                     CMP R2 TIMEMOTORDOWN
 00402       ; 001b7                     BEQ conditional13
 0d001       ; 001b8 return13 :          ADD R2 1
@@ -418,7 +418,7 @@
 3dcce       ; 001bd                     STOR R3 [R6+(state+0)]
 09000       ; 001be                     LOAD R2 0
 00000       ; 001bf                     BRA runningStop
-002c7       ; 001c0 runningStop :       BRS timerManage
+002c8       ; 001c0 runningStop :       BRS timerManage
 3ddff       ; 001c1                     STOR R3 [--R7]
 09806       ; 001c2                     LOAD R3 6
 00300 3fe47 ; 001c3                     BRS _pressed
@@ -436,7 +436,7 @@
 0a00a       ; 001d0                     LOAD R4 10
 3e4ce       ; 001d1                     STOR R4 [R6+(state+0)]
 00000       ; 001d2                     BRA motorUpStop
-002b4       ; 001d3 motorUpStop :       BRS timerManage
+002b5       ; 001d3 motorUpStop :       BRS timerManage
 3ddff       ; 001d4                     STOR R3 [--R7]
 09805       ; 001d5                     LOAD R3 5
 00300 3fe34 ; 001d6                     BRS _pressed
@@ -452,7 +452,7 @@
 0a00b       ; 001e1                     LOAD R4 11
 3e4ce       ; 001e2                     STOR R4 [R6+(state+0)]
 001c3       ; 001e3                     BRA whiteWaitStop
-002a3       ; 001e4 motorDown :         BRS timerManage
+002a4       ; 001e4 motorDown :         BRS timerManage
 15080 000c8 ; 001e5                     CMP R2 TIMEMOTORDOWN
 0040c       ; 001e7                     BEQ conditional16
 3ddff       ; 001e8 return16 :          STOR R3 [--R7]
@@ -489,24 +489,24 @@
 0a00c       ; 00209                     LOAD R4 12
 3e4ce       ; 0020a                     STOR R4 [R6+(state+0)]
 00000       ; 0020b                     BRA motorDownTimer
-0027b       ; 0020c motorDownTimer :    BRS timerManage
+0027c       ; 0020c motorDownTimer :    BRS timerManage
 09810       ; 0020d                     LOAD R3 16
 3dcce       ; 0020e                     STOR R3 [R6+(state+0)]
 001a4       ; 0020f                     BRA motorDownStop
-00277       ; 00210 motorUpTimer :      BRS timerManage
+00278       ; 00210 motorUpTimer :      BRS timerManage
 0980e       ; 00211                     LOAD R3 14
 3dcce       ; 00212                     STOR R3 [R6+(state+0)]
 001bf       ; 00213                     BRA motorUpStop
-00273       ; 00214 runningTimerReset : BRS timerManage
+00274       ; 00214 runningTimerReset : BRS timerManage
 09804       ; 00215                     LOAD R3 4
 3dcce       ; 00216                     STOR R3 [R6+(state+0)]
 00100 3fef1 ; 00217                     BRA runningWait
-0026e       ; 00219 runningTimer :      BRS timerManage
+0026f       ; 00219 runningTimer :      BRS timerManage
 0980d       ; 0021a                     LOAD R3 13
 3dcce       ; 0021b                     STOR R3 [R6+(state+0)]
 001a3       ; 0021c                     BRA runningStop
 09800       ; 0021d conditional18 :     LOAD R3 0
-0006b       ; 0021e                     BRA return18
+0006c       ; 0021e                     BRA return18
 0a101       ; 0021f conditional19 :     LOAD R4 R1
 3edff       ; 00220                     STOR R5 [--R7]
 0a802       ; 00221                     LOAD R5 2
@@ -514,7 +514,7 @@
 0a105       ; 00224                     LOAD R4 R5
 0adf1       ; 00225                     LOAD R5 [R7++]
 0d904       ; 00226                     ADD R3 R4
-00068       ; 00227                     BRA return19
+00069       ; 00227                     BRA return19
 3edff       ; 00228 conditional20 :     STOR R5 [--R7]
 0a801       ; 00229                     LOAD R5 1
 00300 3fdd5 ; 0022a                     BRS _timer
@@ -535,88 +535,89 @@
 14006       ; 0023b return21 :          CMP R0 6
 00409       ; 0023c                     BEQ conditional22
 1400b       ; 0023d return22 :          CMP R0 11
-00412       ; 0023e                     BEQ conditional23
+00413       ; 0023e                     BEQ conditional23
 09800       ; 0023f return23 :          LOAD R3 0
 08800       ; 00240                     LOAD R1 0
 0c001       ; 00241                     ADD R0 1
 045f1       ; 00242                     RTS
-0004e       ; 00243                     BRA return20
-0001d       ; 00244 conditional21 :     BRA abort
+0004f       ; 00243                     BRA return20
+0001e       ; 00244 conditional21 :     BRA abort
 001f5       ; 00245                     BRA return21
 0a4ce       ; 00246 conditional22 :     LOAD R4 [R6+(state+0)]
-3edff       ; 00247                     STOR R5 [--R7]
-3e5ff       ; 00248                     STOR R4 [--R7]
-0a904       ; 00249                     LOAD R5 R4
-00300 3fde2 ; 0024a                     BRS _Hex7Seg
-0a001       ; 0024c                     LOAD R4 %0000001
-3e4a9       ; 0024d                     STOR R4 [R5+9]
-0a5f1       ; 0024e                     LOAD R4 [R7++]
-0adf1       ; 0024f                     LOAD R5 [R7++]
-001ec       ; 00250                     BRA return22
-3d5ff       ; 00251 conditional23 :     STOR R2 [--R7]
-0a4ce       ; 00252                     LOAD R4 [R6+(state+0)]
-09104       ; 00253                     LOAD R2 R4
-2a00a       ; 00254                     MOD R4 10
-12102       ; 00255                     SUB R4 R2
-2600a       ; 00256                     DIV R4 10
-3edff       ; 00257                     STOR R5 [--R7]
-3e5ff       ; 00258                     STOR R4 [--R7]
-0a904       ; 00259                     LOAD R5 R4
-00300 3fdd2 ; 0025a                     BRS _Hex7Seg
-0a002       ; 0025c                     LOAD R4 %0000010
-3e4a9       ; 0025d                     STOR R4 [R5+9]
-0a5f1       ; 0025e                     LOAD R4 [R7++]
-0adf1       ; 0025f                     LOAD R5 [R7++]
-095f1       ; 00260                     LOAD R2 [R7++]
-001dd       ; 00261                     BRA return23
-09cc1       ; 00262 abort :             LOAD R3 [R6+(stackPointer+0)]
-0b903       ; 00263                     LOAD R7 R3
-09800       ; 00264                     LOAD R3 0
-3dcc3       ; 00265                     STOR R3 [R6+(outputs+HBRIDGE1)]
-3dcc2       ; 00266                     STOR R3 [R6+(outputs+HBRIDGE0)]
-3dcc4       ; 00267                     STOR R3 [R6+(outputs+LENSLAMPPOSITION)]
-3dcc8       ; 00268                     STOR R3 [R6+(outputs+LENSLAMPSORTER)]
-3dccb       ; 00269                     STOR R3 [R6+(outputs+LEDSTATEINDICATOR)]
-3dcca       ; 0026a                     STOR R3 [R6+(outputs+DISPLAY)]
-3dcc9       ; 0026b                     STOR R3 [R6+(outputs+CONVEYORBELT)]
-3dcc5       ; 0026c                     STOR R3 [R6+(outputs+FEEDERENGINE)]
-0021a       ; 0026d                     BRS timerManage
-09811       ; 0026e                     LOAD R3 17
-3dcce       ; 0026f                     STOR R3 [R6+(state+0)]
-09807       ; 00270                     LOAD R3 7
-3edff       ; 00271                     STOR R5 [--R7]
-0a8f0       ; 00272                     LOAD R5 -16
-3dcaa       ; 00273                     STOR R3 [R5+10]
-0adf1       ; 00274                     LOAD R5 [R7++]
-00000       ; 00275                     BRA aborted
-00211       ; 00276 aborted :           BRS timerManage
-3ddff       ; 00277                     STOR R3 [--R7]
-09800       ; 00278                     LOAD R3 0
-00300 3fd91 ; 00279                     BRS _pressed
-09df1       ; 0027b                     LOAD R3 [R7++]
-13805       ; 0027c                     SUB R7 5
-09df1       ; 0027d                     LOAD R3 [R7++]
-0f804       ; 0027e                     ADD R7 4
-15801       ; 0027f                     CMP R3 1
-00401       ; 00280                     BEQ conditional24
-001f4       ; 00281 return24 :          BRA aborted
-0a009       ; 00282 conditional24 :     LOAD R4 9
-3e4c2       ; 00283                     STOR R4 [R6+(outputs+HBRIDGE0)]
-0a000       ; 00284                     LOAD R4 0
-3e4ce       ; 00285                     STOR R4 [R6+(state+0)]
-00100 3fdfb ; 00286                     BRA initial
-14800       ; 00288 timerManage :       CMP R1 0
-00593       ; 00289                     BEQ conditional18
-2800c       ; 0028a return18 :          MOD R0 12
-0c802       ; 0028b                     ADD R1 outputs
-0a5c1       ; 0028c                     LOAD R4 [R6+R1]
-10802       ; 0028d                     SUB R1 outputs
-16100       ; 0028e                     CMP R4 R0
-01f8f       ; 0028f                     BGT conditional19
-14807       ; 00290 return19 :          CMP R1 7
-00596       ; 00291                     BEQ conditional20
-0c801       ; 00292 return20 :          ADD R1 1
-001f4       ; 00293                     BRA timerManage
+2a00a       ; 00247                     MOD R4 10
+3edff       ; 00248                     STOR R5 [--R7]
+3e5ff       ; 00249                     STOR R4 [--R7]
+0a904       ; 0024a                     LOAD R5 R4
+00300 3fde1 ; 0024b                     BRS _Hex7Seg
+0a001       ; 0024d                     LOAD R4 %0000001
+3e4a9       ; 0024e                     STOR R4 [R5+9]
+0a5f1       ; 0024f                     LOAD R4 [R7++]
+0adf1       ; 00250                     LOAD R5 [R7++]
+001eb       ; 00251                     BRA return22
+3d5ff       ; 00252 conditional23 :     STOR R2 [--R7]
+0a4ce       ; 00253                     LOAD R4 [R6+(state+0)]
+09104       ; 00254                     LOAD R2 R4
+2900a       ; 00255                     MOD R2 10
+12102       ; 00256                     SUB R4 R2
+2600a       ; 00257                     DIV R4 10
+3edff       ; 00258                     STOR R5 [--R7]
+3e5ff       ; 00259                     STOR R4 [--R7]
+0a904       ; 0025a                     LOAD R5 R4
+00300 3fdd1 ; 0025b                     BRS _Hex7Seg
+0a002       ; 0025d                     LOAD R4 %0000010
+3e4a9       ; 0025e                     STOR R4 [R5+9]
+0a5f1       ; 0025f                     LOAD R4 [R7++]
+0adf1       ; 00260                     LOAD R5 [R7++]
+095f1       ; 00261                     LOAD R2 [R7++]
+001dc       ; 00262                     BRA return23
+09cc1       ; 00263 abort :             LOAD R3 [R6+(stackPointer+0)]
+0b903       ; 00264                     LOAD R7 R3
+09800       ; 00265                     LOAD R3 0
+3dcc3       ; 00266                     STOR R3 [R6+(outputs+HBRIDGE1)]
+3dcc2       ; 00267                     STOR R3 [R6+(outputs+HBRIDGE0)]
+3dcc4       ; 00268                     STOR R3 [R6+(outputs+LENSLAMPPOSITION)]
+3dcc8       ; 00269                     STOR R3 [R6+(outputs+LENSLAMPSORTER)]
+3dccb       ; 0026a                     STOR R3 [R6+(outputs+LEDSTATEINDICATOR)]
+3dcca       ; 0026b                     STOR R3 [R6+(outputs+DISPLAY)]
+3dcc9       ; 0026c                     STOR R3 [R6+(outputs+CONVEYORBELT)]
+3dcc5       ; 0026d                     STOR R3 [R6+(outputs+FEEDERENGINE)]
+0021a       ; 0026e                     BRS timerManage
+09811       ; 0026f                     LOAD R3 17
+3dcce       ; 00270                     STOR R3 [R6+(state+0)]
+09807       ; 00271                     LOAD R3 7
+3edff       ; 00272                     STOR R5 [--R7]
+0a8f0       ; 00273                     LOAD R5 -16
+3dcaa       ; 00274                     STOR R3 [R5+10]
+0adf1       ; 00275                     LOAD R5 [R7++]
+00000       ; 00276                     BRA aborted
+00211       ; 00277 aborted :           BRS timerManage
+3ddff       ; 00278                     STOR R3 [--R7]
+09800       ; 00279                     LOAD R3 0
+00300 3fd90 ; 0027a                     BRS _pressed
+09df1       ; 0027c                     LOAD R3 [R7++]
+13805       ; 0027d                     SUB R7 5
+09df1       ; 0027e                     LOAD R3 [R7++]
+0f804       ; 0027f                     ADD R7 4
+15801       ; 00280                     CMP R3 1
+00401       ; 00281                     BEQ conditional24
+001f4       ; 00282 return24 :          BRA aborted
+0a009       ; 00283 conditional24 :     LOAD R4 9
+3e4c2       ; 00284                     STOR R4 [R6+(outputs+HBRIDGE0)]
+0a000       ; 00285                     LOAD R4 0
+3e4ce       ; 00286                     STOR R4 [R6+(state+0)]
+00100 3fdfa ; 00287                     BRA initial
+14800       ; 00289 timerManage :       CMP R1 0
+00592       ; 0028a                     BEQ conditional18
+2800c       ; 0028b return18 :          MOD R0 12
+0c802       ; 0028c                     ADD R1 outputs
+0a5c1       ; 0028d                     LOAD R4 [R6+R1]
+10802       ; 0028e                     SUB R1 outputs
+16100       ; 0028f                     CMP R4 R0
+01f8e       ; 00290                     BGT conditional19
+14807       ; 00291 return19 :          CMP R1 7
+00595       ; 00292                     BEQ conditional20
+0c801       ; 00293 return20 :          ADD R1 1
+001f4       ; 00294                     BRA timerManage
 
 @D 3ffff 0000f ; 
 00000 00000 00000 00000 00000 00000 00000 00000 ;                 

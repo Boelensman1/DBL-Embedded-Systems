@@ -769,6 +769,7 @@ function timerManage()
         if ($counter == 6) {
             //set the first part of the display
             $temp = getData('state', 0);
+            mod(10,$temp);
             display($temp, 'display',1);
             unset($temp);
         }
@@ -782,7 +783,7 @@ function timerManage()
             //we have no variables left, so we use $sleep
             
             $sleep = $temp;
-            mod(10, $temp);
+            mod(10, $sleep);
             $temp -= $sleep;
             $temp /=10;
             //display the last digit
