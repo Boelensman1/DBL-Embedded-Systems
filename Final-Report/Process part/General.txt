@@ -1,0 +1,15 @@
+/Roles check
+Everyone needs to be president and secretary for a week at least once. The Quality Assurance Manager (QAM) switches every three weeks, but because the project span is 8 weeks (without the exam weeks) the last QAM lasts 2 weeks. The materials manager isn't switched. 
+If we follow the Work Plan, this will be correct. According to the Logbooks the Work Plan's roles were followed so the division of roles was executed well. 
+
+/Time spent in a week
+On Tuesday and Friday we have a tutor meeting at 10.30 hrs and stay afterwards. On Wednesday we meet after Data Structures. We work until we are done or we stop before dinner time. The work not done, if not possible to pros-pone, is done at home. 
+
+/Validation Work Plan
+We validate the work plan by comparing the expected time it would take to finish each task in the schedule with the time spent working on the corresponding task in the collective logbook. We also take a look at how much time every group member spent and if that corresponds with the Work Plan. 
+
+/Conclusion
+It is clear from these numbers that we so far overestimated, or under-reported, the amount of work needed for each part of the project. It must however be said that the table above only includes work towards the major deliverables, this means that work on individual assignments (such as the the abstract and maintaining the logbooks) and group talks (to resolve issues) have not been included, leading to an underestimation of the amount of time spent on the project. Either way, it seems that some members have contributed significantly less than others. This has now been addressed in the group however, and going forward we will try to create a more even workload for all.
+
+//Folowup
+As a result of the problems addressed above, other members had to compensate for it by spending more time on the project. Therefore, we decided to address this problem in the meetings and to distribute the workload more evenly.
