@@ -1,0 +1,10 @@
+/Process part
+	-	Comparing numbers from Logbooks and the Work Plan
+		-	Draw conclusion (Work Plan or execution wrong and check if planned time was spent by each group member)
+	-	Group reflection (Maarten mailed Van der Woude about this, because he didn't know what this had to be. He should have cc'ed. )
+	
+/Validation and testing
+	-	References
+	
+/Final Report
+	-	Changes (or did we decide to not do this?)
