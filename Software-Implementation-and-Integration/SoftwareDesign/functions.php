@@ -103,7 +103,7 @@ function pow($number,$power)
 /**
  * Take the mod of a number
  *
- * Example: mod($variable,2)
+ * Example: mod(2, $variable)
  * This will return the mod 2 of $variable
  *
  * @param int      $what     modulo what
@@ -183,7 +183,7 @@ function pushStack($variable)
 }
 
 /**
- *Pull a mixed from the stack
+ *Pull a variable from the stack
  *
  * @param string $variable the variable where the pulled variable is put into
  *
@@ -308,3 +308,12 @@ function branch($branchTO)
 function moveFunction($branchTO)
 {
 }
+
+function setStackPointer()
+{}
+
+function addStackPointer()
+{}
+
+function getFuncLocation()
+{}

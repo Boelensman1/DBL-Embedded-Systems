@@ -1,0 +1,635 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"
+   "http://www.w3.org/TR/html4/strict.dtd">
+
+<html>
+<head>
+  <title></title>
+  <meta http-equiv="content-type" content="text/html; charset=None">
+  <style type="text/css">
+td.linenos { background-color: #f0f0f0; padding-right: 10px; }
+span.lineno { background-color: #f0f0f0; padding: 0 5px 0 5px; }
+pre { line-height: 125%; }
+body .hll { background-color: #ffffcc }
+body  { background: #f8f8f8; }
+body .c { color: #408080; font-style: italic } /* Comment */
+body .err { border: 1px solid #FF0000 } /* Error */
+body .k { color: #008000; font-weight: bold } /* Keyword */
+body .o { color: #666666 } /* Operator */
+body .cm { color: #408080; font-style: italic } /* Comment.Multiline */
+body .cp { color: #BC7A00 } /* Comment.Preproc */
+body .c1 { color: #408080; font-style: italic } /* Comment.Single */
+body .cs { color: #408080; font-style: italic } /* Comment.Special */
+body .gd { color: #A00000 } /* Generic.Deleted */
+body .ge { font-style: italic } /* Generic.Emph */
+body .gr { color: #FF0000 } /* Generic.Error */
+body .gh { color: #000080; font-weight: bold } /* Generic.Heading */
+body .gi { color: #00A000 } /* Generic.Inserted */
+body .go { color: #888888 } /* Generic.Output */
+body .gp { color: #000080; font-weight: bold } /* Generic.Prompt */
+body .gs { font-weight: bold } /* Generic.Strong */
+body .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+body .gt { color: #0044DD } /* Generic.Traceback */
+body .kc { color: #008000; font-weight: bold } /* Keyword.Constant */
+body .kd { color: #008000; font-weight: bold } /* Keyword.Declaration */
+body .kn { color: #008000; font-weight: bold } /* Keyword.Namespace */
+body .kp { color: #008000 } /* Keyword.Pseudo */
+body .kr { color: #008000; font-weight: bold } /* Keyword.Reserved */
+body .kt { color: #B00040 } /* Keyword.Type */
+body .m { color: #666666 } /* Literal.Number */
+body .s { color: #BA2121 } /* Literal.String */
+body .na { color: #7D9029 } /* Name.Attribute */
+body .nb { color: #008000 } /* Name.Builtin */
+body .nc { color: #0000FF; font-weight: bold } /* Name.Class */
+body .no { color: #880000 } /* Name.Constant */
+body .nd { color: #AA22FF } /* Name.Decorator */
+body .ni { color: #999999; font-weight: bold } /* Name.Entity */
+body .ne { color: #D2413A; font-weight: bold } /* Name.Exception */
+body .nf { color: #0000FF } /* Name.Function */
+body .nl { color: #A0A000 } /* Name.Label */
+body .nn { color: #0000FF; font-weight: bold } /* Name.Namespace */
+body .nt { color: #008000; font-weight: bold } /* Name.Tag */
+body .nv { color: #19177C } /* Name.Variable */
+body .ow { color: #AA22FF; font-weight: bold } /* Operator.Word */
+body .w { color: #bbbbbb } /* Text.Whitespace */
+body .mf { color: #666666 } /* Literal.Number.Float */
+body .mh { color: #666666 } /* Literal.Number.Hex */
+body .mi { color: #666666 } /* Literal.Number.Integer */
+body .mo { color: #666666 } /* Literal.Number.Oct */
+body .sb { color: #BA2121 } /* Literal.String.Backtick */
+body .sc { color: #BA2121 } /* Literal.String.Char */
+body .sd { color: #BA2121; font-style: italic } /* Literal.String.Doc */
+body .s2 { color: #BA2121 } /* Literal.String.Double */
+body .se { color: #BB6622; font-weight: bold } /* Literal.String.Escape */
+body .sh { color: #BA2121 } /* Literal.String.Heredoc */
+body .si { color: #BB6688; font-weight: bold } /* Literal.String.Interpol */
+body .sx { color: #008000 } /* Literal.String.Other */
+body .sr { color: #BB6688 } /* Literal.String.Regex */
+body .s1 { color: #BA2121 } /* Literal.String.Single */
+body .ss { color: #19177C } /* Literal.String.Symbol */
+body .bp { color: #008000 } /* Name.Builtin.Pseudo */
+body .vc { color: #19177C } /* Name.Variable.Class */
+body .vg { color: #19177C } /* Name.Variable.Global */
+body .vi { color: #19177C } /* Name.Variable.Instance */
+body .il { color: #666666 } /* Literal.Number.Integer.Long */
+
+  </style>
+</head>
+<body>
+<h2></h2>
+
+<div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%"><span style="background-color: #f0f0f0; padding: 0 5px 0 5px">  1</span> <span style="color: #408080; font-style: italic">/**</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">  2</span> <span style="color: #408080; font-style: italic"> * Sort of a simulation of the PP2 program</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">  3</span> <span style="color: #408080; font-style: italic"> * controlling the Fischer</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">  4</span> <span style="color: #408080; font-style: italic"> * Technik in order to sort black and white discs.</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">  5</span> <span style="color: #408080; font-style: italic"> *</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">  6</span> <span style="color: #408080; font-style: italic"> * @author Maarten Keet</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">  7</span> <span style="color: #408080; font-style: italic"> * @author Stefan van den Berg</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">  8</span> <span style="color: #408080; font-style: italic"> * @author Rolf Verschuuren</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">  9</span> <span style="color: #408080; font-style: italic"> * @author Wigger Boelens</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px"> 10</span> <span style="color: #408080; font-style: italic"> * @team Group 16</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px"> 11</span> <span style="color: #408080; font-style: italic"> * @since 13/3/2015</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px"> 12</span> <span style="color: #408080; font-style: italic"> */</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px"> 13</span> 
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px"> 14</span> 
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px"> 15</span> <span style="color: #008000; font-weight: bold">class</span> <span style="color: #0000FF; font-weight: bold">SoftwareDesign</span> <span style="color: #666666">{</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px"> 16</span>     <span style="color: #408080; font-style: italic">//**@CODE**</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px"> 17</span>     <span style="color: #408080; font-style: italic">//inputs</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px"> 18</span>     <span style="color: #B00040">int</span> $push<span style="color: #666666">,</span> $startStop<span style="color: #666666">,</span> $abort<span style="color: #666666">,</span> $position<span style="color: #666666">,</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px"> 19</span>             $colour<span style="color: #666666">;</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px"> 20</span> 
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px"> 21</span>     <span style="color: #408080; font-style: italic">//variables</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px"> 22</span>     <span style="color: #B00040">int</span> $state <span style="color: #666666">=</span> <span style="color: #666666">0;</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px"> 23</span>     <span style="color: #B00040">int</span> $sleep <span style="color: #666666">=</span> <span style="color: #666666">0;</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px"> 24</span>     <span style="color: #B00040">int</span> $temp <span style="color: #666666">=</span> <span style="color: #666666">0;</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px"> 25</span>     <span style="color: #B00040">int</span> $location<span style="color: #666666">;</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px"> 26</span>     <span style="color: #B00040">int</span> $counter <span style="color: #666666">=</span> <span style="color: #666666">0;</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px"> 27</span>     <span style="color: #B00040">int</span> $engines<span style="color: #666666">;</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px"> 28</span> 
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px"> 29</span> 
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px"> 30</span>     <span style="color: #408080; font-style: italic">//constants</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px"> 31</span>     <span style="color: #008000; font-weight: bold">final</span> <span style="color: #B00040">int</span> TIMEMOTORDOWN <span style="color: #666666">=</span> <span style="color: #666666">30;</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px"> 32</span>     <span style="color: #008000; font-weight: bold">final</span> <span style="color: #B00040">int</span> BELTROUND <span style="color: #666666">=</span> <span style="color: #666666">2000;</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px"> 33</span>     <span style="color: #008000; font-weight: bold">final</span> <span style="color: #B00040">int</span> BELT <span style="color: #666666">=</span> <span style="color: #666666">1200;</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px"> 34</span>     <span style="color: #008000; font-weight: bold">final</span> <span style="color: #B00040">int</span> SORT <span style="color: #666666">=</span> <span style="color: #666666">850;</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px"> 35</span>     <span style="color: #008000; font-weight: bold">final</span> <span style="color: #B00040">int</span> LENSLAMPPOSITION <span style="color: #666666">=</span> <span style="color: #666666">5,</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px"> 36</span>             LENSLAMPSORTER <span style="color: #666666">=</span> <span style="color: #666666">6,</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px"> 37</span>             HBRIDGE0 <span style="color: #666666">=</span> <span style="color: #666666">0,</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px"> 38</span>             HBRIDGE1 <span style="color: #666666">=</span> <span style="color: #666666">1,</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px"> 39</span>             CONVEYORBELT <span style="color: #666666">=</span> <span style="color: #666666">3,</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px"> 40</span>             FEEDERENGINE <span style="color: #666666">=</span> <span style="color: #666666">7,</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px"> 41</span>             DISPLAY <span style="color: #666666">=</span> <span style="color: #666666">8,</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px"> 42</span>             LEDSTATEINDICATOR <span style="color: #666666">=</span> <span style="color: #666666">9;</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px"> 43</span> 
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px"> 44</span>     <span style="color: #008000; font-weight: bold">public</span> <span style="color: #008000; font-weight: bold">static</span> <span style="color: #B00040">void</span> <span style="color: #0000FF">main</span><span style="color: #666666">(</span>String args<span style="color: #666666">[])</span> <span style="color: #666666">{</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px"> 45</span>         SoftwareDesign SoftwareDesign <span style="color: #666666">=</span> <span style="color: #008000; font-weight: bold">new</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px"> 46</span>                 SoftwareDesign<span style="color: #666666">();</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px"> 47</span> 
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px"> 48</span> 
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px"> 49</span>         <span style="color: #408080; font-style: italic">//values for the data segment</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px"> 50</span>         SoftwareDesign<span style="color: #666666">.</span><span style="color: #7D9029">initVar</span><span style="color: #666666">(</span><span style="color: #BA2121">&quot;outputs&quot;</span><span style="color: #666666">,</span> <span style="color: #666666">12);</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px"> 51</span>         SoftwareDesign<span style="color: #666666">.</span><span style="color: #7D9029">initVar</span><span style="color: #666666">(</span><span style="color: #BA2121">&quot;stackpointer&quot;</span><span style="color: #666666">,</span> <span style="color: #666666">1);</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px"> 52</span>         SoftwareDesign<span style="color: #666666">.</span><span style="color: #7D9029">initVar</span><span style="color: #666666">(</span><span style="color: #BA2121">&quot;offset&quot;</span><span style="color: #666666">,</span> <span style="color: #666666">1);</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px"> 53</span> 
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px"> 54</span>         <span style="color: #408080; font-style: italic">//store the offset of the programm,this</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px"> 55</span>         <span style="color: #408080; font-style: italic">// is used in the interrupt</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px"> 56</span>         SoftwareDesign<span style="color: #666666">.</span><span style="color: #7D9029">storeData</span><span style="color: #666666">(</span>startofthecode<span style="color: #666666">,</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px"> 57</span>                                  <span style="color: #BA2121">&quot;offset&quot;</span><span style="color: #666666">,</span> <span style="color: #666666">0);</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px"> 58</span> 
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px"> 59</span>         <span style="color: #408080; font-style: italic">//store the vlue of the stackpointer,so</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px"> 60</span>         <span style="color: #408080; font-style: italic">// we can clear the stack</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px"> 61</span>         <span style="color: #408080; font-style: italic">// easily</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px"> 62</span>         SoftwareDesign<span style="color: #666666">.</span><span style="color: #7D9029">storeData</span><span style="color: #666666">(</span>SP<span style="color: #666666">,</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px"> 63</span>                                  <span style="color: #BA2121">&quot;stackpointer&quot;</span><span style="color: #666666">,</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px"> 64</span>                                  <span style="color: #666666">0);</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px"> 65</span> 
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px"> 66</span>         $counter <span style="color: #666666">=</span> <span style="color: #666666">0;</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px"> 67</span> 
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px"> 68</span> 
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px"> 69</span>         <span style="color: #408080; font-style: italic">//reset outputs</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px"> 70</span>         SoftwareDesign<span style="color: #666666">.</span><span style="color: #7D9029">storeData</span><span style="color: #666666">(0,</span> <span style="color: #BA2121">&quot;outputs&quot;</span><span style="color: #666666">,</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px"> 71</span>                                  SoftwareDesign
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px"> 72</span>                                 <span style="color: #666666">.</span><span style="color: #7D9029">HBRIDGE1</span><span style="color: #666666">);</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px"> 73</span>         SoftwareDesign<span style="color: #666666">.</span><span style="color: #7D9029">storeData</span><span style="color: #666666">(0,</span> <span style="color: #BA2121">&quot;outputs&quot;</span><span style="color: #666666">,</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px"> 74</span>                                  SoftwareDesign
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px"> 75</span>                                 <span style="color: #666666">.</span><span style="color: #7D9029">LENSLAMPPOSITION</span><span style="color: #666666">);</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px"> 76</span>         SoftwareDesign<span style="color: #666666">.</span><span style="color: #7D9029">storeData</span><span style="color: #666666">(0,</span> <span style="color: #BA2121">&quot;outputs&quot;</span><span style="color: #666666">,</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px"> 77</span>                                  SoftwareDesign
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px"> 78</span>                                 <span style="color: #666666">.</span><span style="color: #7D9029">LENSLAMPSORTER</span><span style="color: #666666">);</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px"> 79</span>         SoftwareDesign<span style="color: #666666">.</span><span style="color: #7D9029">storeData</span><span style="color: #666666">(0,</span> <span style="color: #BA2121">&quot;outputs&quot;</span><span style="color: #666666">,</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px"> 80</span>                                  SoftwareDesign
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px"> 81</span>                                 <span style="color: #666666">.</span><span style="color: #7D9029">LEDSTATEINDICATOR</span><span style="color: #666666">);</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px"> 82</span>         SoftwareDesign<span style="color: #666666">.</span><span style="color: #7D9029">storeData</span><span style="color: #666666">(0,</span> <span style="color: #BA2121">&quot;outputs&quot;</span><span style="color: #666666">,</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px"> 83</span>                                  SoftwareDesign
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px"> 84</span>                                 <span style="color: #666666">.</span><span style="color: #7D9029">DISPLAY</span><span style="color: #666666">);</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px"> 85</span>         SoftwareDesign<span style="color: #666666">.</span><span style="color: #7D9029">storeData</span><span style="color: #666666">(0,</span> <span style="color: #BA2121">&quot;outputs&quot;</span><span style="color: #666666">,</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px"> 86</span>                                  SoftwareDesign
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px"> 87</span>                                 <span style="color: #666666">.</span><span style="color: #7D9029">CONVEYORBELT</span><span style="color: #666666">);</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px"> 88</span>         SoftwareDesign<span style="color: #666666">.</span><span style="color: #7D9029">storeData</span><span style="color: #666666">(0,</span> <span style="color: #BA2121">&quot;outputs&quot;</span><span style="color: #666666">,</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px"> 89</span>                                  SoftwareDesign
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px"> 90</span>                                 <span style="color: #666666">.</span><span style="color: #7D9029">FEEDERENGINE</span><span style="color: #666666">);</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px"> 91</span> 
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px"> 92</span>         <span style="color: #408080; font-style: italic">//start moving the sorter up</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px"> 93</span>         SoftwareDesign<span style="color: #666666">.</span><span style="color: #7D9029">storeData</span><span style="color: #666666">(9,</span> <span style="color: #BA2121">&quot;outputs&quot;</span><span style="color: #666666">,</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px"> 94</span>                                  SoftwareDesign
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px"> 95</span>                                          <span style="color: #666666">.</span><span style="color: #7D9029">HBRIDGE0</span><span style="color: #666666">);</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px"> 96</span> 
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px"> 97</span>         <span style="color: #408080; font-style: italic">//go to the first state and set the</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px"> 98</span>         <span style="color: #408080; font-style: italic">// value for the display</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px"> 99</span>         SoftwareDesign<span style="color: #666666">.</span>$state <span style="color: #666666">=</span> <span style="color: #666666">0;</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">100</span>         SoftwareDesign<span style="color: #666666">.</span><span style="color: #7D9029">initial</span><span style="color: #666666">();</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">101</span>     <span style="color: #666666">}</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">102</span> 
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">103</span>     <span style="color: #408080; font-style: italic">//state0</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">104</span>     <span style="color: #B00040">void</span> <span style="color: #0000FF">initial</span><span style="color: #666666">()</span> <span style="color: #666666">{</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">105</span>         setStackPointer<span style="color: #666666">(</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">106</span>                 getData<span style="color: #666666">(</span><span style="color: #BA2121">&quot;stackpointer&quot;</span><span style="color: #666666">,</span> <span style="color: #666666">0));</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">107</span>         timerManage<span style="color: #666666">();</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">108</span>         <span style="color: #408080; font-style: italic">//check if the sorter push button is</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">109</span>         <span style="color: #408080; font-style: italic">// pressed</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">110</span>         $push <span style="color: #666666">=</span> getButtonPressed<span style="color: #666666">(5);</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">111</span>         <span style="color: #008000; font-weight: bold">if</span> <span style="color: #666666">(</span>$push <span style="color: #666666">==</span> <span style="color: #666666">1)</span> <span style="color: #666666">{</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">112</span>             <span style="color: #408080; font-style: italic">//move the sorter down</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">113</span>             storeData<span style="color: #666666">(0,</span> <span style="color: #BA2121">&quot;outputs&quot;</span><span style="color: #666666">,</span> HBRIDGE0<span style="color: #666666">);</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">114</span>             storeData<span style="color: #666666">(9,</span> <span style="color: #BA2121">&quot;outputs&quot;</span><span style="color: #666666">,</span> HBRIDGE1<span style="color: #666666">);</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">115</span>             <span style="color: #408080; font-style: italic">//update the state</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">116</span>             $state <span style="color: #666666">=</span> <span style="color: #666666">1;</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">117</span>             <span style="color: #408080; font-style: italic">//reset sleep for the next function</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">118</span>             $sleep <span style="color: #666666">=</span> <span style="color: #666666">0;</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">119</span>             calibrateSorter<span style="color: #666666">();</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">120</span> 
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">121</span>         <span style="color: #666666">}</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">122</span>         <span style="color: #408080; font-style: italic">//loop</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">123</span>         initial<span style="color: #666666">();</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">124</span>     <span style="color: #666666">}</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">125</span> 
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">126</span>     <span style="color: #408080; font-style: italic">//state 1</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">127</span>     <span style="color: #B00040">void</span> <span style="color: #0000FF">calibrateSorter</span><span style="color: #666666">()</span> <span style="color: #666666">{</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">128</span>         timerManage<span style="color: #666666">();</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">129</span>         <span style="color: #408080; font-style: italic">//the sorter is now moving down, </span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">130</span>         <span style="color: #408080; font-style: italic">//and we&#39;re waitng for it to reach the</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">131</span>         <span style="color: #408080; font-style: italic">// bottom</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">132</span>         <span style="color: #008000; font-weight: bold">if</span> <span style="color: #666666">(</span>$sleep <span style="color: #666666">==</span> TIMEMOTORDOWN <span style="color: #666666">*</span> <span style="color: #666666">1000)</span> <span style="color: #666666">{</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">133</span>             <span style="color: #408080; font-style: italic">//stop the sorter</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">134</span>             storeData<span style="color: #666666">(0,</span> <span style="color: #BA2121">&quot;outputs&quot;</span><span style="color: #666666">,</span> HBRIDGE1<span style="color: #666666">);</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">135</span>             <span style="color: #408080; font-style: italic">//update the state</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">136</span>             $state <span style="color: #666666">=</span> <span style="color: #666666">2;</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">137</span>             <span style="color: #408080; font-style: italic">//reset sleep</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">138</span>             $sleep <span style="color: #666666">=</span> <span style="color: #666666">0;</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">139</span>             resting<span style="color: #666666">();</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">140</span>         <span style="color: #666666">}</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">141</span>         <span style="color: #408080; font-style: italic">//loop</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">142</span>         $sleep<span style="color: #666666">++;</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">143</span>         calibrateSorter<span style="color: #666666">();</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">144</span>     <span style="color: #666666">}</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">145</span> 
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">146</span>     <span style="color: #408080; font-style: italic">//state 2</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">147</span>     <span style="color: #B00040">void</span> <span style="color: #0000FF">resting</span><span style="color: #666666">()</span> <span style="color: #666666">{</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">148</span>         timerManage<span style="color: #666666">();</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">149</span>         <span style="color: #408080; font-style: italic">//the program waits for the user to</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">150</span>         <span style="color: #408080; font-style: italic">// press the start/stop</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">151</span>         $startStop <span style="color: #666666">=</span> getButtonPressed<span style="color: #666666">(0);</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">152</span>         <span style="color: #008000; font-weight: bold">if</span> <span style="color: #666666">(</span>$startStop <span style="color: #666666">==</span> <span style="color: #666666">1)</span> <span style="color: #666666">{</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">153</span>             <span style="color: #408080; font-style: italic">//sleep so we don&#39;t go to the pause</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">154</span>             <span style="color: #408080; font-style: italic">// immediatly</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">155</span>             sleep<span style="color: #666666">(2000);</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">156</span>             <span style="color: #408080; font-style: italic">//power up the lights</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">157</span>             storeData<span style="color: #666666">(12,</span> <span style="color: #BA2121">&quot;outputs&quot;</span><span style="color: #666666">,</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">158</span>                       LENSLAMPPOSITION<span style="color: #666666">);</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">159</span>             storeData<span style="color: #666666">(12,</span> <span style="color: #BA2121">&quot;outputs&quot;</span><span style="color: #666666">,</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">160</span>                       LENSLAMPSORTER<span style="color: #666666">);</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">161</span>             <span style="color: #408080; font-style: italic">//start up the belt and the feeder</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">162</span>             storeData<span style="color: #666666">(9,</span> <span style="color: #BA2121">&quot;outputs&quot;</span><span style="color: #666666">,</span> CONVEYORBELT<span style="color: #666666">);</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">163</span>             storeData<span style="color: #666666">(5,</span> <span style="color: #BA2121">&quot;outputs&quot;</span><span style="color: #666666">,</span> FEEDERENGINE<span style="color: #666666">);</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">164</span>             <span style="color: #408080; font-style: italic">//set and start the countdown </span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">165</span>             setCountdown<span style="color: #666666">(</span>BELTROUND <span style="color: #666666">+</span> BELT<span style="color: #666666">);</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">166</span>             startCountdown<span style="color: #666666">();</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">167</span>             <span style="color: #408080; font-style: italic">//update the state</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">168</span>             $state <span style="color: #666666">=</span> <span style="color: #666666">3;</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">169</span>             running<span style="color: #666666">();</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">170</span>         <span style="color: #666666">}</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">171</span>         <span style="color: #408080; font-style: italic">//loop</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">172</span>         resting<span style="color: #666666">();</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">173</span>     <span style="color: #666666">}</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">174</span> 
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">175</span>     <span style="color: #408080; font-style: italic">//state 3</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">176</span>     <span style="color: #B00040">void</span> <span style="color: #0000FF">running</span><span style="color: #666666">()</span> <span style="color: #666666">{</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">177</span>         timerManage<span style="color: #666666">();</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">178</span>         <span style="color: #408080; font-style: italic">//check if we need to pause</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">179</span>         $startStop <span style="color: #666666">=</span> getButtonPressed<span style="color: #666666">(0);</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">180</span>         <span style="color: #008000; font-weight: bold">if</span> <span style="color: #666666">(</span>$startStop <span style="color: #666666">==</span> <span style="color: #666666">1)</span> <span style="color: #666666">{</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">181</span>             <span style="color: #408080; font-style: italic">//stop the feeder engine</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">182</span>             storeData<span style="color: #666666">(0,</span> <span style="color: #BA2121">&quot;outputs&quot;</span><span style="color: #666666">,</span> FEEDERENGINE<span style="color: #666666">);</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">183</span>             <span style="color: #408080; font-style: italic">//set the timer</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">184</span>             setCountdown<span style="color: #666666">(</span>BELT<span style="color: #666666">);</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">185</span>             <span style="color: #408080; font-style: italic">//update the state</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">186</span>             $state <span style="color: #666666">=</span> <span style="color: #666666">9;</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">187</span>             runningTimer<span style="color: #666666">();</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">188</span>         <span style="color: #666666">}</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">189</span>         <span style="color: #408080; font-style: italic">//check if a disk is at the position</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">190</span>         <span style="color: #408080; font-style: italic">// detector</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">191</span>         $position <span style="color: #666666">=</span> getButtonPressed<span style="color: #666666">(7);</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">192</span>         <span style="color: #008000; font-weight: bold">if</span> <span style="color: #666666">(</span>$position <span style="color: #666666">==</span> <span style="color: #666666">1)</span> <span style="color: #666666">{</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">193</span>             <span style="color: #408080; font-style: italic">//reset the countdown,because a</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">194</span>             <span style="color: #408080; font-style: italic">// disk was detected</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">195</span>             setCountdown<span style="color: #666666">(</span>BELTROUND <span style="color: #666666">+</span> BELT<span style="color: #666666">);</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">196</span>             <span style="color: #408080; font-style: italic">//update the state</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">197</span>             $state <span style="color: #666666">=</span> <span style="color: #666666">4;</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">198</span>             runningWait<span style="color: #666666">();</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">199</span>         <span style="color: #666666">}</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">200</span>         <span style="color: #408080; font-style: italic">//loop</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">201</span>         running<span style="color: #666666">();</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">202</span>     <span style="color: #666666">}</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">203</span> 
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">204</span>     <span style="color: #B00040">void</span> <span style="color: #0000FF">runningWait</span><span style="color: #666666">()</span> <span style="color: #666666">{</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">205</span>         timerManage<span style="color: #666666">();</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">206</span>         <span style="color: #408080; font-style: italic">//check if we need to pause</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">207</span>         $startStop <span style="color: #666666">=</span> getButtonPressed<span style="color: #666666">(0);</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">208</span>         <span style="color: #008000; font-weight: bold">if</span> <span style="color: #666666">(</span>$startStop <span style="color: #666666">==</span> <span style="color: #666666">1)</span> <span style="color: #666666">{</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">209</span>             <span style="color: #408080; font-style: italic">//stop the feeder engine</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">210</span>             storeData<span style="color: #666666">(0,</span> <span style="color: #BA2121">&quot;outputs&quot;</span><span style="color: #666666">,</span> FEEDERENGINE<span style="color: #666666">);</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">211</span>             <span style="color: #408080; font-style: italic">//set the timer</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">212</span>             setCountdown<span style="color: #666666">(</span>BELT<span style="color: #666666">);</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">213</span>             <span style="color: #408080; font-style: italic">//update the state</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">214</span>             $state <span style="color: #666666">=</span> <span style="color: #666666">9;</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">215</span>             runningTimer<span style="color: #666666">();</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">216</span>         <span style="color: #666666">}</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">217</span>         <span style="color: #408080; font-style: italic">//check if a disk is at the positiond</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">218</span>         <span style="color: #408080; font-style: italic">// detector</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">219</span>         $position <span style="color: #666666">=</span> getButtonPressed<span style="color: #666666">(7);</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">220</span>         <span style="color: #008000; font-weight: bold">if</span> <span style="color: #666666">(</span>$position <span style="color: #666666">==</span> <span style="color: #666666">1)</span> <span style="color: #666666">{</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">221</span>             <span style="color: #408080; font-style: italic">//reset the countdown,because a</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">222</span>             <span style="color: #408080; font-style: italic">// disk was detected</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">223</span>             setCountdown<span style="color: #666666">(</span>BELTROUND <span style="color: #666666">+</span> BELT<span style="color: #666666">);</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">224</span>             <span style="color: #408080; font-style: italic">//update the state</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">225</span>             $state <span style="color: #666666">=</span> <span style="color: #666666">5;</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">226</span>             runningTimerReset<span style="color: #666666">();</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">227</span>         <span style="color: #666666">}</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">228</span>         <span style="color: #408080; font-style: italic">//check if a white disk is at the color</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">229</span>         <span style="color: #408080; font-style: italic">// detector</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">230</span>         $colour <span style="color: #666666">=</span> getButtonPressed<span style="color: #666666">(6);</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">231</span>         <span style="color: #008000; font-weight: bold">if</span> <span style="color: #666666">(</span>$colour <span style="color: #666666">==</span> <span style="color: #666666">1)</span> <span style="color: #666666">{</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">232</span>             <span style="color: #408080; font-style: italic">//move the sorter up</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">233</span>             storeData<span style="color: #666666">(9,</span> <span style="color: #BA2121">&quot;outputs&quot;</span><span style="color: #666666">,</span> HBRIDGE0<span style="color: #666666">);</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">234</span>             <span style="color: #408080; font-style: italic">//update the state</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">235</span>             $state <span style="color: #666666">=</span> <span style="color: #666666">6;</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">236</span>             motorUp<span style="color: #666666">();</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">237</span>         <span style="color: #666666">}</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">238</span>         <span style="color: #408080; font-style: italic">//loop</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">239</span>         runningWait<span style="color: #666666">();</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">240</span>     <span style="color: #666666">}</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">241</span> 
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">242</span>     <span style="color: #408080; font-style: italic">//state 5</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">243</span>     <span style="color: #B00040">void</span> <span style="color: #0000FF">runningTimerReset</span><span style="color: #666666">()</span> <span style="color: #666666">{</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">244</span>         timerManage<span style="color: #666666">();</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">245</span>         <span style="color: #408080; font-style: italic">//update the state</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">246</span>         $state <span style="color: #666666">=</span> <span style="color: #666666">5;</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">247</span>         runningWait<span style="color: #666666">();</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">248</span>     <span style="color: #666666">}</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">249</span> 
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">250</span>     <span style="color: #408080; font-style: italic">//state 6</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">251</span>     <span style="color: #B00040">void</span> <span style="color: #0000FF">motorUp</span><span style="color: #666666">()</span> <span style="color: #666666">{</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">252</span>         timerManage<span style="color: #666666">();</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">253</span>         <span style="color: #408080; font-style: italic">//check if we need to pause</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">254</span>         $startStop <span style="color: #666666">=</span> getButtonPressed<span style="color: #666666">(0);</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">255</span>         <span style="color: #008000; font-weight: bold">if</span> <span style="color: #666666">(</span>$startStop <span style="color: #666666">==</span> <span style="color: #666666">1)</span> <span style="color: #666666">{</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">256</span>             <span style="color: #408080; font-style: italic">//stop the feeder engine</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">257</span>             storeData<span style="color: #666666">(0,</span> <span style="color: #BA2121">&quot;outputs&quot;</span><span style="color: #666666">,</span> FEEDERENGINE<span style="color: #666666">);</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">258</span>             <span style="color: #408080; font-style: italic">//set the timer </span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">259</span>             setCountdown<span style="color: #666666">(</span>BELT<span style="color: #666666">);</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">260</span>             motorUpTimer<span style="color: #666666">();</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">261</span>         <span style="color: #666666">}</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">262</span>         <span style="color: #408080; font-style: italic">//check if the sorter push button is</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">263</span>         <span style="color: #408080; font-style: italic">// pressed</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">264</span>         $push <span style="color: #666666">=</span> getButtonPressed<span style="color: #666666">(5);</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">265</span>         <span style="color: #008000; font-weight: bold">if</span> <span style="color: #666666">(</span>$push <span style="color: #666666">==</span> <span style="color: #666666">1)</span> <span style="color: #666666">{</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">266</span>             <span style="color: #408080; font-style: italic">//stop the engine,because it is in</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">267</span>             <span style="color: #408080; font-style: italic">// the right position</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">268</span>             storeData<span style="color: #666666">(0,</span> <span style="color: #BA2121">&quot;outputs&quot;</span><span style="color: #666666">,</span> HBRIDGE0<span style="color: #666666">);</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">269</span>             <span style="color: #408080; font-style: italic">//update the state</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">270</span>             $state <span style="color: #666666">=</span> <span style="color: #666666">7;</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">271</span>             whiteWait<span style="color: #666666">();</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">272</span>         <span style="color: #666666">}</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">273</span>         <span style="color: #408080; font-style: italic">//loop</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">274</span>         motorUp<span style="color: #666666">();</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">275</span>     <span style="color: #666666">}</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">276</span> 
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">277</span>     <span style="color: #408080; font-style: italic">//state 7</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">278</span>     <span style="color: #B00040">void</span> <span style="color: #0000FF">whiteWait</span><span style="color: #666666">()</span> <span style="color: #666666">{</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">279</span>         timerManage<span style="color: #666666">();</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">280</span>         <span style="color: #408080; font-style: italic">//we are waiting for the white disk to</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">281</span>         <span style="color: #408080; font-style: italic">// be sorted</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">282</span>         <span style="color: #008000; font-weight: bold">if</span> <span style="color: #666666">(</span>$sleep <span style="color: #666666">==</span> SORT <span style="color: #666666">*</span> <span style="color: #666666">1000)</span> <span style="color: #666666">{</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">283</span>             <span style="color: #408080; font-style: italic">//start moving the sorter down</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">284</span>             storeData<span style="color: #666666">(9,</span> <span style="color: #BA2121">&quot;outputs&quot;</span><span style="color: #666666">,</span> HBRIDGE1<span style="color: #666666">);</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">285</span>             <span style="color: #408080; font-style: italic">//update the state</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">286</span>             $state <span style="color: #666666">=</span> <span style="color: #666666">8;</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">287</span>             <span style="color: #408080; font-style: italic">//reset sleep for the next function</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">288</span>             $sleep <span style="color: #666666">=</span> <span style="color: #666666">0;</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">289</span>             motorDown<span style="color: #666666">();</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">290</span> 
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">291</span>         <span style="color: #666666">}</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">292</span>         <span style="color: #408080; font-style: italic">//check if we need to pause</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">293</span>         $startStop <span style="color: #666666">=</span> getButtonPressed<span style="color: #666666">(0);</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">294</span>         <span style="color: #008000; font-weight: bold">if</span> <span style="color: #666666">(</span>$startStop <span style="color: #666666">==</span> <span style="color: #666666">1)</span> <span style="color: #666666">{</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">295</span>             <span style="color: #408080; font-style: italic">//stop the feeder engine</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">296</span>             storeData<span style="color: #666666">(0,</span> <span style="color: #BA2121">&quot;outputs&quot;</span><span style="color: #666666">,</span> FEEDERENGINE<span style="color: #666666">);</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">297</span>             <span style="color: #408080; font-style: italic">//set the timer</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">298</span>             setCountdown<span style="color: #666666">(</span>BELT<span style="color: #666666">);</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">299</span>             <span style="color: #408080; font-style: italic">//update the state</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">300</span>             $state <span style="color: #666666">=</span> <span style="color: #666666">11;</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">301</span>             whiteWaitTimer<span style="color: #666666">();</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">302</span>         <span style="color: #666666">}</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">303</span>         <span style="color: #408080; font-style: italic">//loop</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">304</span>         $sleep<span style="color: #666666">++;</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">305</span>         whiteWait<span style="color: #666666">();</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">306</span>     <span style="color: #666666">}</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">307</span> 
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">308</span>     <span style="color: #408080; font-style: italic">//state 8</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">309</span>     <span style="color: #B00040">void</span> <span style="color: #0000FF">motorDown</span><span style="color: #666666">()</span> <span style="color: #666666">{</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">310</span>         timerManage<span style="color: #666666">();</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">311</span>         <span style="color: #408080; font-style: italic">//the sorter is moving down</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">312</span>         <span style="color: #008000; font-weight: bold">if</span> <span style="color: #666666">(</span>$sleep <span style="color: #666666">==</span> TIMEMOTORDOWN <span style="color: #666666">*</span> <span style="color: #666666">1000)</span> <span style="color: #666666">{</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">313</span>             <span style="color: #408080; font-style: italic">//stop the sorter</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">314</span>             storeData<span style="color: #666666">(0,</span> <span style="color: #BA2121">&quot;outputs&quot;</span><span style="color: #666666">,</span> HBRIDGE1<span style="color: #666666">);</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">315</span>             <span style="color: #408080; font-style: italic">//update the state</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">316</span>             $state <span style="color: #666666">=</span> <span style="color: #666666">9;</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">317</span>             <span style="color: #408080; font-style: italic">//reset sleep for the next function</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">318</span>             $sleep <span style="color: #666666">=</span> <span style="color: #666666">0;</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">319</span>             runningWait<span style="color: #666666">();</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">320</span>         <span style="color: #666666">}</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">321</span>         <span style="color: #408080; font-style: italic">//check if we need to pause</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">322</span>         $startStop <span style="color: #666666">=</span> getButtonPressed<span style="color: #666666">(0);</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">323</span>         <span style="color: #008000; font-weight: bold">if</span> <span style="color: #666666">(</span>$startStop <span style="color: #666666">==</span> <span style="color: #666666">1)</span> <span style="color: #666666">{</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">324</span>             <span style="color: #408080; font-style: italic">//stop the feeder engine</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">325</span>             storeData<span style="color: #666666">(0,</span> <span style="color: #BA2121">&quot;outputs&quot;</span><span style="color: #666666">,</span> FEEDERENGINE<span style="color: #666666">);</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">326</span>             <span style="color: #408080; font-style: italic">//set the timer</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">327</span>             setCountdown<span style="color: #666666">(</span>BELT<span style="color: #666666">);</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">328</span>             motorDownTimer<span style="color: #666666">();</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">329</span>         <span style="color: #666666">}</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">330</span>         <span style="color: #408080; font-style: italic">//loop</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">331</span>         $sleep<span style="color: #666666">++;</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">332</span>         motorDown<span style="color: #666666">();</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">333</span> 
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">334</span>     <span style="color: #666666">}</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">335</span> 
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">336</span>     <span style="color: #408080; font-style: italic">//state 9</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">337</span>     <span style="color: #B00040">void</span> <span style="color: #0000FF">runningTimer</span><span style="color: #666666">()</span> <span style="color: #666666">{</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">338</span>         timerManage<span style="color: #666666">();</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">339</span>         <span style="color: #408080; font-style: italic">//update state</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">340</span>         $state <span style="color: #666666">=</span> <span style="color: #666666">13;</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">341</span>         runningStop<span style="color: #666666">();</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">342</span>     <span style="color: #666666">}</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">343</span> 
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">344</span>     <span style="color: #408080; font-style: italic">//state 10</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">345</span>     <span style="color: #B00040">void</span> <span style="color: #0000FF">motorUpTimer</span><span style="color: #666666">()</span> <span style="color: #666666">{</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">346</span>         timerManage<span style="color: #666666">();</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">347</span>         <span style="color: #408080; font-style: italic">//update state</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">348</span>         $state <span style="color: #666666">=</span> <span style="color: #666666">14;</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">349</span>         motorUpStop<span style="color: #666666">();</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">350</span>     <span style="color: #666666">}</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">351</span> 
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">352</span>     <span style="color: #408080; font-style: italic">//state 11</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">353</span>     <span style="color: #B00040">void</span> <span style="color: #0000FF">whiteWaitTimer</span><span style="color: #666666">()</span> <span style="color: #666666">{</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">354</span>         timerManage<span style="color: #666666">();</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">355</span>         <span style="color: #408080; font-style: italic">//update state</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">356</span>         $state <span style="color: #666666">=</span> <span style="color: #666666">15;</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">357</span>         whiteWaitStop<span style="color: #666666">();</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">358</span>     <span style="color: #666666">}</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">359</span> 
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">360</span>     <span style="color: #408080; font-style: italic">//state 12</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">361</span>     <span style="color: #B00040">void</span> <span style="color: #0000FF">motorDownTimer</span><span style="color: #666666">()</span> <span style="color: #666666">{</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">362</span>         timerManage<span style="color: #666666">();</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">363</span>         <span style="color: #408080; font-style: italic">//update state</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">364</span>         $state <span style="color: #666666">=</span> <span style="color: #666666">16;</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">365</span>         motorDownStop<span style="color: #666666">();</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">366</span>     <span style="color: #666666">}</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">367</span> 
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">368</span>     <span style="color: #408080; font-style: italic">//state 13</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">369</span>     <span style="color: #B00040">void</span> <span style="color: #0000FF">runningStop</span><span style="color: #666666">()</span> <span style="color: #666666">{</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">370</span>         timerManage<span style="color: #666666">();</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">371</span>         <span style="color: #408080; font-style: italic">//check if a white disk is at the</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">372</span>         <span style="color: #408080; font-style: italic">// colour detector</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">373</span>         $colour <span style="color: #666666">=</span> getButtonPressed<span style="color: #666666">(6);</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">374</span>         <span style="color: #008000; font-weight: bold">if</span> <span style="color: #666666">(</span>$colour <span style="color: #666666">==</span> <span style="color: #666666">1)</span> <span style="color: #666666">{</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">375</span>             <span style="color: #408080; font-style: italic">//move the sorter engine up</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">376</span>             storeData<span style="color: #666666">(9,</span> <span style="color: #BA2121">&quot;outputs&quot;</span><span style="color: #666666">,</span> HBRIDGE0<span style="color: #666666">);</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">377</span>             <span style="color: #408080; font-style: italic">//update the state</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">378</span>             $state <span style="color: #666666">=</span> <span style="color: #666666">10;</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">379</span>             motorUpStop<span style="color: #666666">();</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">380</span>         <span style="color: #666666">}</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">381</span>         <span style="color: #408080; font-style: italic">//loop</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">382</span>         runningStop<span style="color: #666666">();</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">383</span>     <span style="color: #666666">}</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">384</span> 
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">385</span>     <span style="color: #408080; font-style: italic">//state 14</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">386</span>     <span style="color: #B00040">void</span> <span style="color: #0000FF">motorUpStop</span><span style="color: #666666">()</span> <span style="color: #666666">{</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">387</span>         timerManage<span style="color: #666666">();</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">388</span>         <span style="color: #408080; font-style: italic">//check if the sorter push button is</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">389</span>         <span style="color: #408080; font-style: italic">// pressed</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">390</span>         $push <span style="color: #666666">=</span> getButtonPressed<span style="color: #666666">(5);</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">391</span>         <span style="color: #008000; font-weight: bold">if</span> <span style="color: #666666">(</span>$push <span style="color: #666666">==</span> <span style="color: #666666">1)</span> <span style="color: #666666">{</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">392</span>             <span style="color: #408080; font-style: italic">//stop the engien for the sorter</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">393</span>             storeData<span style="color: #666666">(0,</span> <span style="color: #BA2121">&quot;outputs&quot;</span><span style="color: #666666">,</span> HBRIDGE0<span style="color: #666666">);</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">394</span>             <span style="color: #408080; font-style: italic">//update the state</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">395</span>             $state <span style="color: #666666">=</span> <span style="color: #666666">11;</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">396</span>             whiteWaitStop<span style="color: #666666">();</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">397</span>         <span style="color: #666666">}</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">398</span>         motorUpStop<span style="color: #666666">();</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">399</span>     <span style="color: #666666">}</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">400</span> 
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">401</span>     <span style="color: #408080; font-style: italic">//state 15</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">402</span>     <span style="color: #B00040">void</span> <span style="color: #0000FF">whiteWaitStop</span><span style="color: #666666">()</span> <span style="color: #666666">{</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">403</span>         timerManage<span style="color: #666666">();</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">404</span>         <span style="color: #408080; font-style: italic">//check if the white disk has been sorted</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">405</span>         <span style="color: #008000; font-weight: bold">if</span> <span style="color: #666666">(</span>$sleep <span style="color: #666666">==</span> SORT <span style="color: #666666">*</span> <span style="color: #666666">1000)</span> <span style="color: #666666">{</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">406</span>             <span style="color: #408080; font-style: italic">//start moving the sorter down</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">407</span>             storeData<span style="color: #666666">(9,</span> <span style="color: #BA2121">&quot;outputs&quot;</span><span style="color: #666666">,</span> HBRIDGE1<span style="color: #666666">);</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">408</span>             <span style="color: #408080; font-style: italic">//update the state</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">409</span>             $state <span style="color: #666666">=</span> <span style="color: #666666">12;</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">410</span>             <span style="color: #408080; font-style: italic">//reset the sleep for the next</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">411</span>             <span style="color: #408080; font-style: italic">// function</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">412</span>             $sleep <span style="color: #666666">=</span> <span style="color: #666666">0;</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">413</span>             motorDown<span style="color: #666666">();</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">414</span>         <span style="color: #666666">}</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">415</span>         <span style="color: #408080; font-style: italic">//loop</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">416</span>         $sleep<span style="color: #666666">++;</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">417</span>         whiteWaitStop<span style="color: #666666">();</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">418</span>     <span style="color: #666666">}</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">419</span> 
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">420</span>     <span style="color: #408080; font-style: italic">//state 16</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">421</span>     <span style="color: #B00040">void</span> <span style="color: #0000FF">motorDownStop</span><span style="color: #666666">()</span> <span style="color: #666666">{</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">422</span>         timerManage<span style="color: #666666">();</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">423</span>         <span style="color: #408080; font-style: italic">//check if the sorter has moved down</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">424</span>         <span style="color: #008000; font-weight: bold">if</span> <span style="color: #666666">(</span>$sleep <span style="color: #666666">==</span> TIMEMOTORDOWN<span style="color: #666666">)</span> <span style="color: #666666">{</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">425</span>             <span style="color: #408080; font-style: italic">//stop the engine of the sorter</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">426</span>             storeData<span style="color: #666666">(0,</span> <span style="color: #BA2121">&quot;outputs&quot;</span><span style="color: #666666">,</span> HBRIDGE1<span style="color: #666666">);</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">427</span>             <span style="color: #408080; font-style: italic">//update the state</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">428</span>             $state <span style="color: #666666">=</span> <span style="color: #666666">9;</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">429</span>             <span style="color: #408080; font-style: italic">//reset sleep for the next function</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">430</span>             $sleep <span style="color: #666666">=</span> <span style="color: #666666">0;</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">431</span>             runningWait<span style="color: #666666">();</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">432</span>         <span style="color: #666666">}</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">433</span>         <span style="color: #408080; font-style: italic">//loop</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">434</span>         $sleep<span style="color: #666666">++;</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">435</span>         motorDownStop<span style="color: #666666">();</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">436</span>     <span style="color: #666666">}</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">437</span> 
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">438</span>     <span style="color: #408080; font-style: italic">//not a state </span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">439</span>     <span style="color: #B00040">void</span> <span style="color: #0000FF">timerInterrupt</span><span style="color: #666666">()</span> <span style="color: #666666">{</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">440</span>         <span style="color: #408080; font-style: italic">//show that we have timer interrupt</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">441</span>         $state <span style="color: #666666">=</span> <span style="color: #666666">18;</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">442</span>         <span style="color: #408080; font-style: italic">//make the sorter move up</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">443</span>         storeData<span style="color: #666666">(9,</span> <span style="color: #BA2121">&quot;outputs&quot;</span><span style="color: #666666">,</span> HBRIDGE0<span style="color: #666666">);</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">444</span>         <span style="color: #408080; font-style: italic">//stop all other outputs</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">445</span>         storeData<span style="color: #666666">(0,</span> <span style="color: #BA2121">&quot;outputs&quot;</span><span style="color: #666666">,</span> HBRIDGE1<span style="color: #666666">);</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">446</span>         storeData<span style="color: #666666">(0,</span> <span style="color: #BA2121">&quot;outputs&quot;</span><span style="color: #666666">,</span> LENSLAMPPOSITION<span style="color: #666666">);</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">447</span>         storeData<span style="color: #666666">(0,</span> <span style="color: #BA2121">&quot;outputs&quot;</span><span style="color: #666666">,</span> LENSLAMPSORTER<span style="color: #666666">);</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">448</span>         storeData<span style="color: #666666">(0,</span> <span style="color: #BA2121">&quot;outputs&quot;</span><span style="color: #666666">,</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">449</span>                   LEDSTATEINDICATOR<span style="color: #666666">);</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">450</span>         storeData<span style="color: #666666">(0,</span> <span style="color: #BA2121">&quot;outputs&quot;</span><span style="color: #666666">,</span> DISPLAY<span style="color: #666666">);</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">451</span>         storeData<span style="color: #666666">(0,</span> <span style="color: #BA2121">&quot;outputs&quot;</span><span style="color: #666666">,</span> CONVEYORBELT<span style="color: #666666">);</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">452</span>         storeData<span style="color: #666666">(0,</span> <span style="color: #BA2121">&quot;outputs&quot;</span><span style="color: #666666">,</span> FEEDERENGINE<span style="color: #666666">);</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">453</span>         <span style="color: #408080; font-style: italic">//make sure that the outputs get set</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">454</span>         <span style="color: #408080; font-style: italic">// immediatly</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">455</span>         timerManage<span style="color: #666666">();</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">456</span>         <span style="color: #408080; font-style: italic">//set the display to the state of initial</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">457</span>         $state <span style="color: #666666">=</span> <span style="color: #666666">0;</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">458</span> 
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">459</span>         initial<span style="color: #666666">();</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">460</span> 
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">461</span>     <span style="color: #666666">}</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">462</span> 
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">463</span>     <span style="color: #B00040">void</span> <span style="color: #0000FF">abort</span><span style="color: #666666">()</span> <span style="color: #666666">{</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">464</span>         <span style="color: #408080; font-style: italic">//stop all outputs</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">465</span>         storeData<span style="color: #666666">(0,</span> <span style="color: #BA2121">&quot;outputs&quot;</span><span style="color: #666666">,</span> HBRIDGE0<span style="color: #666666">);</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">466</span>         storeData<span style="color: #666666">(0,</span> <span style="color: #BA2121">&quot;outputs&quot;</span><span style="color: #666666">,</span> HBRIDGE1<span style="color: #666666">);</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">467</span>         storeData<span style="color: #666666">(0,</span> <span style="color: #BA2121">&quot;outputs&quot;</span><span style="color: #666666">,</span> LENSLAMPPOSITION<span style="color: #666666">);</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">468</span>         storeData<span style="color: #666666">(0,</span> <span style="color: #BA2121">&quot;outputs&quot;</span><span style="color: #666666">,</span> LENSLAMPSORTER<span style="color: #666666">);</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">469</span>         storeData<span style="color: #666666">(0,</span> <span style="color: #BA2121">&quot;outputs&quot;</span><span style="color: #666666">,</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">470</span>                   LEDSTATEINDICATOR<span style="color: #666666">);</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">471</span>         storeData<span style="color: #666666">(0,</span> <span style="color: #BA2121">&quot;outputs&quot;</span><span style="color: #666666">,</span> DISPLAY<span style="color: #666666">);</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">472</span>         storeData<span style="color: #666666">(0,</span> <span style="color: #BA2121">&quot;outputs&quot;</span><span style="color: #666666">,</span> CONVEYORBELT<span style="color: #666666">);</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">473</span>         storeData<span style="color: #666666">(0,</span> <span style="color: #BA2121">&quot;outputs&quot;</span><span style="color: #666666">,</span> FEEDERENGINE<span style="color: #666666">);</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">474</span>         <span style="color: #408080; font-style: italic">//make sure the outputs stop immediatly</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">475</span>         timerManage<span style="color: #666666">();</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">476</span>         <span style="color: #408080; font-style: italic">//update the state to be correct in</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">477</span>         <span style="color: #408080; font-style: italic">// aborted</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">478</span>         $state <span style="color: #666666">=</span> <span style="color: #666666">17;</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">479</span>         aborted<span style="color: #666666">();</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">480</span> 
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">481</span>     <span style="color: #666666">}</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">482</span> 
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">483</span>     <span style="color: #408080; font-style: italic">//state 17</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">484</span>     <span style="color: #B00040">void</span> <span style="color: #0000FF">aborted</span><span style="color: #666666">()</span> <span style="color: #666666">{</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">485</span>         timerManage<span style="color: #666666">();</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">486</span>         <span style="color: #408080; font-style: italic">//check if we can start again</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">487</span>         $startStop <span style="color: #666666">=</span> getButtonPressed<span style="color: #666666">(0);</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">488</span>         <span style="color: #008000; font-weight: bold">if</span> <span style="color: #666666">(</span>$startStop <span style="color: #666666">==</span> <span style="color: #666666">1)</span> <span style="color: #666666">{</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">489</span>             <span style="color: #408080; font-style: italic">//start moving the sorter up for</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">490</span>             <span style="color: #408080; font-style: italic">// calibration</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">491</span>             storeData<span style="color: #666666">(1,</span> <span style="color: #BA2121">&quot;outputs&quot;</span><span style="color: #666666">,</span> HBRIDGE0<span style="color: #666666">);</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">492</span>             <span style="color: #408080; font-style: italic">//update the state</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">493</span>             $state <span style="color: #666666">=</span> <span style="color: #666666">0;</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">494</span>             initial<span style="color: #666666">();</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">495</span>         <span style="color: #666666">}</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">496</span>         <span style="color: #408080; font-style: italic">//loop</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">497</span>         aborted<span style="color: #666666">();</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">498</span> 
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">499</span>     <span style="color: #666666">}</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">500</span> 
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">501</span>     <span style="color: #B00040">void</span> <span style="color: #0000FF">timerManage</span><span style="color: #666666">()</span> <span style="color: #666666">{</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">502</span> 
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">503</span> 
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">504</span>         <span style="color: #408080; font-style: italic">//make sure that when counter can not</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">505</span>         <span style="color: #408080; font-style: italic">// be higher than 12</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">506</span>         mod<span style="color: #666666">(13,</span> $counter<span style="color: #666666">);</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">507</span>         <span style="color: #408080; font-style: italic">//get the voltage of output $location</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">508</span>         <span style="color: #B00040">int</span> $voltage <span style="color: #666666">=</span> getData<span style="color: #666666">(</span><span style="color: #BA2121">&quot;outputs&quot;</span><span style="color: #666666">,</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">509</span>                                $location<span style="color: #666666">);</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">510</span>         <span style="color: #408080; font-style: italic">//power up the output when it needs to</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">511</span>         <span style="color: #008000; font-weight: bold">if</span> <span style="color: #666666">(</span>$voltage <span style="color: #666666">&gt;</span> $counter<span style="color: #666666">)</span> <span style="color: #666666">{</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">512</span>             $engines <span style="color: #666666">+=</span> pow<span style="color: #666666">(2,</span> $voltage<span style="color: #666666">);</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">513</span>         <span style="color: #666666">}</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">514</span>         <span style="color: #408080; font-style: italic">//check if we are in a new itteration</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">515</span>         <span style="color: #008000; font-weight: bold">if</span> <span style="color: #666666">(</span>$counter <span style="color: #666666">==</span> <span style="color: #666666">0)</span> <span style="color: #666666">{</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">516</span>             <span style="color: #408080; font-style: italic">//set the first part of the display</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">517</span>             $temp <span style="color: #666666">=</span> getData<span style="color: #666666">(</span><span style="color: #BA2121">&quot;state&quot;</span><span style="color: #666666">,</span> <span style="color: #666666">0);</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">518</span>             mod<span style="color: #666666">(10,</span> $temp<span style="color: #666666">);</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">519</span>             display<span style="color: #666666">(</span>$temp<span style="color: #666666">,</span> <span style="color: #BA2121">&quot;display&quot;</span><span style="color: #666666">,</span> <span style="color: #BA2121">&quot;1&quot;</span><span style="color: #666666">);</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">520</span> 
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">521</span> 
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">522</span>         <span style="color: #666666">}</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">523</span>         <span style="color: #408080; font-style: italic">//check if we are at the end of the</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">524</span>         <span style="color: #408080; font-style: italic">// itteration</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">525</span>         <span style="color: #008000; font-weight: bold">if</span> <span style="color: #666666">(</span>$counter <span style="color: #666666">==</span> <span style="color: #666666">12)</span> <span style="color: #666666">{</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">526</span>             <span style="color: #408080; font-style: italic">//set the second part of the display;</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">527</span>             $temp <span style="color: #666666">=</span> getData<span style="color: #666666">(</span><span style="color: #BA2121">&quot;state&quot;</span><span style="color: #666666">,</span> <span style="color: #666666">0);</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">528</span>             $temp <span style="color: #666666">=</span> $temp <span style="color: #666666">/</span> <span style="color: #666666">10;</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">529</span>             mod<span style="color: #666666">(10,</span> $temp<span style="color: #666666">);</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">530</span>             display<span style="color: #666666">(</span>$temp<span style="color: #666666">,</span> <span style="color: #BA2121">&quot;display&quot;</span><span style="color: #666666">,</span> <span style="color: #BA2121">&quot;01&quot;</span><span style="color: #666666">);</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">531</span> 
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">532</span>         <span style="color: #666666">}</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">533</span>         <span style="color: #408080; font-style: italic">//check if we did all outputs</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">534</span>         <span style="color: #008000; font-weight: bold">if</span> <span style="color: #666666">(</span>$location <span style="color: #666666">&gt;</span> <span style="color: #666666">7)</span> <span style="color: #666666">{</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">535</span>             display<span style="color: #666666">(</span>$engines<span style="color: #666666">,</span> <span style="color: #BA2121">&quot;leds&quot;</span><span style="color: #666666">,</span> <span style="color: #BA2121">&quot;&quot;</span><span style="color: #666666">);</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">536</span>             <span style="color: #408080; font-style: italic">//set the variables for the next run</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">537</span>             $engines <span style="color: #666666">=</span> <span style="color: #666666">0;</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">538</span>             $location <span style="color: #666666">=</span> <span style="color: #666666">0;</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">539</span>             $counter<span style="color: #666666">++;</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">540</span> 
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">541</span>             <span style="color: #408080; font-style: italic">//check if abort is pressed</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">542</span>             $abort <span style="color: #666666">=</span> getButtonPressed<span style="color: #666666">(1);</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">543</span>             <span style="color: #008000; font-weight: bold">if</span> <span style="color: #666666">(</span>$abort <span style="color: #666666">==</span> <span style="color: #666666">1)</span> <span style="color: #666666">{</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">544</span>                 abort<span style="color: #666666">();</span><span style="color: #408080; font-style: italic">//stop the machine</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">545</span>             <span style="color: #666666">}</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">546</span>             <span style="color: #008000; font-weight: bold">return</span><span style="color: #666666">;</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">547</span>         <span style="color: #666666">}</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">548</span> 
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">549</span> 
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">550</span>         $location<span style="color: #666666">++;</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">551</span>         timerManage<span style="color: #666666">();</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">552</span>     <span style="color: #666666">}</span>
+<span style="background-color: #f0f0f0; padding: 0 5px 0 5px">553</span> <span style="color: #666666">}</span>
+</pre></div>
+</body>
+</html>

@@ -44,6 +44,7 @@ define('IOAREA', -16);
 define('DSPSEG', 8);
 define('DSPDIG', 9);
 define('TIMER', 13);
+define('TIMEREXP', 8);
 define('INPUT', 7);
 define('OUTPUT', 11);
 define('OUTPUT2', 10);
@@ -655,15 +656,26 @@ class Compiler
                 switch (trim(trim($arguments[1]), '"\'')) {
                     case 'display': {
                         $this->_useFunction['display'] = true;
-                        $counter = str_repeat('0', 6 - $arguments[2]) . '1' . str_repeat(
-                                '0', intval($arguments[2])
-                            );//000001
+                        if (!isset($arguments[2]) && empty($arguments[2]))
+                        {
+                            $arguments[2]=1;
+                        }
+                        else
+                        {
+                            $arguments[2]= intval($arguments[2]);
+                        }
+                        $counter = str_repeat('0', 7 - $arguments[2]) . '1';
+                        $counter.= str_repeat('0',$arguments[2]-1);
                         return [
                             4,
+                            'PUSH R5',
+                            'PUSH R4',
                             'LOAD  R5 ' . $this->processArgument($arguments[0]),
                             'BRS _Hex7Seg',
                             'LOAD  R4  %' . $counter,
-                            'STOR  R4  [R5+' . DSPDIG . ']'
+                            'STOR  R4  [R5+' . DSPDIG . ']',
+                            'PULL R4',
+                            'PULL R5'
                         ];
                         break;
                     }
@@ -710,7 +722,7 @@ class Compiler
             case 'installCountdown': {
                 $countdown = "LOAD  R0  " . trim(trim($arguments[0]), '\'"') . "
                        ADD  R0  R5
-                      LOAD  R1  16
+                      LOAD  R1  ".(TIMEREXP*2)."
                       STOR  R0  [R1]
 
                       LOAD  R5  " . IOAREA . "
@@ -728,7 +740,10 @@ class Compiler
             }
 
             case 'startCountdown': {
-                return [0, 'SETI  8'];
+                return [0, 'SETI  '.TIMEREXP];
+            }
+            case 'stopCountdown': {
+            return [0, 'SETI  0'];
             }
             case 'pushStack': {
                 return [0, 'PUSH ' . $this->processArgument($arguments[0])];
@@ -736,27 +751,29 @@ class Compiler
             case 'pullStack': {
                 return [0, 'PULL ' . $this->processArgument($arguments[0])];
             }
+            case 'addStackPointer': {
+                return [0,'ADD SP '.$this->processArgument($arguments[0])];
+            }
+            case 'setStackPointer': {
+                return [0,'LOAD SP '.$this->processArgument($arguments[0])];
+            }
+
             case 'setCountdown': {
                 return [
                     4,
-                    'PUSH R5',
+                    'PUSH R5 ;reset timer',
                     'PUSH R4',
                     'LOAD R5 ' . IOAREA,
                     'LOAD  R4  0',
                     'SUB  R4  [R5+' . TIMER . ']',
-                    'STOR  R4  [R5+' . TIMER . ']',
+                    'STOR  R4  [R5+' . TIMER . '] ;set timer',
                     'LOAD R4 ' . $this->processArgument($arguments[0]),
                     'STOR R4 [R5+' . TIMER . ']',
                     'PULL R4',
                     'PULL R5'
                 ];
             }
-            case 'stackPush': {
-                return [0, 'PUSH ' . $this->processArgument($arguments[0])];
-            }
-            case 'stackPull': {
-                return [0, 'PULL ' . $this->processArgument($arguments[0])];
-            }
+
             case 'branch': {
                 return [0, 'BRA ' . trim(trim($arguments[0]), "'\"")];
             }
@@ -1109,20 +1126,39 @@ class Compiler
                         ];
                     }
                 }
+                case 'getFuncLocation':
+                {
+                    return [0,'LOAD '.$register.' '.trim(trim($arguments[0]), "'\"")];
+                }
                 case 'pow': {
                     $this->_useFunction['pow'] = true;
 
-                    return [
-                        4,
-                        'PUSH R4',
-                        'PUSH R5',
-                        'LOAD R4 ' . $this->processArgument($arguments[1]),
+                    $return=[4];
+                    if ($register!='R4')
+                    {
+                        $return[]=['PUSH R4'];
+                        $return[]='LOAD R4 ' . $this->processArgument($arguments[1]);
+                    }
+                    if ($register!='R5')
+                    {
+                        $return[]='PUSH R5';
+                    }
+
+                    $return=array_merge($return,[
                         'LOAD R5 ' . $this->processArgument($arguments[0]),
-                        'BRS _pow',
-                        'LOAD '.$register.' R5',
-                        'PULL R5',
-                        'PULL R4'
-                    ];
+                        'BRS _pow'
+                    ]);
+
+                    if ($register!='R4')
+                    {
+                        $return[]='PULL R4';
+                    }
+                    if ($register!='R5')
+                    {
+                        $return[]='LOAD '.$register.' R5';
+                        $return[]='PULL R5';
+                    }
+                    return $return;
                 }
                 default: {
                     $this->error('unknown function "' . $function . '"');
