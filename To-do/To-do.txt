@@ -6,7 +6,7 @@ Legend
 /Process part
 	~ (M)	Comparing numbers from Logbooks and the Work Plan
 			+ (M)	Per task
-			- (M)	Per person
+			+ (M)	Per person
 			~ (M)	Draw conclusion (Work Plan or execution wrong and check if planned time was spent by each group member)
 	-	Group reflection (See the forwarded email for our tutor's description of it)
 	-	Verify roles
