@@ -11,11 +11,11 @@ Software Implementation and Integration
 			+ (M)	Per task
 			+ (M)	Per person
 			+ (M)	Draw conclusion (Work Plan or execution wrong and check if planned time was spent by each group member)
-	-	Group reflection (See the forwarded email for our tutor's description of it)
+	- (M)	Group reflection (See the forwarded email for our tutor's description of it)
 	+	Verify roles
 	-	Being late
 		+ (M)	Excesses
-		- (M)	Numbers
+		+ (M)	Numbers
 			-	Conclusions
 	-	Cross reading
 	
