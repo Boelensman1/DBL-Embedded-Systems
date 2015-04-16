@@ -7,12 +7,16 @@ Software Implementation and Integration
 -	Example of Java to PHP
 
 /Process part
-	~ (M)	Comparing numbers from Logbooks and the Work Plan
+	+ (M)	Comparing numbers from Logbooks and the Work Plan
 			+ (M)	Per task
 			+ (M)	Per person
-			~ (M)	Draw conclusion (Work Plan or execution wrong and check if planned time was spent by each group member)
+			+ (M)	Draw conclusion (Work Plan or execution wrong and check if planned time was spent by each group member)
 	-	Group reflection (See the forwarded email for our tutor's description of it)
 	+	Verify roles
+	-	Being late
+		-	Excesses
+		-	Numbers
+			-	Conclusions
 	-	Cross reading
 	
 /Validation and testing
