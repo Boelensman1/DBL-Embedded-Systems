@@ -14,8 +14,8 @@ Software Implementation and Integration
 	-	Group reflection (See the forwarded email for our tutor's description of it)
 	+	Verify roles
 	-	Being late
-		- (M)	Excesses
-		-	Numbers
+		+ (M)	Excesses
+		- (M)	Numbers
 			-	Conclusions
 	-	Cross reading
 	
