@@ -1,0 +1,29 @@
+Legend
+-	|	To be done
+~	|	Busy
++	|	Done
+=====================================
+Software Implementation and Integration
+-	Example of Java to PHP
+
+/Process part
+	+ (M)	Comparing numbers from Logbooks and the Work Plan
+			+ (M)	Per task
+			+ (M)	Per person
+			+ (M)	Draw conclusion (Work Plan or execution wrong and check if planned time was spent by each group member)
+	~ (M)	Group reflection (See the forwarded email for our tutor's description of it)
+	+	Verify roles
+	-	Being late
+		+ (M)	Excesses
+		+ (M)	Numbers
+			-	Conclusions
+	-	Cross reading
+	
+/Validation and testing
+	~	References
+	-	Cross reading
+	
+/Final Report
+	~ (D)	Fix table of contents (depending on finished report)
+	-	Cross reading
+	

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 We approached the machine as it consisting of three parts. Here you see the full machine as sketch and I'm starting of with the feeder. 
 
 /Feeder
@@ -10,3 +11,19 @@ The position sensor is between those walls so the belt is more user accesible to
 
 /Sorter
 For the sorter we chose to have a wedge going up and down. We chose this so the parts making the wedge going up and down could be places vertically instead of horizontally. This is in accordance with the priority concerning floor space. This will make the sorting also faster, because the wedge has to move the disc's height up instead of the belt's width, which is bigger than the height. 
+=======
+We approached the machine as it consisting of three parts. Here you see the full machine as sketch. I'm starting of with the feeder. 
+
+/Feeder
+There should be a way to input discs. This is done by having a container tube with open ends. We chose this because the tube is reliable in containing discs and the discs can fall out easily and fast. 
+We want to have some time between the depositing of discs, because of the sorter needing it, which I'm going to talk about in a minute. Therefore the discs shouldn't all fall out at once. That's why there's a platform somewhat more than a discs height below the tube, holding the discs. The height I mentioded is needed so the cam of the rotating wheel can slide in between and push one disc at a time onto the conveyer belt. This enters the transportation part. 
+
+/Transportation
+The conveyer belt appeared to tilt at certain points so we needed walls to stop discs from falling off. We chose low walls at the beginning so it's more user accessible, but chose higher walls after the position sensor so we could attach the colour sensor to it. This is how we positioned it. One of them is a lamp and one of them a light sensor. They are placed in an angle to the disc so the light will reflect on the disc and received by the sensor. 
+The position sensor is between those walls, because of its low heigth so the belt is more user accessible too. This isn't harming the sensors, from discs going against it, because the sensitive elements are enclosed. 
+
+/Sorter
+Now the discs will enter the sorting part of the machine. For the sorter we chose to have a wedge going up and down. We chose this so the parts making the wedge going up and down could be placed vertically (vûrtiklie) instead of horizontally (horieszôntallie). This is in accordance with the priority concerning floor space. This will make the sorting also faster, because the wedge has to move the disc's height instead of the belt's width, which is bigger than the height. 
+
+Now I will give the word to Dat so he can tell you about the Software Specification and Software Design. 
+>>>>>>> dev

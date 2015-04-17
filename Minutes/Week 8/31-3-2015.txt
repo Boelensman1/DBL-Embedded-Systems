@@ -1,0 +1,75 @@
+/Attendance
+Dat
+Rolf
+Stefan
+Tudor
+Maarten
+Wigger ( ... late)
+
+/Minutes
+Mentioning that tutor can't see future isn't mentionable. 
+Certainly peer assessment same as before. Talk about it next time. When's that? On agenda
+
+/Deliverables
+Seen final report. Other parts in there as well. Tutor didn't see the seperate documents on OASE. They are there though. 
+Will look at implementation today. 
+
+//Software Design
+
+//Final report
+Merely combination former reports. Couldn't see if there were changes. Not that much changes. It was familiar. Machine, machine interface missed something. Picture of machine. Sketches were good. Inputs outputs table missing. Black box Fischer Technik and black box PP2. 
+
+///Validation
+Make bold every elemnt you want to address in validation. Explain SLR first time. Much more said about requirements but not in report. Rolf mentions that the only requirement is 1 conveyer belt. Make clear what's the high level requirement. And what are system level requirements. 
+In another validation there's the abort, which he missed. 
+Asks if we don't have short names. Use long names to connect cables right way. We use numbers. And he would like to know that. Put in sketch too. Explain a little. 
+Other validation didn't read yet. 
+
+///Software Specification
+Change? Not really. 2 values changed. That's okay. 
+
+///Uppaal
+Put in appendix. 
+
+///Implementation
+PHP to assembly, not other way arround
+
+///System validation and testing
+Tests expected on running machine. Run them and see to what extent the machine meets the requirements/specification. 
+Subdocument. Start with intending to do with it. There are validations you can only do when running the machine. In line with priorities. Conclusion (what you think about validation as a whole). 
+
+///Process part
+Small. No link to Logbook from Work Plan. Numbers missing. Time spent on what element to be done. To check how good or planning or execution was. Calculation on time everyone spent and does it concur with Work Plan. 
+Check from minutes the roles concur with Work Plan. 
+Work Plan blueprint for process part. 
+Group reflection missing. Results that come out of that. 
+Little bit weak. 
+
+////Work day
+Missed when we spent time. What did we do instead of assigned time. 
+
+//
+First impression. Will look into it more. 
+
+///Questions
+Assembly needed in document. Yes. Appendix. 
+Tutor mentions that Java was big. 
+Because of lot of states. 
+
+Would like to see transition of state machine to pseudocode. 
+Example Java to PHP. 
+Example of what compiler does with little piece of PHP. 
+Nice to see that things are straighforward. 
+Nice to have this in validation part. 
+
+Missing validation scattered missing. Not true, but refferences needed. Page where it is would suffice. 
+Not using Latex? Nope Word. Rests case. 
+
+Will give feedback today. 
+
+//Self-reflections
+Received
+
+/Todo
+//Appointment
+Tuesday 10.30 hrs. 
