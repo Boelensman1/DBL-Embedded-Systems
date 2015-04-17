@@ -4,11 +4,23 @@ counter DS 1
 
 @CODE
                     
-                    WAIT EQU 1
+                    WAIT EQU 1000
 begin:              BRA main
                     
                     
-                    ;pow
+_pressed:           PUSH R4
+                    LOAD R4 R3
+                    LOAD R5 2
+                    BRS _pow
+                    LOAD R3 R5
+                    LOAD R5 -16
+                    LOAD R4 [R5+7]
+                    DIV R4 R3
+                    MOD R4 2
+                    LOAD R5 R4
+                    PULL R4
+                    RTS
+                    
 _pow:               CMP R4 0
                     BEQ _pow1
                     CMP R4 1
@@ -28,165 +40,168 @@ _powReturn:         PULL R4
 _pow1:              LOAD R5 1
                     RTS
 _powR:              RTS
-                    
-                    ;pressed
-_pressed:           PUSH R4
-                    LOAD R4 R3
-                    LOAD R5 2
-                    BRS _pow
-                    LOAD R3 R5
-                    LOAD R5 -16
-                    LOAD R4 [R5+7]
-                    DIV R4 R3
-                    MOD R4 2
-                    LOAD R5 R4
-                    PULL R4
-                    RTS
-main:               ;Install timer
-                    LOAD R0 loop
+main:               LOAD R0 loop                    ;installCountdown('loop')
                     ADD R0 R5
                     LOAD R1 16
                     STOR R0 [R1]
                     
                     LOAD R5 -16
                     
-                    ; Set the timer to 0
+                                                    ; Set the timer to 0
                     LOAD R0 0
                     SUB R0 [R5+13]
                     STOR R0 [R5+13]
-                    LOAD R0 0
-                    LOAD R1 0
-                    LOAD R2 0
-                    STOR R1 [GB +counter + 0]
-                    BRA init
-                    BRA main
+                    LOAD R0 0                       ;$intensity = 0
+                    LOAD R1 0                       ;$counter = 0
+                    LOAD R2 0                       ;$location = 0
+                                                    ;unset($location, $counter)
+                    LOAD R1 0                       ;$abc=0
+                    LOAD R2 0                       ;$def=0
+                    LOAD R3 0                       ;$ghi=0
+                                                    ;unset($abc, $def, $ghi)
+                    LOAD R1 0                       ;$location=0
+                    LOAD R2 0                       ;$counter=0
+                    STOR R2 [GB +counter + 0]       ;_storeData($counter, 'counter', 0)
+                    BRA init                        ;init()
                     
-init:               ADD R2 1
-                    ADD R2 intensity
-                    STOR R0 [ GB + R2]
-                    SUB R2 intensity
-                    CMP R2 7
+init:               ADD R1 1                        ;$location+=1
+                    ADD R1 intensity                ;_storeData($intensity, 'intensity', $location)
+                    STOR R0 [ GB + R1]
+                    SUB R1 intensity
+                    CMP R1 7                        ;if ($location == 7) {
                     BEQ conditional0
-return0:            BRA init
+return0:            BRA init                        ;init()
                     BRA main
                     
-conditional0:       LOAD R5 -16
+                                                    ;if ($location == 7) {
+conditional0:       LOAD R5 -16                     ;setTimer(WAIT)
                     LOAD R4 0
                     SUB R4 [R5+13]
                     STOR R4 [R5+13]
                     LOAD R4 WAIT
                     STOR R4 [R5+13]
-                    SETI 8
-                    BRA emptyLoop
-                    BRA return0
+                    SETI 8                          ;startCountdown()
+                    BRA emptyLoop                   ;emptyLoop()
+                    
+emptyLoop:          BRA emptyLoop                   ;emptyLoop()
                     BRA main
                     
-emptyLoop:          BRA emptyLoop
-                    BRA main
-                    
-loop:               LOAD R5 -16
+loop:               LOAD R5 -16                     ;setTimer(WAIT)
                     LOAD R4 0
                     SUB R4 [R5+13]
                     STOR R4 [R5+13]
                     LOAD R4 WAIT
                     STOR R4 [R5+13]
-                    SETI 8
-                    LOAD R1 [ GB + counter + 0 ]
-                    ADD R1 1
-                    CMP R1 1001
+                    SETI 8                          ;startCountdown()
+                    LOAD R2 [ GB + counter + 0 ]    ;$counter = _getData('counter', 0)
+                    ADD R2 1                        ;$counter+=1
+                    CMP R2 1000                     ;if ($counter == 1000) {
                     BEQ conditional1
-return1:            STOR R1 [GB +counter + 0]
-                    LOAD R2 -1
-                    LOAD R3 0
-                    LOAD R4 0
-                    BRA getValues
+return1:            STOR R2 [GB +counter + 0]       ;_storeData($counter, 'counter', 0)
+                    LOAD R1 -1                      ;$location = -1
+                    LOAD R3 0                       ;$lights = 0
+                    LOAD R4 0                       ;$temp = 0
+                    BRA getValues                   ;getValues()
                     RTE
                     
-conditional1:       LOAD R1 0
-                    BRA return1
-                    BRA main
+                                                    ;if ($counter == 1000) {
+conditional1:       LOAD R2 1                       ;$counter = 1
+                    BRA return1                     ;}
                     
-getValues:          ADD R2 1
-                    CMP R2 0
+getValues:          ADD R1 1                        ;$location+=1
+                    CMP R1 0                        ;if ($location == 0) {
                     BEQ conditional2
-return2:            CMP R2 0
+return2:            CMP R1 0                        ;if ($location != 0) {
                     BNE conditional3
-return3:            MOD R1 10
-                    CMP R1 R4
+return3:            MOD R2 10                       ;mod(10, $counter)
+                    CMP R2 R4                       ;if ($counter < $temp) {
                     BMI conditional4
-return4:            LOAD R1 [ GB + counter + 0 ]
-                    PUSH R4
-                    CMP R1 1
+return4:            LOAD R2 [ GB + counter + 0 ]    ;$counter = _getData('counter', 0)
+                    CMP R1 7                        ;if ($location == 7) {
                     BEQ conditional5
-return5:            PULL R4
-                    CMP R2 7
-                    BEQ conditional10
-return10:           BRA getValues
+return5:            BRA getValues                   ;getValues()
                     BRA main
                     
-conditional2:       LOAD R5 -16
+                                                    ;if ($location == 0) {
+conditional2:       LOAD R5 -16                     ;getInput($temp, 'analog')
                     LOAD R4 [R5 + 6]
-                    DIV R4 25
-                    BRA return2
-                    BRA main
+                    DIV R4 25                       ;$temp /= 25
+                    BRA return2                     ;}
                     
-conditional3:       ADD R2 intensity
-                    LOAD R4 [ GB + R2]
-                    SUB R2 intensity
-                    BRA return3
-                    BRA main
+                                                    ;if ($location != 0) {
+conditional3:       ADD R1 intensity                ;$temp = _getData('intensity', $location)
+                    LOAD R4 [ GB + R1]
+                    SUB R1 intensity
+                    BRA return3                     ;}
                     
-conditional4:       PUSH R3
-                    LOAD R4 R2
+                                                    ;if ($counter < $temp) {
+conditional4:       PUSH R3                         ;stackPush($lights)
+                    LOAD R4 R1                      ;pow(2, $location)
                     LOAD R5 2
                     BRS _pow
-                    PULL R3
-                    ADD R3 R5
-                    BRA return4
-                    BRA main
+                    PULL R3                         ;stackPull($lights)
+                    ADD R3 R5                       ;$lights += R5
+                    BRA return4                     ;}
                     
-conditional5:       PUSH R3
-                    LOAD R3 R2
+                                                    ;if ($location == 7) {
+conditional5:       LOAD R5 -16                     ;display($lights, 'leds')
+                    LOAD R4 R3
+                    STOR R4 [R5+11]
+                    LOAD R1 0                       ;$location = 0
+                    BRA checkButtons                ;checkButtons()
+                    
+checkButtons:       CMP R2 1                        ;if ($counter != 1) {
+                    BNE conditional6
+return6:            ADD R1 1                        ;$location+=1
+                    PUSH R3                         ;buttonPressed($location)
+                    LOAD R3 R1
                     BRS _pressed
                     PULL R3
-                    CMP R5 1
-                    BEQ conditional6
-return6:            BRA return5
+                    CMP R5 1                        ;if (R5 == 1) {
+                    BEQ conditional7
+return7:            CMP R1 7                        ;if ($location != 7) {
+                    BNE conditional11
+return11:           RTE                             ;returnt
                     BRA main
                     
-conditional6:       ADD R4 1
-                    PUSH R3
+                                                    ;if ($counter != 1) {
+conditional6:       RTE                             ;returnt
+                    BRA return6                     ;}
+                    
+                                                    ;if (R5 == 1) {
+conditional7:       ADD R1 intensity                ;$temp = _getData('intensity', $location)
+                    LOAD R4 [ GB + R1]
+                    SUB R1 intensity
+                    ADD R4 1                        ;$temp+=1
+                    PUSH R3                         ;buttonPressed(0)
                     LOAD R3 0
                     BRS _pressed
                     PULL R3
-                    CMP R5 1
-                    BEQ conditional7
-return7:            CMP R4 11
-                    BNE conditional8
-return8:            BRA return6
-                    BRA main
-                    
-conditional7:       SUB R4 2
-                    BRA return7
-                    BRA main
-                    
-conditional8:       CMP R4 -1
+                    CMP R5 1                        ;if (R5 == 1) {
+                    BEQ conditional8
+return8:            CMP R4 11                       ;if ($temp != 11) {
                     BNE conditional9
-return9:            BRA return8
+return9:            BRA return7                     ;}
                     BRA main
                     
-conditional9:       ADD R2 intensity
-                    STOR R4 [ GB + R2]
-                    SUB R2 intensity
-                    BRA return9
+                                                    ;if (R5 == 1) {
+conditional8:       SUB R4 2                        ;$temp -= 2
+                    BRA return8                     ;}
+                    
+                                                    ;if ($temp != 11) {
+conditional9:       CMP R4 -1                       ;if ($temp != -1) {
+                    BNE conditional10
+return10:           BRA return9                     ;}
                     BRA main
                     
-conditional10:      LOAD R5 -16
-                    LOAD R4 R3
-                    STOR R4 [R5+11]
-                    LOAD R2 0
-                    RTE
-                    BRA return10
-                    BRA main
+                                                    ;if ($temp != -1) {
+conditional10:      ADD R1 intensity                ;_storeData($temp, 'intensity', $location)
+                    STOR R4 [ GB + R1]
+                    SUB R1 intensity
+                    BRA return10                    ;}
+                    
+                                                    ;if ($location != 7) {
+conditional11:      BRA checkButtons                ;checkButtons()
+                    BRA return11                    ;}
                     
                     @END

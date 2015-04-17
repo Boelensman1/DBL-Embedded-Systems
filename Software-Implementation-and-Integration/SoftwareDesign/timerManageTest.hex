@@ -1,0 +1,89 @@
+@C 3ffff 00050
+00013       ; 00000 begin :        BRA main
+16000       ; 00001 _pow :         CMP R4 0
+0040e       ; 00002                BEQ _pow1
+16001       ; 00003                CMP R4 1
+0040e       ; 00004                BEQ _powR
+3ddff       ; 00005                STOR R3 [--R7]
+3e5ff       ; 00006                STOR R4 [--R7]
+12001       ; 00007                SUB R4 1
+09905       ; 00008                LOAD R3 R5
+1a903       ; 00009 _powLoop :     MULS R5 R3
+12001       ; 0000a                SUB R4 1
+16000       ; 0000b                CMP R4 0
+00401       ; 0000c                BEQ _powReturn
+001fb       ; 0000d                BRA _powLoop
+0a5f1       ; 0000e _powReturn :   LOAD R4 [R7++]
+09df1       ; 0000f                LOAD R3 [R7++]
+045f1       ; 00010                RTS
+0a801       ; 00011 _pow1 :        LOAD R5 1
+045f1       ; 00012                RTS
+045f1       ; 00013 _powR :        RTS
+08000       ; 00014 main :         LOAD R0 0
+08800       ; 00015                LOAD R1 0
+3ccc1       ; 00016                STOR R1 [R6+(outputs+HBRIDGE1)]
+3ccc5       ; 00017                STOR R1 [R6+(outputs+LENSLAMPPOSITION)]
+3ccc6       ; 00018                STOR R1 [R6+(outputs+LENSLAMPSORTER)]
+3ccc9       ; 00019                STOR R1 [R6+(outputs+LEDSTATEINDICATOR)]
+3ccc8       ; 0001a                STOR R1 [R6+(outputs+DISPLAY)]
+3ccc3       ; 0001b                STOR R1 [R6+(outputs+CONVEYORBELT)]
+3ccc7       ; 0001c                STOR R1 [R6+(outputs+FEEDERENGINE)]
+09000       ; 0001d                LOAD R2 0
+3edff       ; 0001e                STOR R5 [--R7]
+0a8f0       ; 0001f                LOAD R5 -16
+3d4aa       ; 00020                STOR R2 [R5+10]
+0adf1       ; 00021                LOAD R5 [R7++]
+08809       ; 00022                LOAD R1 9
+3ccc0       ; 00023                STOR R1 [R6+(outputs+HBRIDGE0)]
+00000       ; 00024                BRA setVars
+0020c       ; 00025 setVars :      BRS timerManage
+08800       ; 00026                LOAD R1 0
+3ccc0       ; 00027                STOR R1 [R6+(outputs+HBRIDGE0)]
+0880c       ; 00028                LOAD R1 12
+3ccc5       ; 00029                STOR R1 [R6+(outputs+LENSLAMPPOSITION)]
+3ccc6       ; 0002a                STOR R1 [R6+(outputs+LENSLAMPSORTER)]
+08809       ; 0002b                LOAD R1 9
+3ccc3       ; 0002c                STOR R1 [R6+(outputs+CONVEYORBELT)]
+08805       ; 0002d                LOAD R1 5
+3ccc7       ; 0002e                STOR R1 [R6+(outputs+FEEDERENGINE)]
+00000       ; 0002f                BRA test
+00201       ; 00030 test :         BRS timerManage
+001fe       ; 00031                BRA test
+2800c       ; 00032 timerManage :  MOD R0 12
+0d000       ; 00033                ADD R2 outputs
+08dc2       ; 00034                LOAD R1 [R6+R2]
+11000       ; 00035                SUB R2 outputs
+14900       ; 00036                CMP R1 R0
+01e04       ; 00037                BGT conditional0
+15007       ; 00038 return0 :      CMP R2 7
+01e0d       ; 00039                BGT conditional1
+0d001       ; 0003a return1 :      ADD R2 1
+001f6       ; 0003b                BRA timerManage
+08902       ; 0003c conditional0 : LOAD R1 R2
+3e5ff       ; 0003d                STOR R4 [--R7]
+3edff       ; 0003e                STOR R5 [--R7]
+0a101       ; 0003f                LOAD R4 R1
+0a802       ; 00040                LOAD R5 2
+003bf       ; 00041                BRS _pow
+08905       ; 00042                LOAD R1 R5
+0adf1       ; 00043                LOAD R5 [R7++]
+0a5f1       ; 00044                LOAD R4 [R7++]
+0d901       ; 00045                ADD R3 R1
+001f1       ; 00046                BRA return0
+3edff       ; 00047 conditional1 : STOR R5 [--R7]
+0a8f0       ; 00048                LOAD R5 -16
+3dcab       ; 00049                STOR R3 [R5+11]
+0adf1       ; 0004a                LOAD R5 [R7++]
+09800       ; 0004b                LOAD R3 0
+09000       ; 0004c                LOAD R2 0
+0c001       ; 0004d                ADD R0 1
+045f1       ; 0004e                RTS
+001ea       ; 0004f                BRA return1
+
+@D 3ffff 0000c ; 
+00000 00000 00000 00000 00000 00000 00000 00000 ;                 
+00000 00000 00000 00000                         ;         
+
+@S 3ffff 000f0
+
+.

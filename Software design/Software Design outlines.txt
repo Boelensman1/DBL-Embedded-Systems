@@ -1,9 +1,0 @@
-Write a program in Java, does not have to be compilable and executable
-Exception Service Routines can be formulated as ordinary, parameterless Java methods
-PP2's I/O registers can be global variables
-
-Prove correctness of program INFORMALLY
-
-No objects
-
-Software Design doc: design decisions and choices of the data representation, correctness informally, 

@@ -15,7 +15,14 @@ function main()
     $intensity = 0;//is stored in R0
     $counter = 0;//is stored in R1
     $location = 0;//is stored in R2
-
+    unset($location, $counter);
+    $abc=0;
+    $def=0
+    $ghi=0;
+    unset($abc, $def, $ghi);
+    $location=0;
+    $counter=0;
+	
     _storeData($counter, 'counter', 0);//stores counter in the global base
 
     init();//calls the init function
@@ -78,7 +85,7 @@ function getValues()
         $temp = _getData('intensity', $location);//set $temp to intensity of that light
     }
 
-    modulo($counter,10);
+    mod(10, $counter);
 
     if ($counter < $temp) {//check if the light should be on
 

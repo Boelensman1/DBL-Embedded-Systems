@@ -1,0 +1,21 @@
+To validate if our Work Plan was successful or something failed at execution we are checking if the time spent in the logbooks corresponds to the Work Plan. 
+
+/Inventory Logbook
+				Person
+				Dat
+Phase	Wp		
+Week	4		6
+		5		0
+		6		0
+		7		0
+Task	Vat.SLR	
+
+/Inventory Work Plan
+
+
+
+
+Week 4	2-8 Mrt
+Week 5	9-15 Mrt
+Week 6	16-22 Mrt
+Week 7	23-29 Mrt

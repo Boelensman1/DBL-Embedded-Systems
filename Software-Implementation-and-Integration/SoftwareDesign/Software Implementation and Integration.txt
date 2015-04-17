@@ -1,0 +1,2 @@
+Representation of all variables and data structures from the Java program
+Uniform coding standard that describes how common constructs from the Java program are translated
